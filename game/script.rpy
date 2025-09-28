@@ -33,15 +33,15 @@ screen interactive_mirror(character_portrait):
 # 이미지 정의
 # =============================================================================
 # 배경 
-image bg_desk_book = At("bgs/desk_book.png", custom_size)
-image bg_ceiling = At("bgs/blurry_ceiling.png", custom_size)     
-image bg_mirror = At("bgs/mirror.png", custom_size)              
-image bg_mirror_hover = At("bgs/mirror_hover.png", custom_size)  # 거울 호버 이미지
+image bg_desk_book = At("bg/desk_book.png", custom_size)
+image bg_ceiling = At("bg/blurry_ceiling.png", custom_size)     
+image bg_mirror = At("bg/mirror.png", custom_size)              
+image bg_mirror_hover = At("bg/mirror_hover.png", custom_size)  # 거울 호버 이미지
 
 # 캐릭터 
-image jang_portrait = "chs/jang_mock-up.png"    # 장기영 초상화
-image im_portrait = "chs/im_mock-up.png"        # 임규 초상화
-image oh_portrait = "chs/oh_mock-up.png"        # 오세창 초상화
+image jang_portrait = "ch/jang_mock-up.png"    # 장기영 초상화
+image im_portrait = "ch/im_mock-up.png"        # 임규 초상화
+image oh_portrait = "ch/oh_mock-up.png"        # 오세창 초상화
 
 # 효과용
 image bg_black = "#000000"          # 블랙아웃용 이미지
@@ -120,64 +120,8 @@ label start:
     return
 
 # =============================================================================
-# 캐릭터별 분기
+# 캐릭터별 분기 - 각각의 파일에서 처리
 # =============================================================================
-label character_jang:
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
-    
-    scene bg_mirror with fade
-
-    narrator '거울을 살펴보자.'
-    
-    # Scene 3: 거울 - 장기영
-    call screen interactive_mirror("jang_portrait")
-    show jang_portrait with dissolve
-    play sound mirror_reveal  # 효과음 재생
-    
-    narrator '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
-    
-    m "이게 나라고? 일단 밖으로 나가보자"
-    
-    # 메인스토리로 연결 (추후 구현)
-    "장기영 루트가 시작됩니다..."
-    return
-
-label character_im:
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
-
-    scene bg_mirror with fade
-
-    narrator '거울을 살펴보자.'
-    
-    # Scene 3: 거울 - 임규
-    call screen interactive_mirror("im_portrait")
-    show im_portrait with dissolve
-    play sound mirror_reveal  # 효과음 재생
-    
-    narrator '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
-    
-    m "이게 나라고? 일단 밖으로 나가보자"
-    
-    # 메인스토리로 연결 (추후 구현)
-    "임규 루트가 시작됩니다..."
-    return
-
-label character_oh:
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
-
-    scene bg_mirror with fade
-    
-    narrator '거울을 살펴보자.'
-
-    # Scene 3: 거울 - 오세창
-    call screen interactive_mirror("oh_portrait")
-    show oh_portrait with dissolve
-    play sound mirror_reveal  # 효과음 재생
-    
-    narrator '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
-    
-    m "이게 나라고? 일단 밖으로 나가보자"
-    
-    # 메인스토리로 연결 (추후 구현)
-    "오세창 루트가 시작됩니다..."
-    return
+# character_jang: script_jang.rpy에서 정의
+# character_im: script_im.rpy에서 정의  
+# character_oh: script_oh.rpy에서 정의
