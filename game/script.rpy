@@ -13,15 +13,34 @@ transform fit_screen:
 transform custom_size:
     size (1920, 1080)
 
+# 어떤 캐릭터의 초상화를 보여줄지 (character_portrait)를 파라미터로 받는 스크린
+screen interactive_mirror(character_portrait):
+
+    # imagemap을 사용합니다.
+    imagemap:
+        ground "bg_mirror"
+        hover "bg_mirror_hover"
+        alpha True
+
+        at custom_size
+
+        hotspot (0, 0, 1920, 1080):
+            action Return("mirror_hovered")
+
 # 배경 이미지
 image bg_desk_book = "bgs/desk_book.png"
-image bg_ceiling = "bgs/blurry_ceiling.png"  # 천장 배경
-image bg_mirror = "bgs/mirror.png"           # 거울 배경
+image bg_ceiling = "bgs/blurry_ceiling.png"     # 천장 배경
+
+## 거울 호버 시험용
+image bg_mirror = "bgs/mirror.png"              # 거울 배경
+image bg_mirror_hover = "bgs/mirror_hover.png"
+image bg_mirror_map = "bgs/mirror_map.png"
+
 image bg_black = "#000000"                   # 블랙아웃용
 
 # 캐릭터 일러스트
 image jgy_portrait = "chs/jgy_mock-up.png"   # 장기영 초상화
-image imgyu_portrait = "chs/lg_mock-up.png"  # 임규 초상화 (lg = 임규로 추정)
+image lg_portrait = "chs/lg_mock-up.png"  # 임규 초상화 (lg = 임규로 추정)
 image osc_portrait = "chs/osc_mock-up.png"   # 오세창 초상화
 
 # =============================================================================
@@ -105,8 +124,10 @@ label character_jgy:
     
     '거울을 살펴보자.'
     
-    # Scene 3: 거울 - 장기영
     scene bg_mirror at custom_size with fade
+    
+    # Scene 3: 거울 - 장기영
+    call screen interactive_mirror("jgy_portrait")
     show jgy_portrait with dissolve
     play sound mirror_reveal  # 효과음 재생
     
@@ -122,10 +143,12 @@ label character_lg:
     '주변을 둘러보니, 마침 거울이 보인다.'
     
     '거울을 살펴보자.'
+
+    scene bg_mirror at custom_size with fade
     
     # Scene 3: 거울 - 임규
-    scene bg_mirror at custom_size with fade
-    show imgyu_portrait with dissolve
+    call screen interactive_mirror("lg_portrait")
+    show lg_portrait with dissolve
     play sound mirror_reveal  # 효과음 재생
     
     '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
@@ -140,9 +163,11 @@ label character_osc:
     '주변을 둘러보니, 마침 거울이 보인다.'
     
     '거울을 살펴보자.'
+
+    scene bg_mirror at custom_size with fade
     
     # Scene 3: 거울 - 오세창
-    scene bg_mirror at custom_size with fade
+    call screen interactive_mirror("osc_portrait")
     show osc_portrait with dissolve
     play sound mirror_reveal  # 효과음 재생
     
