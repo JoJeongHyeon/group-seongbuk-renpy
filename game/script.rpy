@@ -40,8 +40,17 @@ screen interactive_table():
         at custom_size
         hotspot (0, 0, 1920, 1080):
             action Return("news_selected")
+
+    # 붕대 영역 (중간 아래)
+    imagemap:
+        ground Null(1920, 1080)  # 투명한 배경
+        hover "bg_table_bandage_hover"
+        alpha True
+        at custom_size
+        hotspot (0, 0, 1920, 1080):
+            action Return("bandage_selected")
             
-    # 책 영역 (중간)        
+    # 책 영역 (중간 위)        
     imagemap:
         ground Null(1920, 1080)  # 투명한 배경
         hover "bg_table_book_hover"
@@ -63,7 +72,7 @@ screen interactive_table():
 # 이미지 정의
 # =============================================================================
 # 배경 
-image bg_modern_desk    = At("bg/modern_desk.png", custom_size)
+image bg_desk    = At("bg/desk.png", custom_size)
 image bg_ceiling        = At("bg/ceiling.png", custom_size)
 
 image bg_mirror         = At("bg/mirror.png", custom_size)             
@@ -73,11 +82,12 @@ image bg_table             = At("bg/table.png", custom_size)
 image bg_table_book_hover  = At("bg/table_book_hover.png", custom_size)
 image bg_table_gun_hover   = At("bg/table_gun_hover.png", custom_size)
 image bg_table_news_hover  = At("bg/table_news_hover.png", custom_size)
-
+image bg_table_bandage_hover  = At("bg/table_bandage_hover.png", custom_size)
 # 캐릭터 
 image jang_portrait = "ch/jang.png"    # 장기영 초상화
 image im_portrait = "ch/im.png"        # 임규 초상화
 image oh_portrait = "ch/oh.png"        # 오세창 초상화
+image yeon_portrait = "ch/yeon_mock-up.png"    # 연미당 초상화
 
 # 효과용
 image bg_black = "#000000"          # 블랙아웃용 이미지
@@ -104,6 +114,7 @@ define m = Character("나", color="#ffffff")
 define jang = Character("장기영", color="#ff6b6b")
 define im = Character("임규", color="#4ecdc4")
 define oh = Character("오세창", color="#45b7d1")
+define yeon = Character("연미당", color="#e3f844")
 
 # =============================================================================
 # 게임 시작
@@ -113,7 +124,7 @@ label start:
     play music main_bgm fadein 1.0 loop
     
     # Scene 1: 책상 위 역사책
-    scene bg_modern_desk with fade_slow
+    scene bg_desk with fade_slow
     
     narrator '어젯밤, 나는 역사 시험을 위해 벼락치기로 공부하다 새벽쯤에 그대로 잠이 들었다.'
     
@@ -157,6 +168,10 @@ label start:
         $ chosen_character = "oh" # 오세창
         narrator '신문을 집었다. 바스락거리는 종이 소리가 난다.'
         jump intro_mirror_oh
+    elif _return == "bandage_selected":
+        $ chosen_character = "yeon" # 연미당
+        narrator '붕대를 집었다. 붕대가 손에 전해진다.'
+        jump intro_mirror_yeon
     
     return
 
@@ -229,6 +244,29 @@ label intro_mirror_oh:
     
     # 오세창 루트로 이동
     jump character_oh
+
+label intro_mirror_yeon:
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    
+    scene bg_mirror with fade
+    
+    narrator '거울을 살펴보자.'
+    
+    # Scene 3: 거울 - 연미당
+    call screen interactive_mirror("yeon_portrait")
+    show yeon_portrait:
+        zoom 1.25
+        xalign 0.5
+        yalign 0.75
+    with dissolve
+    play sound mirror_reveal  # 효과음 재생
+    
+    narrator '선의의 미소를 짓고 있는 여성의 모습이다.' # 임의로 채워 넣음.
+    
+    m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 연미당 루트로 이동
+    jump character_yeon
 
 # =============================================================================
 # 캐릭터별 분기 - 각각의 파일에서 처리
