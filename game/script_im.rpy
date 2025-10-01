@@ -1,9 +1,10 @@
+# 민욱 담당
 # 임규 루트 스크립트
 # script.rpy의 정의들을 모두 사용 가능
 
 label character_im:
     # 간단한 테스트 코드
-    scene bg_modern_desk with fade_slow
+    scene bg_table with fade_slow
     
     narrator "✅ script_im.rpy 파일이 정상적으로 로드되었습니다!"
     

@@ -5,6 +5,7 @@
 # =============================================================================
 
 # 트랜지션
+define fade_very_slow = Fade(0.7, 1.5, 2.0)
 define fade_slow = Fade(0.5, 1.0, 0.5)
 define fade_fast = Fade(0.2, 0.4, 0.2)
 
@@ -77,6 +78,9 @@ image bg_ceiling        = At("bg/ceiling.png", custom_size)
 
 image bg_mirror         = At("bg/mirror.png", custom_size)             
 image bg_mirror_hover   = At("bg/mirror_hover.png", custom_size)  # 거울 호버 이미지
+image bg_mirror_jang    = At("bg/mirror_jang.png", custom_size)   # 장기영 거울 이미지
+image bg_mirror_im      = At("bg/mirror_im.png", custom_size)     # 임규 거울 이미지
+image bg_mirror_oh      = At("bg/mirror_oh.png", custom_size)     # 오세창 거울 이미지
 
 image bg_table             = At("bg/table.png", custom_size) 
 image bg_table_book_hover  = At("bg/table_book_hover.png", custom_size)
@@ -96,7 +100,7 @@ image bg_black = "#000000"          # 블랙아웃용 이미지
 # 오디오 정의
 # =============================================================================
 # 배경음
-define audio.main_bgm = "audio/bgm/main_bgm.mp3"
+define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 
 # 효과음
 define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
@@ -124,7 +128,9 @@ label start:
     play music main_bgm fadein 1.0 loop
     
     # Scene 1: 책상 위 역사책
-    scene bg_desk with fade_slow
+    pause 2.0
+    
+    scene bg_desk with fade_very_slow
     
     narrator '어젯밤, 나는 역사 시험을 위해 벼락치기로 공부하다 새벽쯤에 그대로 잠이 들었다.'
     
@@ -150,7 +156,7 @@ label start:
     
     scene bg_table with fade_slow
     
-    narrator '테이블 위에 세 가지 물건이 보인다. 마우스를 올려보고 클릭해보자.'
+    narrator '테이블 위에 네 가지 물건이 보인다. 책상을 살펴보자.'
     
     # 인터랙티브 테이블 사용
     call screen interactive_table
@@ -187,10 +193,9 @@ label intro_mirror_jang:
     
     # Scene 3: 거울 - 장기영
     call screen interactive_mirror("jang_portrait")
-    show jang_portrait:
-        xalign 0.5
-        yalign 0.0
-    with dissolve
+    
+    # 거울 클릭 시 장기영 거울 이미지 표시
+    scene bg_mirror_jang with dissolve
     play sound mirror_reveal  # 효과음 재생
     
     narrator '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
@@ -209,10 +214,9 @@ label intro_mirror_im:
     
     # Scene 3: 거울 - 임규
     call screen interactive_mirror("im_portrait")
-    show im_portrait:
-        xalign 0.5
-        yalign 0.0
-    with dissolve
+    
+    # 거울 클릭 시 임규 거울 이미지 표시
+    scene bg_mirror_im with dissolve
     play sound mirror_reveal  # 효과음 재생
     
     narrator '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
@@ -231,11 +235,9 @@ label intro_mirror_oh:
 
     # Scene 3: 거울 - 오세창
     call screen interactive_mirror("oh_portrait")
-    show oh_portrait:
-        zoom 1.25
-        xalign 0.5
-        yalign 0.0
-    with dissolve
+    
+    # 거울 클릭 시 오세창 거울 이미지 표시
+    scene bg_mirror_oh with dissolve
     play sound mirror_reveal  # 효과음 재생
     
     narrator '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
