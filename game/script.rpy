@@ -33,7 +33,7 @@ screen interactive_table():
     # 기본 테이블 이미지
     add "bg_table" at custom_size
     
-    # 신문 영역 (맨 아래)
+    # 신문 영역 (중간 하단)
     imagemap:
         ground Null(1920, 1080)  # 투명한 배경
         hover "bg_table_news_hover"
@@ -41,17 +41,8 @@ screen interactive_table():
         at custom_size
         hotspot (0, 0, 1920, 1080):
             action Return("news_selected")
-
-    # 붕대 영역 (중간 아래)
-    imagemap:
-        ground Null(1920, 1080)  # 투명한 배경
-        hover "bg_table_bandage_hover"
-        alpha True
-        at custom_size
-        hotspot (0, 0, 1920, 1080):
-            action Return("bandage_selected")
             
-    # 책 영역 (중간 위)        
+    # 책 영역 (우측 상단)        
     imagemap:
         ground Null(1920, 1080)  # 투명한 배경
         hover "bg_table_book_hover"
@@ -60,7 +51,7 @@ screen interactive_table():
         hotspot (0, 0, 1920, 1080):
             action Return("book_selected")
     
-    # 총 영역 (맨 위)
+    # 총 영역 (좌측 상단)
     imagemap:
         ground Null(1920, 1080)  # 투명한 배경
         hover "bg_table_gun_hover"
@@ -91,7 +82,6 @@ image bg_table_bandage_hover  = At("bg/table_bandage_hover.png", custom_size)
 image jang_portrait = "ch/jang.png"    # 장기영 초상화
 image im_portrait = "ch/im.png"        # 임규 초상화
 image oh_portrait = "ch/oh.png"        # 오세창 초상화
-image yeon_portrait = "ch/yeon_mock-up.png"    # 연미당 초상화
 
 # 효과용
 image bg_black = "#000000"          # 블랙아웃용 이미지
@@ -118,7 +108,6 @@ define m = Character("나", color="#ffffff")
 define jang = Character("장기영", color="#ff6b6b")
 define im = Character("임규", color="#4ecdc4")
 define oh = Character("오세창", color="#45b7d1")
-define yeon = Character("연미당", color="#e3f844")
 
 # =============================================================================
 # 게임 시작
@@ -174,10 +163,6 @@ label start:
         $ chosen_character = "oh" # 오세창
         narrator '신문을 집었다. 바스락거리는 종이 소리가 난다.'
         jump intro_mirror_oh
-    elif _return == "bandage_selected":
-        $ chosen_character = "yeon" # 연미당
-        narrator '붕대를 집었다. 붕대가 손에 전해진다.'
-        jump intro_mirror_yeon
     
     return
 
@@ -246,29 +231,6 @@ label intro_mirror_oh:
     
     # 오세창 루트로 이동
     jump character_oh
-
-label intro_mirror_yeon:
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
-    
-    scene bg_mirror with fade
-    
-    narrator '거울을 살펴보자.'
-    
-    # Scene 3: 거울 - 연미당
-    call screen interactive_mirror("yeon_portrait")
-    show yeon_portrait:
-        zoom 1.25
-        xalign 0.5
-        yalign 0.75
-    with dissolve
-    play sound mirror_reveal  # 효과음 재생
-    
-    narrator '선의의 미소를 짓고 있는 여성의 모습이다.' # 임의로 채워 넣음.
-    
-    m "이게 나라고? 일단 밖으로 나가보자"
-    
-    # 연미당 루트로 이동
-    jump character_yeon
 
 # =============================================================================
 # 캐릭터별 분기 - 각각의 파일에서 처리
