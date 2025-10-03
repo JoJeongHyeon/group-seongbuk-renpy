@@ -103,7 +103,86 @@ git pull origin Feature-Jeonghyeon
 
 ---
 
-### 5. 작업 내용 합치기 (Pull Request)
+### 5. 팀원의 작업 내용을 내 브랜치에 반영하기
 
--   **Pull Request (PR)**
-    -   **설명**: `feature` 브랜치에서 완료된 작업을 `develop`이나 `main` 같은 공용 브랜치에 합치기 위해 팀원들에게 코드 리뷰를 요청하는 과정입니다. 보통 **GitHub 웹사이트**에서 생성합니다.
+다른 팀원의 작업이 `develop` 브랜치에 머지되었고, 그 변경사항을 내 Feature 브랜치에 가져오는 방법입니다.
+
+#### 기본 흐름
+
+```
+팀원 작업 완료 → develop에 PR & 머지 → 내가 develop에서 받아오기
+```
+
+#### 실제 명령어
+
+```bash
+# 1. 현재 작업 중인 파일 커밋 (중요!)
+git add .
+git commit -m "내 작업 저장"
+
+# 2. develop의 최신 변경사항을 내 브랜치에 가져오기
+git pull origin develop
+
+# 3. 충돌 없으면 완료!
+# 충돌 있으면 아래 "충돌 해결" 섹션 참고
+
+# 4. 작업 계속...
+```
+
+#### 예시 상황
+
+**정현이 작업이 develop에 머지됨**
+→ 민욱이 자기 브랜치(`Feature-Minwook`)에서 작업 중
+→ 정현이 작업을 받아와야 함
+
+```bash
+# 민욱이 할 일
+git checkout Feature-Minwook  # 내 브랜치 확인
+git add .
+git commit -m "민욱 루트 작업 중"
+git pull origin develop  # develop의 최신 변경사항 가져오기
+```
+
+#### 작업 시작 전 습관화하기
+
+```bash
+# 매번 작업 시작 전에
+git pull origin develop
+```
+이렇게 하면 항상 최신 develop 상태에서 작업할 수 있습니다!
+
+---
+
+### 6. Pull Request (PR) 생성
+
+완료된 작업을 develop 브랜치에 합치기 위한 과정입니다.
+
+#### GitHub에서 PR 생성 방법
+
+**1단계: 작업 푸시**
+```bash
+git push origin Feature-Jeonghyeon
+```
+
+**2단계: GitHub에서 PR 생성**
+1. GitHub 저장소 페이지로 이동
+2. 상단에 `Compare & pull request` 버튼이 나타남 (최근 푸시한 경우)
+3. 또는 `Pull requests` 탭 → `New pull request` 클릭
+4. **Base 브랜치**: `develop` 선택
+5. **Compare 브랜치**: `Feature-Jeonghyeon` 선택
+6. PR 제목과 설명 작성:
+   ```
+   제목: 장혁 캐릭터 루트 구현
+   
+   설명:
+   - 장혁 캐릭터 대화 스크립트 추가
+   - 테이블 상호작용 구현
+   - 관련 이미지 리소스 추가
+   ```
+7. 팀원을 **Reviewer**로 지정
+8. `Create pull request` 클릭
+
+**3단계: 리뷰 및 머지**
+- 팀원이 코드 확인
+- 필요시 수정 요청
+- 승인 후 `Merge pull request` 클릭
