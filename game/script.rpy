@@ -5,6 +5,7 @@
 # =============================================================================
 
 # 트랜지션
+define fade_very_slow = Fade(0.7, 1.5, 2.0)
 define fade_slow = Fade(0.5, 1.0, 0.5)
 define fade_fast = Fade(0.2, 0.4, 0.2)
 
@@ -23,25 +24,64 @@ screen interactive_mirror(character_portrait):
         ground "bg_mirror"
         hover "bg_mirror_hover"
         alpha True
-
         at custom_size
 
         hotspot (0, 0, 1920, 1080):
             action Return("mirror_hovered")
 
+screen interactive_table():
+    # 기본 테이블 이미지
+    add "bg_table" at custom_size
+    
+    # 신문 영역 (중간 하단)
+    imagemap:
+        ground Null(1920, 1080)  # 투명한 배경
+        hover "bg_table_news_hover"
+        alpha True
+        at custom_size
+        hotspot (0, 0, 1920, 1080):
+            action Return("news_selected")
+            
+    # 책 영역 (우측 상단)        
+    imagemap:
+        ground Null(1920, 1080)  # 투명한 배경
+        hover "bg_table_book_hover"
+        alpha True
+        at custom_size
+        hotspot (0, 0, 1920, 1080):
+            action Return("book_selected")
+    
+    # 총 영역 (좌측 상단)
+    imagemap:
+        ground Null(1920, 1080)  # 투명한 배경
+        hover "bg_table_gun_hover"
+        alpha True
+        at custom_size
+        hotspot (0, 0, 1920, 1080):
+            action Return("gun_selected")
+
 # =============================================================================
 # 이미지 정의
 # =============================================================================
 # 배경 
-image bg_desk_book = At("bg/desk_book.png", custom_size)
-image bg_ceiling = At("bg/blurry_ceiling.png", custom_size)     
-image bg_mirror = At("bg/mirror.png", custom_size)              
-image bg_mirror_hover = At("bg/mirror_hover.png", custom_size)  # 거울 호버 이미지
+image bg_desk    = At("bg/desk.png", custom_size)
+image bg_ceiling        = At("bg/ceiling.png", custom_size)
 
+image bg_mirror         = At("bg/mirror.png", custom_size)             
+image bg_mirror_hover   = At("bg/mirror_hover.png", custom_size)  # 거울 호버 이미지
+image bg_mirror_jang    = At("bg/mirror_jang.png", custom_size)   # 장기영 거울 이미지
+image bg_mirror_im      = At("bg/mirror_im.png", custom_size)     # 임규 거울 이미지
+image bg_mirror_oh      = At("bg/mirror_oh.png", custom_size)     # 오세창 거울 이미지
+
+image bg_table             = At("bg/table.png", custom_size) 
+image bg_table_book_hover  = At("bg/table_book_hover.png", custom_size)
+image bg_table_gun_hover   = At("bg/table_gun_hover.png", custom_size)
+image bg_table_news_hover  = At("bg/table_news_hover.png", custom_size)
+image bg_table_bandage_hover  = At("bg/table_bandage_hover.png", custom_size)
 # 캐릭터 
-image jang_portrait = "ch/jang_mock-up.png"    # 장기영 초상화
-image im_portrait = "ch/im_mock-up.png"        # 임규 초상화
-image oh_portrait = "ch/oh_mock-up.png"        # 오세창 초상화
+image jang_portrait = "ch/jang.png"    # 장기영 초상화
+image im_portrait = "ch/im.png"        # 임규 초상화
+image oh_portrait = "ch/oh.png"        # 오세창 초상화
 
 # 효과용
 image bg_black = "#000000"          # 블랙아웃용 이미지
@@ -50,7 +90,7 @@ image bg_black = "#000000"          # 블랙아웃용 이미지
 # 오디오 정의
 # =============================================================================
 # 배경음
-define audio.main_bgm = "audio/bgm/main_bgm.mp3"
+define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 
 # 효과음
 define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
@@ -77,7 +117,9 @@ label start:
     play music main_bgm fadein 1.0 loop
     
     # Scene 1: 책상 위 역사책
-    scene bg_desk_book with fade_slow
+    pause 2.0
+    
+    scene bg_desk with fade_very_slow
     
     narrator '어젯밤, 나는 역사 시험을 위해 벼락치기로 공부하다 새벽쯤에 그대로 잠이 들었다.'
     
@@ -101,23 +143,94 @@ label start:
     
     narrator '손을 뻗자 무언가 잡힌다. 이건 뭐지?'
     
-    # 분기점 등장
-    menu:
-        "무엇을 잡았을까?"
-        
-        "총":
-            $ chosen_character = "jang" # 장기영
-            jump character_jang
-            
-        "책":
-            $ chosen_character = "im" # 임규
-            jump character_im
-            
-        "신문":
-            $ chosen_character = "oh" # 오세창
-            jump character_oh
+    scene bg_table with fade_slow
+    
+    narrator '테이블 위에 네 가지 물건이 보인다. 책상을 살펴보자.'
+    
+    # 인터랙티브 테이블 사용
+    call screen interactive_table
+    
+    # 선택에 따른 분기
+    if _return == "gun_selected":
+        $ chosen_character = "jang" # 장기영
+        narrator '총을 집었다. 차가운 금속의 감촉이 느껴진다.'
+        jump intro_mirror_jang
+    elif _return == "book_selected":
+        $ chosen_character = "im" # 임규  
+        narrator '책을 집었다. 묵직한 무게가 손에 전해진다.'
+        jump intro_mirror_im
+    elif _return == "news_selected":
+        $ chosen_character = "oh" # 오세창
+        narrator '신문을 집었다. 바스락거리는 종이 소리가 난다.'
+        jump intro_mirror_oh
     
     return
+
+# =============================================================================
+# 거울 씬 (인트로 마지막 부분)
+# =============================================================================
+label intro_mirror_jang:
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    
+    scene bg_mirror with fade
+
+    narrator '거울을 살펴보자.'
+    
+    # Scene 3: 거울 - 장기영
+    call screen interactive_mirror("jang_portrait")
+    
+    # 거울 클릭 시 장기영 거울 이미지 표시
+    scene bg_mirror_jang with dissolve
+    play sound mirror_reveal  # 효과음 재생
+    
+    narrator '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
+    
+    m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 장기영 루트로 이동
+    jump character_jang
+
+label intro_mirror_im:
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+
+    scene bg_mirror with fade
+
+    narrator '거울을 살펴보자.'
+    
+    # Scene 3: 거울 - 임규
+    call screen interactive_mirror("im_portrait")
+    
+    # 거울 클릭 시 임규 거울 이미지 표시
+    scene bg_mirror_im with dissolve
+    play sound mirror_reveal  # 효과음 재생
+    
+    narrator '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
+    
+    m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 임규 루트로 이동
+    jump character_im
+
+label intro_mirror_oh:
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+
+    scene bg_mirror with fade
+
+    narrator '거울을 살펴보자.'
+
+    # Scene 3: 거울 - 오세창
+    call screen interactive_mirror("oh_portrait")
+    
+    # 거울 클릭 시 오세창 거울 이미지 표시
+    scene bg_mirror_oh with dissolve
+    play sound mirror_reveal  # 효과음 재생
+    
+    narrator '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
+    
+    m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 오세창 루트로 이동
+    jump character_oh
 
 # =============================================================================
 # 캐릭터별 분기 - 각각의 파일에서 처리
