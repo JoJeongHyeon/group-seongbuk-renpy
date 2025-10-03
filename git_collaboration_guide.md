@@ -58,7 +58,52 @@
 
 ---
 
-### 4. 작업 내용 합치기 (Pull Request)
+### 4. 다른 사람의 브랜치 가져오기
+
+팀원이 작업한 브랜치(예: `Feature-Jeonghyeon`)를 내 컴퓨터로 가져와서 확인하거나 함께 작업할 수 있습니다.
+
+#### 방법 1: 처음 프로젝트를 받는 경우
+
+```bash
+# 1. 저장소를 처음 클론
+git clone [저장소 URL]
+
+# 2. 클론한 폴더로 이동
+cd [프로젝트 폴더명]
+
+# 3. 원격 브랜치 확인
+git branch -a
+
+# 4. 원하는 브랜치로 전환 (자동으로 로컬에 생성됨)
+git checkout Feature-Jeonghyeon
+```
+
+#### 방법 2: 이미 프로젝트가 있는 경우
+
+```bash
+# 1. 원격 저장소의 최신 정보 가져오기
+git fetch origin
+
+# 2. 원격 브랜치 목록 확인
+git branch -a
+
+# 3. Feature-Jeonghyeon 브랜치로 전환
+git checkout Feature-Jeonghyeon
+
+# 또는 새로 생성하면서 원격 브랜치 추적
+git checkout -b Feature-Jeonghyeon origin/Feature-Jeonghyeon
+```
+
+#### 최신 변경사항 받기
+
+```bash
+# 현재 브랜치가 Feature-Jeonghyeon일 때
+git pull origin Feature-Jeonghyeon
+```
+
+---
+
+### 5. 작업 내용 합치기 (Pull Request)
 
 -   **Pull Request (PR)**
     -   **설명**: `feature` 브랜치에서 완료된 작업을 `develop`이나 `main` 같은 공용 브랜치에 합치기 위해 팀원들에게 코드 리뷰를 요청하는 과정입니다. 보통 **GitHub 웹사이트**에서 생성합니다.
