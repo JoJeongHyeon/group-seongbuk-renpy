@@ -25,7 +25,7 @@ define config.check_conflicting_properties = True
 ## 인터페이스에서 글자의 색상입니다.
 
 ## 강조 색상은 레이블(label)과 강조된 글자로 인터페이스 전체에서 사용됩니다.
-define gui.accent_color = '#cc0000'
+define gui.accent_color = '#0099cc'
 
 ## 텍스트 버튼(text button)이 선택(selected)됐거나 커서를 올리지(hovered) 않았
 ## 을 때 사용됩니다.
@@ -36,7 +36,7 @@ define gui.idle_color = '#888888'
 define gui.idle_small_color = '#aaaaaa'
 
 ## 버튼(button)과 막대(bar)에 커서를 올렸을 때(hovered) 사용됩니다.
-define gui.hover_color = '#e06666'
+define gui.hover_color = '#66c1e0'
 
 ## 텍스트 버튼(text button)에 선택됐지만(selected) 포커스되지(focused) 않았을
 ## 때 사용됩니다. 버튼(button)은 현재 화면이거나 설정값인 경우 선택됨(selected)
@@ -48,8 +48,8 @@ define gui.insensitive_color = '#8888887f'
 
 ## 채워지지 않은 빈 막대(bar)에 사용됩니다. 이것은 바로 사용되지 않지만, 막대
 ## (bar) 이미지 파일이 재생성됐을 때 사용됩니다.
-define gui.muted_color = '#510000'
-define gui.hover_muted_color = '#7a0000'
+define gui.muted_color = '#003d51'
+define gui.hover_muted_color = '#005b7a'
 
 ## 대사(dialogue)와 선택지(menu choice)의 글자에서 사용됩니다.
 define gui.text_color = '#ffffff'
@@ -59,13 +59,13 @@ define gui.interface_text_color = '#ffffff'
 ## 글자와 글자 크기 ###################################################################
 
 ## 인-게임 글자에 사용됩니다.
-define gui.text_font = "RIDIBatang.otf"
+define gui.text_font = "SourceHanSansLite.ttf"
 
 ## 캐릭터의 이름에 사용됩니다.
-define gui.name_text_font = "RIDIBatang.otf"
+define gui.name_text_font = "SourceHanSansLite.ttf"
 
 ## 인터페이스에 사용됩니다.
-define gui.interface_text_font = "RIDIBatang.otf"
+define gui.interface_text_font = "SourceHanSansLite.ttf"
 
 ## 일반 대사의 글자 크기입니다.
 define gui.text_size = 33

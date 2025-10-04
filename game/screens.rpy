@@ -286,12 +286,12 @@ style quick_button_text:
 
 screen navigation():
 
-    hbox:
+    vbox:
         style_prefix "navigation"
 
-        xalign 0.5
-        yalign 1.0
-        yoffset -50
+        xpos gui.navigation_xpos
+        yalign 0.5
+
         spacing gui.navigation_spacing
 
         if main_menu:
@@ -354,11 +354,6 @@ screen main_menu():
 
     add gui.main_menu_background
 
-    add "gui/title_logo.png":
-        xalign 0.02
-        yalign 0.02
-
-
     ## 이 빈 프레임은 기본 메뉴를 어둡게 만듭니다.
     frame:
         style "main_menu_frame"
@@ -367,16 +362,16 @@ screen main_menu():
     ## 내용물은 navigation 스크린에 있습니다.
     use navigation
 
-    # # if gui.show_name:
+    if gui.show_name:
 
-    #     vbox:
-    #         style "main_menu_vbox"
+        vbox:
+            style "main_menu_vbox"
 
-    #         text "[config.name!t]":
-    #             style "main_menu_title"
+            text "[config.name!t]":
+                style "main_menu_title"
 
-    #         text "[config.version]":
-    #             style "main_menu_version"
+            text "[config.version]":
+                style "main_menu_version"
 
 
 style main_menu_frame is empty
@@ -385,17 +380,18 @@ style main_menu_text is gui_text
 style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
 
-#style main_menu_frame:
-#    ysize 420
-#    xfill True
-#
-#    background "gui/overlay/main_menu.png"
+style main_menu_frame:
+    xsize 420
+    yfill True
 
-style main_menu_hbox:
-    xalign 0.5
+    background "gui/overlay/main_menu.png"
+
+style main_menu_vbox:
+    xalign 1.0
+    xoffset -30
+    xmaximum 1200
     yalign 1.0
-    yoffset -50
-    spacing 40
+    yoffset -30
 
 style main_menu_text:
     properties gui.text_properties("main_menu", accent=True)
@@ -1609,23 +1605,3 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
-
-
-# #screens.rpy hover 실패
-
-# screen mirror_scene():
-#     add "images/mirror.png"
-
-#     imagebutton:
-#         idle Null()
-#         hover Null()
-#         xpos 600
-#         ypos 200
-#         xsize 250
-#         ysize 400
-#         hovered Show("mirror_crack")
-#         unhovered Hide("mirror_crack")
-#         action NullAction()
-# screen mirror_crack():
-#     zorder 100
-#     add "images/mirror_crack_overlay.png" xpos 600 ypos 200
