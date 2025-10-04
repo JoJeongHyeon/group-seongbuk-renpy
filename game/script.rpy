@@ -1,9 +1,4 @@
-﻿# ========== 이미지 ==========
-# 배경 
-image bg desk_book       = im.Scale("images/bg/desk_book.png", 1920, 1080)
-image bg blurry_ceiling  = im.Scale("images/bg/blurry_ceiling.png", 1920, 1080)
-image bg mirror          = im.Scale("images/bg/mirror.png", 1920, 1080)
-
+﻿
 # =============================================================================
 # 커스텀 효과 정의
 # =============================================================================
