@@ -1,157 +1,240 @@
-﻿# 게임에서 사용할 캐릭터를 정의합니다.
-define im = Character('임규', color="#4ecdc4")
-define narrator = Character(None)
-define p = Character('나', color="#ffffff")  # 주인공 (이름 미상)
+﻿# 이 파일에 게임 스크립트를 입력합니다.
 
+# =============================================================================
+# 커스텀 효과 정의
+# =============================================================================
 
+# 트랜지션
+define fade_very_slow = Fade(0.7, 1.5, 2.0)
+define fade_slow = Fade(0.5, 1.0, 0.5)
+define fade_fast = Fade(0.2, 0.4, 0.2)
+
+# 위치/스케일
+transform custom_size:
+    size (1920, 1080)
+    # fit "cover" 이런 애도 있다고 함. 자세한 건 문서 ㄱ
+
+# 스크린
+# 거울 호버 기능
+# 다른 오브젝트에도 호버 기능이 지원되도록 범용적이게 만들어보자.
+screen interactive_mirror(character_portrait):
+
+    # imagemap을 사용합니다.
+    imagemap:
+        ground "bg_mirror"
+        hover "bg_mirror_hover"
+        alpha True
+        at custom_size
+
+        hotspot (0, 0, 1920, 1080):
+            action Return("mirror_hovered")
+
+screen interactive_table():
+    # 기본 테이블 이미지
+    add "bg_table" at custom_size
+    
+    # 신문 영역 (중간 하단)
+    imagemap:
+        ground Null(1920, 1080)  # 투명한 배경
+        hover "bg_table_news_hover"
+        alpha True
+        at custom_size
+        hotspot (0, 0, 1920, 1080):
+            action Return("news_selected")
+            
+    # 책 영역 (우측 상단)        
+    imagemap:
+        ground Null(1920, 1080)  # 투명한 배경
+        hover "bg_table_book_hover"
+        alpha True
+        at custom_size
+        hotspot (0, 0, 1920, 1080):
+            action Return("book_selected")
+    
+    # 총 영역 (좌측 상단)
+    imagemap:
+        ground Null(1920, 1080)  # 투명한 배경
+        hover "bg_table_gun_hover"
+        alpha True
+        at custom_size
+        hotspot (0, 0, 1920, 1080):
+            action Return("gun_selected")
+
+# =============================================================================
 # 이미지 정의
-image bg table_im = "table_im.png"
-image bg table_im_suc = "table_im_suc.png"
-image bg mirror = "mirror.png"       # 거울 배경
-image mirror im = "im_mr.png"       # 거울 속 임규
-image char im = "im.png"           # 임규 캐릭터  
-image black = "#000000"                 # 검은 화면
+# =============================================================================
+# 배경 
+image bg_desk    = At("bg/desk.png", custom_size)
+image bg_ceiling        = At("bg/ceiling.png", custom_size)
 
-# 화면 전환 효과 정의
-define fade = Fade(0.75, 0.25, 0.75)
-define dissolve_slow = Dissolve(1.0)
+image bg_mirror         = At("bg/mirror.png", custom_size)             
+image bg_mirror_hover   = At("bg/mirror_hover.png", custom_size)  # 거울 호버 이미지
+image bg_mirror_jang    = At("bg/mirror_jang.png", custom_size)   # 장기영 거울 이미지
+image bg_mirror_im      = At("bg/mirror_im.png", custom_size)     # 임규 거울 이미지
+image bg_mirror_oh      = At("bg/mirror_oh.png", custom_size)     # 오세창 거울 이미지
 
-# Drag and drop
-screen declaration_dragdrop():
+image bg_table             = At("bg/table.png", custom_size) 
+image bg_table_book_hover  = At("bg/table_book_hover.png", custom_size)
+image bg_table_gun_hover   = At("bg/table_gun_hover.png", custom_size)
+image bg_table_news_hover  = At("bg/table_news_hover.png", custom_size)
+image bg_table_bandage_hover  = At("bg/table_bandage_hover.png", custom_size)
+# 캐릭터 
+image jang_portrait = "ch/jang.png"    # 장기영 초상화
+image im_portrait = "ch/im.png"        # 임규 초상화
+image oh_portrait = "ch/oh.png"        # 오세창 초상화
 
-    modal True
-    default placed = {"s1": None, "s2": None, "s3": None, "s4": None, "s5": None}
+# 효과용
+image bg_black = "#000000"          # 블랙아웃용 이미지
 
-    $ slots = {
-        "s1": (384, 270),   # 독
-        "s2": (614, 486),   # 립
-        "s3": (902, 270),   # 선
-        "s4": (1094, 486),  # 언
-        "s5": (1382, 270),  # 서
-    }
+# =============================================================================
+# 오디오 정의
+# =============================================================================
+# 배경음
+define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 
-    for sid, (xp, yp) in slots.items():
-        drag:
-            draggable False
-            droppable True
-            drag_name sid
-            xpos xp ypos yp
-            xanchor 0.5 yanchor 0.5
-            xysize (140, 140)   # ← 드롭 판정 조금 넉넉하게
+# 효과음
+define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
 
-            fixed:
-                xysize (120, 120)  # 테두리는 그대로 120
-                xpos 10 ypos 10     # 외곽 판정(140) 안쪽에 테두리(120) 위치
-                add Solid("#0000")
-                add Solid("#333") xpos 0   ypos 0   xsize 120 ysize 2
-                add Solid("#333") xpos 0   ypos 118 xsize 120 ysize 2
-                add Solid("#333") xpos 0   ypos 0   xsize 2   ysize 120
-                add Solid("#333") xpos 118 ypos 0   xsize 2   ysize 120
+# =============================================================================
+# 캐릭터 정의
+# =============================================================================
+# 나레이터 (생각)
+define narrator = Character(None, what_color="#ffffff")
 
-            # ★★ 여기! Function 제거하고 콜백 직접 넘김 ★★
-            dropped _on_drop(sid)
+# 주인공 (대사)
+define m = Character("나", color="#ffffff")
 
-    draggroup:
-        use letter_piece("독", 200, 900)
-        use letter_piece("립", 500, 900)
-        use letter_piece("선", 800, 900)
-        use letter_piece("언", 1100, 900)
-        use letter_piece("서", 1400, 900)
+# 역사 인물들
+define jang = Character("장기영", color="#ff6b6b")
+define im = Character("임규", color="#4ecdc4")
+define oh = Character("오세창", color="#45b7d1")
 
-    textbutton "완료":
-        xpos 960 ypos 1000 xanchor 0.5
-        action Function(_check_solution, placed)
-
-
-# 글자 조각 (픽셀 기준)
-screen letter_piece(ch, xp, yp):
-    drag:
-        draggable True
-        drag_name ch
-        drag_raise True
-        xpos xp ypos yp
-        xanchor 0.5 yanchor 0.5
-        child Text(ch, size=60, color="#111", outlines=[(2, "#000", 0, 0)])
-
-
-# ── 드롭 처리 & 정답 검사
-init python:
-    # dropped 콜백: (dragged, dropped) 인자를 자동으로 받는다.
-    def _on_drop(slot_id):
-        def _cb(dragged, dropped):
-            scr = renpy.current_screen()
-            if scr:
-                scr.scope["placed"][slot_id] = dragged.drag_name
-            # 슬롯 중앙으로 스냅
-            try:
-                dragged.snap(dropped)
-            except Exception:
-                dragged.snap(dropped.xpos, dropped.ypos)
-        return _cb
-
-    def _check_solution(placed):
-        target = ["독", "립", "선", "언", "서"]
-        now = [placed["s1"], placed["s2"], placed["s3"], placed["s4"], placed["s5"]]
-
-        if None in now:
-            renpy.notify("아직 빈 슬롯이 있어!")
-            return
-
-        if now == target:
-            renpy.say(None, "독립선언서 완성!")
-            renpy.jump("next_scene")
-        else:
-            renpy.notify("순서가 달라. 다시 맞춰봐!")
-
-
-# 여기에서부터 게임이 시작합니다.
-label start:   #label route_im:
-    show mirror im at left with dissolve_slow
+# =============================================================================
+# 게임 시작
+# =============================================================================
+label start:
+    # BGM 시작 - 게임 내내 계속 재생
+    play music main_bgm fadein 1.0 loop
     
-    narrator "거울 속에는... 낯선 남성이 서 있다."
-    narrator "단정하게 자른 짧은 머리와 지적인 인상을 주는 수염."
-    narrator "온화하면서도 굳건한 의지가 느껴지는 눈빛."
+    # Scene 1: 책상 위 역사책
+    pause 2.0
     
-    p "이 사람은... 누구지? 그런데 왜 내가 이 모습으로..."
+    scene bg_desk with fade_very_slow
     
-    # 기억 각성 연출
-    $ renpy.pause(0.5)
-    scene black with Fade(0.3, 0.5, 0.3)
+    narrator '어젯밤, 나는 역사 시험을 위해 벼락치기로 공부하다 새벽쯤에 그대로 잠이 들었다.'
     
-    narrator "머릿속에 무수한 기억들이 스며든다."
-    narrator "교육... 계몽... 민족의식... 조선어학회..."
+    # 화면 블랙아웃
+    scene bg_black with fade_fast
     
-    scene bg mirror with dissolve_slow  
-    show char im at left
+    narrator '잠결에 어렴풋이 들려오는 대화 소리…'
     
-    im "나는... 임규다."
-    im "조선의 교육자이자 언어학자 임규."
+    m "아 시끄러워…"
     
-    $ awakening_complete = True
-    narrator "이제 이해했다."
-    narrator "나는 일제강점기 조선어 보존과 민족교육에 힘쓰던 임규가 되어 있다."
+    narrator '더 이상 잠들기 어려워 눈을 떠보려 한다.'
     
-    scene black with fade
-    pause 1.0
-
-    im "그래 우린 독립을 위해 싸우고 있어."
-
-    im "독립선언서을 작성하자"
-
-
-
-    #[Scene2] Drag and drop
-    scene bg table_im with fade
-
-    narrator "글자를 끼워 넣어 독립선언문을 완성하자."
-
-    call screen declaration_dragdrop
-
+    # Scene 2: 천장
+    scene bg_ceiling with fade_slow
+    
+    narrator '눈을 뜨자, 낯선 천장이 보인다.'
+    
+    narrator '처음 보는 공간, 그리고 들려오는 일본어 소리…'
+    
+    m "웬 일본어? 여긴 어디고, 왜 나는 여기 있지?"
+    
+    narrator '손을 뻗자 무언가 잡힌다. 이건 뭐지?'
+    
+    scene bg_table with fade_slow
+    
+    narrator '테이블 위에 네 가지 물건이 보인다. 책상을 살펴보자.'
+    
+    # 인터랙티브 테이블 사용
+    call screen interactive_table
+    
+    # 선택에 따른 분기
+    if _return == "gun_selected":
+        $ chosen_character = "jang" # 장기영
+        narrator '총을 집었다. 차가운 금속의 감촉이 느껴진다.'
+        jump intro_mirror_jang
+    elif _return == "book_selected":
+        $ chosen_character = "im" # 임규  
+        narrator '책을 집었다. 묵직한 무게가 손에 전해진다.'
+        jump intro_mirror_im
+    elif _return == "news_selected":
+        $ chosen_character = "oh" # 오세창
+        narrator '신문을 집었다. 바스락거리는 종이 소리가 난다.'
+        jump intro_mirror_oh
+    
     return
 
-label next_scene:
-    scene table_im_suc
+# =============================================================================
+# 거울 씬 (인트로 마지막 부분)
+# =============================================================================
+label intro_mirror_jang:
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    
+    scene bg_mirror with fade
 
-    im "드디어 완성했다. 우리의 독립선언문이...!"
+    narrator '거울을 살펴보자.'
+    
+    # Scene 3: 거울 - 장기영
+    call screen interactive_mirror("jang_portrait")
+    
+    # 거울 클릭 시 장기영 거울 이미지 표시
+    scene bg_mirror_jang with dissolve
+    play sound mirror_reveal  # 효과음 재생
+    
+    narrator '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
+    
+    m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 장기영 루트로 이동
+    jump character_jang
 
-    return
+label intro_mirror_im:
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+
+    scene bg_mirror with fade
+
+    narrator '거울을 살펴보자.'
+    
+    # Scene 3: 거울 - 임규
+    call screen interactive_mirror("im_portrait")
+    
+    # 거울 클릭 시 임규 거울 이미지 표시
+    scene bg_mirror_im with dissolve
+    play sound mirror_reveal  # 효과음 재생
+    
+    narrator '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
+    
+    m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 임규 루트로 이동
+    jump character_im
+
+label intro_mirror_oh:
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+
+    scene bg_mirror with fade
+
+    narrator '거울을 살펴보자.'
+
+    # Scene 3: 거울 - 오세창
+    call screen interactive_mirror("oh_portrait")
+    
+    # 거울 클릭 시 오세창 거울 이미지 표시
+    scene bg_mirror_oh with dissolve
+    play sound mirror_reveal  # 효과음 재생
+    
+    narrator '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
+    
+    m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 오세창 루트로 이동
+    jump character_oh
+
+# =============================================================================
+# 캐릭터별 분기 - 각각의 파일에서 처리
+# =============================================================================
+# character_jang: script_jang.rpy에서 정의
+# character_im: script_im.rpy에서 정의  
+# character_oh: script_oh.rpy에서 정의
