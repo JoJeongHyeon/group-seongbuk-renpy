@@ -124,7 +124,6 @@ style window is default
 style say_label is default
 style say_dialogue is default
 style say_thought is say_dialogue
-
 style namebox is default
 style namebox_label is say_label
 
@@ -155,6 +154,7 @@ style say_label:
 style say_dialogue:
     properties gui.text_properties("dialogue")
 
+    line_spacing gui.dialogue_line_spacing # 추가
     xpos gui.dialogue_xpos
     xsize gui.dialogue_width
     ypos gui.dialogue_ypos

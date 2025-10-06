@@ -39,16 +39,16 @@ screen interactive_table_im():
 define choi = Character("최남선", image = "choi",color="#4a2222")
 
 
-image bk1_hover         = At("im/bk1_hover.png", custom_size)
-image bk2_hover         = At("im/bk2_hover.png", custom_size)
+image bk1_hover         = At("main_im/bk1_hover.png", custom_size)
+image bk2_hover         = At("main_im/bk2_hover.png", custom_size)
 image bg_table_empty           = At("bg/table_empty.png", custom_size)             
-image bk3_hover         = At("im/bk3_hover.png", custom_size)           
+image bk3_hover         = At("main_im/bk3_hover.png", custom_size)           
 image side choi  = "ch/choi.png"         
-image bead  = "im/bead.png"
-image ch1_door         = At("im/door.png", custom_size)             
-image ch1_table         = At("im/table.png", custom_size)             
-image ch1_table_ex        = At("im/table_ex.png", custom_size)             
-image bg_darkroom        = At("im/darkroom.png", custom_size)
+image bead  = "main_im/bead.png"
+image ch1_door         = At("main_im/door.png", custom_size)             
+image ch1_table         = At("main_im/table.png", custom_size)             
+image ch1_table_ex        = At("main_im/table_ex.png", custom_size)             
+image bg_darkroom        = At("main_im/darkroom.png", custom_size)
 
 
 # 게임 시작
