@@ -117,6 +117,8 @@ screen say(who, what):
 ## 듭니다.
 init python:
     config.character_id_prefixes.append('namebox')
+    # 대사창이 항상 가장 앞 레이어에 있도록 설정
+    config.layers = [ "master", "transient", "screens", "overlay" ]
 
 style window is default
 style say_label is default
@@ -1603,4 +1605,4 @@ style slider_vbox:
 
 style slider_slider:
     variant "small"
-    xsize 900
+    xsize 90
