@@ -17,16 +17,24 @@ image kim = Transform("ch/kim.png", zoom=0.8)
 image ahn = Transform("ch/ahn.png", zoom=0.8)
 
 # 기억구슬
-image memory_orb = At("bg/main_jang/ch1/memory_orb.png", custom_size)
+image memory_orb = "bg/memory_orb.png"
 
 # 챕터2 배경 이미지
 image bg_usa_street = At("bg/main_jang/ch2/usa_street.png", custom_size)
+image bg_usa_street-dark = At("bg/main_jang/ch2/usa_street-dark.png", custom_size)
 image bg_usa_street-letter = At("bg/main_jang/ch2/usa_street-letter.png", custom_size)
 image bg_office = At("bg/main_jang/ch2/office.png", custom_size)
 
 # 챕터2 오브젝트 이미지
 image envelop = "bg/main_jang/ch2/envelop.png"
 image envelop_hover = "bg/main_jang/ch2/envelop_hover.png"
+
+image money-1 = At("bg/main_jang/ch2/money-1.png", custom_size)
+image money-2 = At("bg/main_jang/ch2/money-2.png", custom_size)
+image money-3 = At("bg/main_jang/ch2/money-3.png", custom_size)
+image bubble-1 = At("bg/main_jang/ch2/bubble-1.png", custom_size)
+image bubble-2 = At("bg/main_jang/ch2/bubble-2.png", custom_size)
+image bubble-3 = At("bg/main_jang/ch2/bubble-3.png", custom_size)
 
 # 챕터2 캐릭터 이미지
 image lee = Transform("ch/lee.png", zoom=0.8)
@@ -173,7 +181,6 @@ label jang_ch1_final_choice:
             with dissolve
             
             # 기억구슬 등장
-            scene bg_black with fade_fast
             show memory_orb with dissolve
             pause 1.0
             
@@ -282,8 +289,54 @@ label jang_ch2_gumi_choice:
             scene bg_black with fade_slow
             pause 2.0
             
-            # 챕터3로 이어짐 (나중에 구현)
-            jump jang_ch3_placeholder
+            # Scene3로 이어짐
+            jump jang_ch2_scene3
+
+# =============================================================================
+# Scene 3: 1930년대 미국 길거리 - 독립자금 모금 활동
+# =============================================================================
+label jang_ch2_scene3:
+    # 블랙아웃에서 시작
+    scene bg_black
+    pause 1.0
+    
+    # 1930년대 미국 길거리 배경
+    scene bg_usa_street with fade_slow
+    pause 1.0
+    
+    narrator "거리에서 독립자금 모금 활동을 시작했다."
+    
+    narrator "하지만 많은 사람들이 의구심과 회의적인 반응을 보였다."
+    
+    # 인터랙티브 스크린 호출
+    call screen interactive_fundraising
+    
+    # 모든 말풍선을 클릭한 후
+    jump jang_ch2_finale
+
+label jang_ch2_finale:
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 1.5
+
+    # 기억구슬 등장
+    scene bg_usa_street with dissolve
+    show memory_orb with dissolve
+    pause 1.0
+    
+    # 화면 중앙에 텍스트 표시
+    show text "{size=60}{color=#ffd700}++챕터2 기억구슬 획득++{/color}{/size}" at truecenter with dissolve
+    pause 3.0
+    hide text with dissolve
+    
+    hide memory_orb with dissolve
+    
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 2.0
+    
+    # 챕터3로 이어짐 (나중에 구현)
+    jump jang_ch3_placeholder
 
 label jang_ch3_placeholder:
     narrator "챕터2가 완료되었습니다. 챕터3은 준비 중입니다."
@@ -292,6 +345,117 @@ label jang_ch3_placeholder:
 # =============================================================================
 # 인터랙티브 스크린
 # =============================================================================
+
+# Scene 3 인터랙티브 스크린 변수
+init python:
+    clicked_bubble1 = False
+    clicked_bubble2 = False
+    clicked_bubble3 = False
+    clicked_money1 = False
+    clicked_money2 = False
+    clicked_money3 = False
+    show_jang_response = False
+    current_jang_text = ""
+
+screen interactive_fundraising():
+    
+    add "bg_usa_street-dark" at custom_size
+    
+    # 화폐 이미지들
+    if not clicked_money1:
+        add "money-1"
+    
+    if not clicked_money2:
+        add "money-2"
+    
+    if not clicked_money3:
+        add "money-3"
+    
+    # 말풍선 1
+    if not clicked_bubble1:
+        imagebutton:
+            idle "bubble-1"
+            hover Transform("bubble-1", alpha=0.8)
+            focus_mask True
+            action [
+                SetVariable("clicked_bubble1", True),
+                SetVariable("clicked_money1", True),
+                SetVariable("show_jang_response", True),
+                SetVariable("current_jang_text", "작은 외침이 모여야 큰 목소리가 되고, 그제야 세계가 우리를 들을 수 있습니다."),
+                Hide("interactive_fundraising"),
+                Show("interactive_fundraising")
+            ]
+    
+    # 말풍선 2
+    if not clicked_bubble2:
+        imagebutton:
+            idle "bubble-2"
+            hover Transform("bubble-2", alpha=0.8)
+            focus_mask True
+            action [
+                SetVariable("clicked_bubble2", True),
+                SetVariable("clicked_money2", True),
+                SetVariable("show_jang_response", True),
+                SetVariable("current_jang_text", "조국 없는 삶은 결국 뿌리 없는 삶이니, 우리 후손에게는 반드시 독립된 나라를 물려주어야 합니다."),
+                Hide("interactive_fundraising"),
+                Show("interactive_fundraising")
+            ]
+    
+    # 말풍선 3
+    if not clicked_bubble3:
+        imagebutton:
+            idle "bubble-3"
+            hover Transform("bubble-3", alpha=0.8)
+            focus_mask True
+            action [
+                SetVariable("clicked_bubble3", True),
+                SetVariable("clicked_money3", True),
+                SetVariable("show_jang_response", True),
+                SetVariable("current_jang_text", "당신의 작은 헌신이 모여 독립군의 총알이 되고, 세계에 조국의 목소리를 이어줍니다."),
+                Hide("interactive_fundraising"),
+                Show("interactive_fundraising")
+            ]
+    
+    # 장기영의 응답 표시 (화면 하단)
+    if show_jang_response and current_jang_text:
+        frame:
+            xalign 0.5
+            ypos 900
+            xsize 1600
+            background Frame(Solid("#333333DD"), 20, 20)
+            padding (30, 25)
+            
+            vbox:
+                text "{color=#FFFFFF}장기영{/color}" size 32 xalign 0.0
+                text current_jang_text size 30 color "#FFFFFF" line_spacing 12
+                
+                textbutton "▶ 계속":
+                    xalign 0.5
+                    ypos 10
+                    text_size 28
+                    text_color "#FFD700"
+                    text_hover_color "#FFA500"
+                    action [
+                        SetVariable("show_jang_response", False),
+                        SetVariable("current_jang_text", ""),
+                        Hide("interactive_fundraising"),
+                        Show("interactive_fundraising")
+                    ]
+    
+    # 모든 말풍선을 클릭했는지 확인
+    if clicked_bubble1 and clicked_bubble2 and clicked_bubble3 and not show_jang_response:
+        frame:
+            xalign 0.5
+            yalign 0.9
+            background Frame(Solid("#00CC00DD"), 20, 20)
+            padding (30, 20)
+            
+            textbutton "✓ 모든 응답 완료 - 클릭하여 계속":
+                text_size 36
+                text_color "#FFFFFF"
+                text_hover_color "#FFFF00"
+                action Return("all_bubbles_clicked")
+
 screen interactive_passport_doc():
     
     # 클릭 가능한 여권 신청서 영역
