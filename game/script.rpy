@@ -1,5 +1,4 @@
-﻿# 이 파일에 게임 스크립트를 입력합니다.
-
+﻿
 # =============================================================================
 # 커스텀 효과 정의
 # =============================================================================
@@ -42,7 +41,7 @@ screen interactive_table():
         hotspot (0, 0, 1920, 1080):
             action Return("news_selected")
             
-    # 책 영역 (우측 상단)        
+    # 책 영역 (우측 상단)
     imagemap:
         ground Null(1920, 1080)  # 투명한 배경
         hover "bg_table_book_hover"
@@ -64,20 +63,20 @@ screen interactive_table():
 # 이미지 정의
 # =============================================================================
 # 배경 
-image bg_desk    = At("bg/desk.png", custom_size)
-image bg_ceiling        = At("bg/ceiling.png", custom_size)
+image bg_desk    = At("bg/intro/desk.png", custom_size)
+image bg_ceiling        = At("bg/intro/ceiling.png", custom_size)
 
-image bg_mirror         = At("bg/mirror.png", custom_size)             
-image bg_mirror_hover   = At("bg/mirror_hover.png", custom_size)  # 거울 호버 이미지
-image bg_mirror_jang    = At("bg/mirror_jang.png", custom_size)   # 장기영 거울 이미지
-image bg_mirror_im      = At("bg/mirror_im.png", custom_size)     # 임규 거울 이미지
-image bg_mirror_oh      = At("bg/mirror_oh.png", custom_size)     # 오세창 거울 이미지
+image bg_mirror         = At("bg/intro/mirror.png", custom_size)             
+image bg_mirror_hover   = At("bg/intro/mirror_hover.png", custom_size)  # 거울 호버 이미지
+image bg_mirror_jang    = At("bg/intro/mirror_jang.png", custom_size)   # 장기영 거울 이미지
+image bg_mirror_im      = At("bg/intro/mirror_im.png", custom_size)     # 임규 거울 이미지
+image bg_mirror_oh      = At("bg/intro/mirror_oh.png", custom_size)     # 오세창 거울 이미지
 
-image bg_table             = At("bg/table.png", custom_size) 
-image bg_table_book_hover  = At("bg/table_book_hover.png", custom_size)
-image bg_table_gun_hover   = At("bg/table_gun_hover.png", custom_size)
-image bg_table_news_hover  = At("bg/table_news_hover.png", custom_size)
-image bg_table_bandage_hover  = At("bg/table_bandage_hover.png", custom_size)
+image bg_table             = At("bg/intro/table.png", custom_size) 
+image bg_table_book_hover  = At("bg/intro/table_book_hover.png", custom_size)
+image bg_table_gun_hover   = At("bg/intro/table_gun_hover.png", custom_size)
+image bg_table_news_hover  = At("bg/intro/table_news_hover.png", custom_size)
+image bg_table_bandage_hover  = At("bg/intro/table_bandage_hover.png", custom_size)
 # 캐릭터 
 image jang_portrait = "ch/jang.png"    # 장기영 초상화
 image im_portrait = "ch/im.png"        # 임규 초상화
@@ -145,7 +144,7 @@ label start:
     
     scene bg_table with fade_slow
     
-    narrator '테이블 위에 네 가지 물건이 보인다. 책상을 살펴보자.'
+    narrator '테이블 위에 네 가지 물건이 보인다.\n책상을 살펴보자.'
     
     # 인터랙티브 테이블 사용
     call screen interactive_table
