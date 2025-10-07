@@ -9,7 +9,7 @@
 image bg_room = At("bg/main_jang/ch1/room.png", custom_size)
 image bg_passport_doc = At("bg/main_jang/ch1/passport_doc.png", custom_size)
 image bg_passport_doc-hover = At("bg/main_jang/ch1/passport_doc-hover.png", custom_size)
-image bg_harbor = At("bg/main_jang/ch1/harbor.png", custom_size)
+image bg_shanghai_harbor = At("bg/main_jang/ch1/harbor.png", custom_size)
 image bg_shanghai_gov = At("bg/main_jang/ch1/shanghai_gov.png", custom_size)
 
 # 챕터1 캐릭터 이미지
@@ -143,7 +143,7 @@ label jang_ch1_destination_choice:
 # =============================================================================
 label jang_ch1_scene2:
     # 항구 배경
-    scene bg_harbor with fade_slow
+    scene bg_shanghai_harbor with fade_slow
     
     # 뱃고동 소리 효과음
     play sound boat_horn
@@ -164,7 +164,7 @@ label jang_ch1_scene2:
     show kim at left with dissolve
     show ahn at right with dissolve
     
-    kim_ahn "상해에서 함께 활동해 주어서 고맙네. 전한군사위원회(全韓軍事委員會)의 위원으로도 활약한 자네였기에 더욱 든든했어. 미국 땅으로 가서 하던 공부를 이어서 하고 조국의 광복을 위해 힘써주게나."
+    kim_ahn "상해에서 함께 활동해 주어서 고맙네. 전한군사위원회{font=SourceHanSansLite.ttf}{size=30}(全韓軍事委員會){/size}{/font}의 위원으로도 활약한 자네였기에 더욱 든든했어. 미국 땅으로 가서 하던 공부를 이어서 하고 조국의 광복을 위해 힘써주게나."
     
     narrator "이분들은 김구 선생님과 안창호 선생님? 교과서에서 봤어! 나는 독립운동가의 몸에 들어왔나 봐!"
 
@@ -360,7 +360,7 @@ init python:
 
 screen interactive_fundraising():
     
-    add "bg_usa_street-dark" at custom_size
+    add "bg_usa_street" at custom_size
     
     # 화폐 이미지들
     if not clicked_money1:
