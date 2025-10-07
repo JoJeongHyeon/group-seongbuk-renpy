@@ -50,6 +50,106 @@ image ch1_table         = At("main_im/table.png", custom_size)
 image ch1_table_ex        = At("main_im/table_ex.png", custom_size)             
 image bg_darkroom        = At("main_im/darkroom.png", custom_size)
 
+image word_dok = "main_im/dok.png"
+image word_rip = "main_im/rip.png"
+image word_seon = "main_im/seon.png"
+image word_eon = "main_im/eon.png"
+image word_seo = "main_im/seo.png"
+
+# Drag and Drop
+screen drag_drop:
+
+    # 각 슬롯에 정답 조각이 '정착'했는지 상태 기록
+    default placed = { "dok": False, "rip": False, "seon": False, "eon": False, "seo": False }
+
+    draggroup:
+
+        # ---- 슬롯들 (droppable=True) ----
+        drag:
+            drag_name "dok"          # 'dok'만 받음
+            draggable False
+            droppable True
+            xpos 400 ypos 400
+            add Solid("#cccccc",  xysize = (120,80))
+            # 맞는 조각이 드롭되면 placed["dok"] = True
+            dropped SetScreenVariable("placed", dict(placed, dok=True))
+
+        drag:
+            drag_name "rip"
+            draggable False
+            droppable True
+            xpos 540 ypos 400
+            add Solid("#cccccc",  xysize = (120,80))
+            dropped SetScreenVariable("placed", dict(placed, rip=True))
+
+        drag:
+            drag_name "seon"
+            draggable False
+            droppable True
+            xpos 680 ypos 400
+            add Solid("#cccccc",  xysize = (120,80))
+            dropped SetScreenVariable("placed", dict(placed, seon=True))
+
+        drag:
+            drag_name "eon"
+            draggable False
+            droppable True
+            xpos 820 ypos 400
+            add Solid("#cccccc",  xysize = (120,80))
+            dropped SetScreenVariable("placed", dict(placed, eon=True))
+
+        drag:
+            drag_name "seo"
+            draggable False
+            droppable True
+            xpos 960 ypos 400
+            add Solid("#cccccc", xysize = (120,80))
+            dropped SetScreenVariable("placed", dict(placed, seo=True))
+
+        # ---- 드래그 가능한 글자 조각들 ----
+        # 조각을 다시 집어 들면 해당 슬롯의 true 상태를 해제해야 하므로 dragged에서 False로 리셋
+        drag:
+            drag_name "dok"
+            draggable True
+            droppable False
+            add "word_dok"
+            dragged SetScreenVariable("placed", dict(placed, dok=False))
+
+        drag:
+            drag_name "rip"
+            draggable True
+            droppable False
+            add "word_rip"
+            dragged SetScreenVariable("placed", dict(placed, rip=False))
+
+        drag:
+            drag_name "seon"
+            draggable True
+            droppable False
+            add "word_seon"
+            dragged SetScreenVariable("placed", dict(placed, seon=False))
+
+        drag:
+            drag_name "eon"
+            draggable True
+            droppable False
+            add "word_eon"
+            dragged SetScreenVariable("placed", dict(placed, eon=False))
+
+        drag:
+            drag_name "seo"
+            draggable True
+            droppable False
+            add "word_seo"
+            dragged SetScreenVariable("placed", dict(placed, seo=False))
+
+    # 완료 버튼: 모두 True면 succeed 리턴, 아니면 알림만 띄우고 계속
+    textbutton "완료" xpos 960 ypos 840 action If(
+        (placed["dok"] and placed["rip"] and placed["seon"] and placed["eon"] and placed["seo"]),
+        true=Return("succeed"),
+        false=Function(renpy.notify, "아직 다 맞추지 못했어!")
+    )
+            
 
 # 게임 시작
 label character_im:
@@ -170,9 +270,23 @@ label support_choi:
 
     hide bead with fade_slow
 
-    jump chater3
+    jump chapter3
 
 label chapter3:
+    scene bg_darkroom with fade_slow
+    call screen drag_drop
+
+    if _return == "succeed":
+        m "머릿속에서 말해주는 대로, 독립선언서를 차례로 우송했다."
+        m "하는 동안 손이 떨렸지만, 무사히 마치고 나니 뿌뜻한 감정도 들었다."
+        m "이후, 숙소로 돌아오는 길에 한 일본인을 마주했다"
+        jump next_ch1
+
+    return
+
+label next_ch1:
+    scene bg_darkroom with fade_slow
+
 
 
 
