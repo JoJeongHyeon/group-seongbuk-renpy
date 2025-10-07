@@ -154,6 +154,7 @@ style say_label:
 style say_dialogue:
     properties gui.text_properties("dialogue")
 
+    line_spacing gui.dialogue_line_spacing # 추가
     xpos gui.dialogue_xpos
     xsize gui.dialogue_width
     ypos gui.dialogue_ypos
@@ -1605,3 +1606,23 @@ style slider_vbox:
 style slider_slider:
     variant "small"
     xsize 900
+
+################################################################################
+## 커스텀 알림 스크린
+################################################################################
+
+## 프레임 배경과 함께 텍스트를 표시하는 스크린
+screen framed_message(message, text_color="#f4f465", text_size=30):
+    zorder 100
+    modal False
+    
+    frame:
+        xalign 0.5
+        yalign 0.5
+        xsize 1050
+        background Frame(Solid("#333333DD"), 20, 20)
+        padding (40, 30)
+        
+        vbox:
+            xalign 0.5
+            text message size text_size color text_color xalign 0.5
