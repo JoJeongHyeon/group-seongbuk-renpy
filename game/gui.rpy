@@ -147,6 +147,19 @@ define gui.dialogue_width = 1000
 define gui.dialogue_text_xalign = 0.0
 
 
+## 클릭 유도 인디케이터 (CTC) ######################################################
+##
+## 대사가 모두 표시되었을 때 나타나는 클릭 유도 표시입니다.
+
+## 텍스트박스 내에서 ctc 인디케이터의 위치입니다.
+# define gui.ctc_position_x = 1.0  # 우측 정렬
+# define gui.ctc_position_y = 1.0  # 하단 정렬
+define gui.ctc_position_x = 0.78  # 중앙 정렬
+define gui.ctc_position_y = 0.8  # 중앙 정렬
+define gui.ctc_offset_x = -20    # 우측에서 왼쪽으로 20px 오프셋
+define gui.ctc_offset_y = -20    # 하단에서 위로 20px 오프셋
+
+
 ## 버튼들 #########################################################################
 ##
 ## 이러한 변수들은 GUI/버튼에서 이미지 파일들과 함께 어떻게 버튼이 표시되는지
