@@ -4,7 +4,6 @@
 
 init offset = -1
 
-
 ################################################################################
 ## 스타일
 ################################################################################
@@ -118,12 +117,13 @@ screen say(who, what):
 ## 듭니다.
 init python:
     config.character_id_prefixes.append('namebox')
+    # 대사창이 항상 가장 앞 레이어에 있도록 설정
+    config.layers = [ "master", "transient", "screens", "overlay" ]
 
 style window is default
 style say_label is default
 style say_dialogue is default
 style say_thought is say_dialogue
-
 style namebox is default
 style namebox_label is say_label
 

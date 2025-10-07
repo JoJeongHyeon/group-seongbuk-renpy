@@ -130,6 +130,7 @@ define gui.namebox_tile = False
 
 ## 텍스트박스에서 대사의 위치입니다. These can be a whole number of pixels
 ## relative to the left or top side of the textbox, or 0.5 to center.
+
 # define gui.dialogue_xpos = 402
 # define gui.dialogue_ypos = 75
 define gui.dialogue_xpos = 425
@@ -279,6 +280,8 @@ define gui.slot_spacing = 15
 ## 메인 메뉴 글자의 위치입니다.
 define gui.main_menu_text_xalign = 1.0
 
+# 행 간격 설정
+define gui.dialogue_line_spacing = 14
 
 ## 프레임들 ########################################################################
 ##
