@@ -39,22 +39,22 @@ screen interactive_table_im():
 define choi = Character("최남선", image = "choi",color="#4a2222")
 
 
-image bk1_hover         = At("main_im/bk1_hover.png", custom_size)
-image bk2_hover         = At("main_im/bk2_hover.png", custom_size)
+image bk1_hover         = At("bg/main_im/bk1_hover.png", custom_size)
+image bk2_hover         = At("bg/main_im/bk2_hover.png", custom_size)
 image bg_table_empty           = At("bg/table_empty.png", custom_size)             
-image bk3_hover         = At("main_im/bk3_hover.png", custom_size)           
+image bk3_hover         = At("bg/main_im/bk3_hover.png", custom_size)           
 image side choi  = "ch/choi.png"         
-image bead  = "main_im/bead.png"
-image ch1_door         = At("main_im/door.png", custom_size)             
-image ch1_table         = At("main_im/table.png", custom_size)             
-image ch1_table_ex        = At("main_im/table_ex.png", custom_size)             
-image bg_darkroom        = At("main_im/darkroom.png", custom_size)
+image bead  = "bg/main_im/bead.png"
+image ch1_door         = At("bg/main_im/door.png", custom_size)             
+image ch1_table         = At("bg/main_im/table.png", custom_size)             
+image ch1_table_ex        = At("bg/main_im/table_ex.png", custom_size)             
+image bg_darkroom        = At("bg/main_im/darkroom.png", custom_size)
 
-image word_dok = "main_im/dok.png"
-image word_rip = "main_im/rip.png"
-image word_seon = "main_im/seon.png"
-image word_eon = "main_im/eon.png"
-image word_seo = "main_im/seo.png"
+image word_dok = "bg/main_im/dok.png"
+image word_rip = "bg/main_im/rip.png"
+image word_seon = "bg/main_im/seon.png"
+image word_eon = "bg/main_im/eon.png"
+image word_seo = "bg/main_im/seo.png"
 
 # Drag and Drop
 screen drag_drop:
