@@ -42,7 +42,7 @@ screen interactive_table():
         hotspot (0, 0, 1920, 1080):
             action Return("news_selected")
             
-    # 책 영역 (우측 상단)        
+    # 책 영역 (우측 상단)
     imagemap:
         ground Null(1920, 1080)  # 투명한 배경
         hover "bg_table_book_hover"

@@ -28,7 +28,6 @@ image bg_office = At("bg/main_jang/ch2/office.png", custom_size)
 # 챕터2 오브젝트 이미지
 image envelop = "bg/main_jang/ch2/envelop.png"
 image envelop_hover = "bg/main_jang/ch2/envelop_hover.png"
-
 image money-1 = At("bg/main_jang/ch2/money-1.png", custom_size)
 image money-2 = At("bg/main_jang/ch2/money-2.png", custom_size)
 image money-3 = At("bg/main_jang/ch2/money-3.png", custom_size)
@@ -184,10 +183,12 @@ label jang_ch1_final_choice:
             show memory_orb with dissolve
             pause 1.0
             
-            # 화면 중앙에 텍스트 표시
-            show text "{size=60}{color=#ffd700}++챕터1 기억구슬 획득++{/color}{/size}" at truecenter with dissolve
+            # 화면 중앙에 텍스트 표시 (프레임 배경 포함)
+            show screen framed_message("++챕터1 기억구슬 획득++", text_size=60)
+            with dissolve
+
             pause 3.0
-            hide text with dissolve
+            hide screen framed_message with dissolve
             
             # 블랙아웃
             scene bg_black with fade_slow
@@ -325,9 +326,9 @@ label jang_ch2_finale:
     pause 1.0
     
     # 화면 중앙에 텍스트 표시
-    show text "{size=60}{color=#ffd700}++챕터2 기억구슬 획득++{/color}{/size}" at truecenter with dissolve
+    show screen framed_message("++챕터2 기억구슬 획득++", text_size=60)
     pause 3.0
-    hide text with dissolve
+    hide screen framed_message with dissolve
     
     hide memory_orb with dissolve
     
@@ -420,14 +421,15 @@ screen interactive_fundraising():
     if show_jang_response and current_jang_text:
         frame:
             xalign 0.5
-            ypos 900
-            xsize 1600
+            ypos 800
+            xsize 1050
             background Frame(Solid("#333333DD"), 20, 20)
-            padding (30, 25)
+            padding (40, 30)
             
             vbox:
-                text "{color=#FFFFFF}장기영{/color}" size 32 xalign 0.0
-                text current_jang_text size 30 color "#FFFFFF" line_spacing 12
+                text "장기영" size 32 color "#ff6b6b"xalign 0.0
+                text " " size 20
+                text current_jang_text size 30 color "#FFFFFF" line_spacing 13
                 
                 textbutton "▶ 계속":
                     xalign 0.5
