@@ -35,6 +35,10 @@ image bg_clock_9 = At("images/bg/main_oh/ch2/clock/9.png", custom_size)
 image bg_critique_ijh = At("images/bg/main_oh/ch2/critique/ijh.png", custom_size)
 image bg_critique_lgt = At("images/bg/main_oh/ch2/critique/lgt.png", custom_size)
 image bg_critique_ljy = At("images/bg/main_oh/ch2/critique/ljy.png", custom_size)
+image ijh_critique = "images/bg/main_oh/ch2/jokja/igh_critique.png"
+image education = "images/bg/main_oh/ch2/jokja/education.png"
+image daehan = "images/bg/main_oh/ch2/jokja/daehan.png"
+image taegeuk_box = "images/bg/main_oh/ch2/taegeuk_box.png"
 
 # -------- BGM/효과음 --------
 define audio.oh_main_bgm = "audio/bgm/oh_main_bgm.mp3"
@@ -71,15 +75,15 @@ label oh_chap1:
         "신문 발행하기":
             #동전 -> 신문 트레이드오프 애니메이션
             scene bg_tradeoff_1
-            pause 0.60
+            pause 0.90
             scene bg_tradeoff_2
-            pause 0.60
+            pause 0.90
             scene bg_tradeoff_3
-            pause 0.60
+            pause 0.90
             scene bg_tradeoff_4
-            pause 0.60
+            pause 0.90
             scene bg_tradeoff_5
-            pause 0.60
+            pause 0.90
 
     stop music fadeout 1.0
     "재정이 떨어져 더 이상 신문을 만들 수 없게 되었다."
@@ -94,7 +98,7 @@ label oh_chap1:
         for i in range(1, 9):
             name = f"bg_ink_{i}"
             renpy.show(name, at_list=[], layer="overlay")
-            renpy.pause(0.40, hard=True)
+            renpy.pause(0.70, hard=True)
         # 마지막 프레임 유지하면서 배경 교체
         renpy.scene()  # 기존 배경 제거
         renpy.show("bg_black")
@@ -147,15 +151,15 @@ label oh_chap2:
     hide screen info_tooltip
 
     scene bg_clock_12 
-    pause 0.60
+    pause 0.90
     scene bg_clock_3
-    pause 0.60
+    pause 0.90
     scene bg_clock_6
-    pause 0.60
+    pause 0.90
     scene bg_clock_9
-    pause 0.60
+    pause 0.90
     scene bg_clock_12
-    pause 0.60
+    pause 0.90
 
     m "시간이 흘러 드디어 귀국했다. 너무 그리웠어……."
 
@@ -277,7 +281,6 @@ label daehan_association_minigame:
         else:
             jump minigame_loop
 
-# 드래그 앤 드롭 게임 스크린
 screen drag_drop_game():
     modal True
     
@@ -291,129 +294,53 @@ screen drag_drop_game():
         size 40
         color "#000000"
     
-    # 게임 완료 체크 - 둘 다 True일 때만 완료
+    # ✅ 완료 체크: 둘 다 True면 자동 종료(문구 없이)
     if items_placed["ijh_critique"] and items_placed["education"]:
-        timer 1.5 action Return()
-        text "대한협회 결성!":
-            xalign 0.5 
-            yalign 0.5 
-            size 70 
-            color "#FFD700"
+        key "dismiss" action Return()
     
-    # 태극기 상자 (고정 - draggroup 밖에 배치)
-    frame:
+    # --- (A) 태극기 상자 ---
+    fixed:
         xpos 750
         ypos 500
         xysize (450, 450)
-        background "#ffffffca"
-        padding (30, 30)
-        vbox:
-            align (0.5, 0.5)
-            spacing 30
-            
-            # 태극기 표시
-            text "🇰🇷":
-                size 120
-                xalign 0.5
-            
-            text "태극기 상자":
-                size 30
-                color "#333333"
-                text_align 0.5
-                xalign 0.5
-            
-            # 둘 다 올려졌을 때만 신문 표시
-            if items_placed["ijh_critique"] and items_placed["education"]:
-                text "📰":
-                    size 150
-                    xalign 0.5
-                text "대한협회":
-                    size 35
-                    color "#FFD700"
-                    text_align 0.5
-                    xalign 0.5
-                    bold True
-            else:
-                # 진행 상황 표시
-                vbox:
-                    spacing 15
-                    xalign 0.5
-                    
-                    if items_placed["ijh_critique"]:
-                        text "✓ 일진회 비판":
-                            size 22
-                            color "#90EE90"
-                            xalign 0.5
-                    else:
-                        text "○ 일진회 비판":
-                            size 22
-                            color "#999999"
-                            xalign 0.5
-                    
-                    if items_placed["education"]:
-                        text "✓ 민족 정신에 대한 교육":
-                            size 22
-                            color "#90EE90"
-                            xalign 0.5
-                    else:
-                        text "○ 민족 정신에 대한 교육":
-                            size 22
-                            color "#999999"
-                            xalign 0.5
+        add "taegeuk_box" zoom 0.3 xalign 0.5 yalign 0.5
+
+        # ✅ 완료 시 단일 이미지 하나만 표시(daehan)
+        if items_placed["ijh_critique"] and items_placed["education"]:
+            add "daehan" zoom 0.3 xalign 0.5 yalign 0.70
     
-    # 드래그 그룹
+    # --- (B) 드래그 그룹 및 드롭 영역 ---
     draggroup:
-        # 투명한 드롭 존 (태극기 상자 위에 겹침)
+        # 투명 드롭 존(태극기 상자 히트박스)
         drag:
             drag_name "taegeuk_box"
             draggable False
             droppable True
             drag_raise False
-            xpos 750
-            ypos 500
-            child Solid("#00000000", xysize=(450, 450))
+            xpos 700
+            ypos 800
+            child Solid("#00000000", xysize=(550, 100))
         
-        # 일진회 비판 카드 - placed가 False일 때만 표시
+        # 일진회 비판 카드
         if not items_placed["ijh_critique"]:
             drag:
                 drag_name "ijh_critique"
                 droppable False
                 dragged drag_callback
                 xpos 150
-                ypos 250
-                
-                frame:
-                    xysize (350, 120)
-                    background "#8b1b13d1"
-                    padding (20, 20)
-                    vbox:
-                        align (0.5, 0.5)
-                        text "일진회 비판":
-                            size 35
-                            color "#ffffff"
-                            text_align 0.5
-                            xalign 0.5
-        
-        # 민족 정신에 대한 교육 카드 - placed가 False일 때만 표시
+                ypos 200
+                add "ijh_critique" zoom 0.08 
+
+        # 민족 정신 교육 카드
         if not items_placed["education"]:
             drag:
                 drag_name "education"
                 droppable False
                 dragged drag_callback
-                xpos 1420
-                ypos 250
-                
-                frame:
-                    xysize (350, 120)
-                    background "#1f257fca"
-                    padding (20, 20)
-                    vbox:
-                        align (0.5, 0.5)
-                        text "민족 정신에 대한 교육":
-                            size 30
-                            color "#ffffff"
-                            text_align 0.5
-                            xalign 0.5
+                xpos 1350
+                ypos 200
+                add "education" zoom 0.08
+    
 
 # 드래그 콜백 함수
 init python:
