@@ -92,7 +92,7 @@ image bg_black = "#000000"          # 블랙아웃용 이미지
 define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 
 # 효과음
-define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
+# define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
 
 # =============================================================================
 # 캐릭터 정의
@@ -180,7 +180,7 @@ label intro_mirror_jang:
     
     # 거울 클릭 시 장기영 거울 이미지 표시
     scene bg_mirror_jang with dissolve
-    play sound mirror_reveal  # 효과음 재생
+    # play sound mirror_reveal  # 효과음 재생
     
     narrator '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
     
@@ -201,7 +201,7 @@ label intro_mirror_im:
     
     # 거울 클릭 시 임규 거울 이미지 표시
     scene bg_mirror_im with dissolve
-    play sound mirror_reveal  # 효과음 재생
+    # play sound mirror_reveal  # 효과음 재생
     
     narrator '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
     
@@ -222,7 +222,7 @@ label intro_mirror_oh:
     
     # 거울 클릭 시 오세창 거울 이미지 표시
     scene bg_mirror_oh with dissolve
-    play sound mirror_reveal  # 효과음 재생
+    # play sound mirror_reveal  # 효과음 재생
     
     narrator '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
     

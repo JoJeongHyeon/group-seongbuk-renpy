@@ -8,26 +8,36 @@
 # 챕터1 배경 이미지
 image bg_room = At("bg/main_jang/ch1/room.png", custom_size)
 image bg_passport_doc = At("bg/main_jang/ch1/passport_doc.png", custom_size)
-image bg_passport_doc-hover = At("bg/main_jang/ch1/passport_doc-hover.png", custom_size)
 image bg_shanghai_harbor = At("bg/main_jang/ch1/harbor.png", custom_size)
 image bg_shanghai_gov = At("bg/main_jang/ch1/shanghai_gov.png", custom_size)
+
+# 챕터1 오브젝트 이미지
+image table_passport_doc = At("bg/main_jang/ch1/table_passport_doc.png", custom_size)
+image table_passport_doc_hover = At("bg/main_jang/ch1/table_passport_doc_hover.png", custom_size)
 
 # 챕터1 캐릭터 이미지
 image kim = Transform("ch/kim.png", zoom=0.8)
 image ahn = Transform("ch/ahn.png", zoom=0.8)
 
 # 기억구슬
-image memory_orb = "bg/memory_orb.png"
+image memory_orb-1 = "bg/memory_orb-1.png"
+image memory_orb-2 = "bg/memory_orb-2.png"
+image memory_orb-3 = "bg/memory_orb-3.png"
+image memory_orb-4 = "bg/memory_orb-4.png"
+image memory_orb-1_hover = "bg/memory_orb-1_hover.png"
+image memory_orb-2_hover = "bg/memory_orb-2_hover.png"
+image memory_orb-3_hover = "bg/memory_orb-3_hover.png"
+image memory_orb-4_hover = "bg/memory_orb-4_hover.png"
 
 # 챕터2 배경 이미지
 image bg_usa_street = At("bg/main_jang/ch2/usa_street.png", custom_size)
-image bg_usa_street-dark = At("bg/main_jang/ch2/usa_street-dark.png", custom_size)
-image bg_usa_street-letter = At("bg/main_jang/ch2/usa_street-letter.png", custom_size)
+image bg_usa_street-dark = At(Transform("bg/main_jang/ch2/usa_street.png", matrixcolor=BrightnessMatrix(-0.3)), custom_size)
 image bg_office = At("bg/main_jang/ch2/office.png", custom_size)
 
 # 챕터2 오브젝트 이미지
 image envelop = "bg/main_jang/ch2/envelop.png"
 image envelop_hover = "bg/main_jang/ch2/envelop_hover.png"
+image letter_from_lee = At("bg/main_jang/ch2/letter.png", custom_size)
 image money-1 = At("bg/main_jang/ch2/money-1.png", custom_size)
 image money-2 = At("bg/main_jang/ch2/money-2.png", custom_size)
 image money-3 = At("bg/main_jang/ch2/money-3.png", custom_size)
@@ -38,10 +48,35 @@ image bubble-3 = At("bg/main_jang/ch2/bubble-3.png", custom_size)
 # 챕터2 캐릭터 이미지
 image lee = Transform("ch/lee.png", zoom=0.8)
 
+# 챕터3 배경 이미지
+image bg_usa_phone = At("bg/main_jang/ch3/bg_phone.png", custom_size)
+
+# 챕터3 오브젝트 이미지
+image usa_newspaper = "bg/main_jang/ch3/newspaper.png"
+image usa_newspaper_hover = "bg/main_jang/ch3/newspaper_hover.png"
+image usa_newspaper_open = At("bg/main_jang/ch3/newspaper_open.png", custom_size)
+image usa_phone = At("bg/main_jang/ch3/phone.png", custom_size)
+image usa_phone_hover = At("bg/main_jang/ch3/phone_hover.png", custom_size)
+
+# 챕터4 배경 이미지
+image bg_pacific_map = At("bg/main_jang/ch4/pacific_map.png", custom_size)
+image bg_chungking_gov = At("bg/main_jang/ch4/chungking_gov.png", custom_size)
+image bg_radio_dark = At("bg/main_jang/ch4/radio_dark.png", custom_size)
+image bg_radio = At("bg/main_jang/ch4/bg_radio.png", custom_size)
+
+# 챕터4 오브젝트 이미지
+image radio = At("bg/main_jang/ch4/radio.png", custom_size)
+image radio_hover = At("bg/main_jang/ch4/radio_hover.png", custom_size)
+image walkie_talkie = "bg/main_jang/ch4/walkie_talkie.png"
+image translate_icon = "bg/main_jang/ch4/translate_icon.png"
+image secret_doc = "bg/main_jang/ch4/secret_doc.png"
+image old_map = "bg/main_jang/ch4/old_map.png"
+
 # =============================================================================
 # 오디오 정의
 # =============================================================================
 define audio.boat_horn = "audio/sfx/boat_horn.mp3"
+define audio.jang_ch4_bgm = "audio/bgm/jang_ch4.mp3"
 
 # =============================================================================
 # 캐릭터 정의 (장기영 전용)
@@ -83,14 +118,12 @@ label jang_ch1:
     pause 0.5
     scene bg_room with fade_slow
     
-    m "지금 이게 무슨 소리지? 밖에서 나는 소리는 아닌 것 같은데…일본과 싸워? 관헌의 감시는 또 무슨 말이야."
-    
-    narrator "속에서 울리는 소리에 나는 지금까지 일어난 이상한 일이 꿈이라는 것을 깨닫고 눈을 떴지만, 여전히 낯선 공간이다."
+    m "밖에서 들리는 소리는 아니고…원래 몸 주인의 마음 속 소리인가보구나."
     
     m "이 책은 뭐지? 경제학 공부하는 학생인가? 이건 여권 신청서?"
     
     # 여권 신청서 인터랙티브 화면
-    call screen interactive_passport_doc
+    call screen interactive_objects("table_passport_doc")
     
     # 여권 신청서를 클릭한 후
     jump jang_ch1_passport_choice
@@ -121,7 +154,7 @@ label jang_ch1_passport_choice:
             hide bg_passport_doc with dissolve
             scene bg_room with fade_fast
             
-            narrator "미국으로 가야 한다. 미국으로 가야 한다. 같은 소리가 머릿속에서 반복되어서 들린다."
+            m "미국으로 가야 한다. 미국으로 가야 한다. 같은 소리가 머릿속에서 반복되어서 들린다."
             
             jump jang_ch1_destination_choice
 
@@ -135,7 +168,7 @@ label jang_ch1_destination_choice:
             jump jang_ch1_destination_choice
         
         "상해로 가기":
-            narrator "중국인으로 속이고 우선 상해에 무사히 도착했다."
+            jang_thought "중국인으로 속이고 우선 상해에 무사히 도착했다."
             jump jang_ch1_scene2
 
 # =============================================================================
@@ -149,13 +182,13 @@ label jang_ch1_scene2:
     play sound boat_horn
     pause 2.0
     
-    narrator "이곳이 상해구나."
+    jang_thought "이곳이 상해구나."
     
     jang_thought "상해에 왔으니, 임시정부에 있는 위원들을 찾아가 보자. 미국으로 갈 수 있는 방법을 찾을 수 있을 거야"
     
     m "상해임시정부? 아, 나 설마 지금 일제강점기에 와 있는 거야?"
     
-    narrator "아직 꿈인가 봐. 원래 이 몸의 주인 목소리인 것 같으니 따라보자."
+    m "기억 구슬 찾아서 집에 돌아가려면 이 마음의 소리대로 해야겠어."
     
     # 상해임시정부 건물 앞으로 전환
     scene bg_shanghai_gov with dissolve
@@ -166,12 +199,12 @@ label jang_ch1_scene2:
     
     kim_ahn "상해에서 함께 활동해 주어서 고맙네. 전한군사위원회{font=SourceHanSansLite.ttf}{size=30}(全韓軍事委員會){/size}{/font}의 위원으로도 활약한 자네였기에 더욱 든든했어. 미국 땅으로 가서 하던 공부를 이어서 하고 조국의 광복을 위해 힘써주게나."
     
-    narrator "이분들은 김구 선생님과 안창호 선생님? 교과서에서 봤어! 나는 독립운동가의 몸에 들어왔나 봐!"
+    m "이분들은 김구 선생님과 안창호 선생님? 교과서에서 봤어! 나는 독립운동가의 몸에 들어왔나 봐!"
 
 label jang_ch1_final_choice:
     menu:
         "저는 여기가 좋아요.":
-            narrator "내가 지금 정확히 누구 몸에 들어왔는지는 모르겠지만 이 사람이 원하는 대로 해보자"
+            m "내가 지금 정확히 누구 몸에 들어왔는지는 모르겠지만 이 사람이 원하는 대로 해보자"
             jump jang_ch1_final_choice
         
         "가겠습니다.":
@@ -179,9 +212,20 @@ label jang_ch1_final_choice:
             hide ahn
             with dissolve
             
-            # 기억구슬 등장
-            show memory_orb with dissolve
-            pause 1.0
+            # 기억구슬 등장 및 클릭 대기
+            show memory_orb-1
+            with dissolve
+            hide memory_orb-1
+            
+            call screen interactive_objects("memory_orb-1")
+            
+            m "중력의 영향을 받지 않고 떠있는 걸 보니 이게 기억 구슬이구나!"
+            
+            # 기억구슬 클릭 후 사라짐
+            hide memory_orb-1 with dissolve
+            pause 0.5
+            
+            m "어라? 분명히 쥐었는데 바로 사라졌어. 뭐지?"
             
             # 화면 중앙에 텍스트 표시 (프레임 배경 포함)
             show screen framed_message("++챕터1 기억구슬 획득++", text_size=60)
@@ -209,15 +253,7 @@ label jang_ch2:
     
     scene bg_usa_street with fade_very_slow
     
-    narrator "이상한 구슬을 손에 쥐자, 미국 본토에 도착했다."
-    
-    # 화면 전환
-    scene bg_black with fade_fast
-    pause 0.5
-    scene bg_usa_street with fade_slow
-    
     jang_thought "호놀룰루의 교회에서 뵈었던 이박사님께서는 언제 본토에 들어오시는 것인가?"
-    
     jang_thought "1, 2년 뒤면 올 것이라 하셨는데 벌써 5년이나 지났다."
     
     jang_thought "어서 연락이 닿아서 내가 이 땅에서 할 수 있는 일을 하고 싶어."
@@ -231,10 +267,11 @@ label jang_ch2:
     m "어라? 이 편지봉투는 뭐지?"
     
     # 전보 인터랙티브 화면
-    call screen interactive_envelope
+    call screen interactive_objects("envelop")
     
     # 전보를 클릭한 후 - 편지 내용 표시
-    scene bg_usa_street-letter with dissolve
+    scene bg_usa_street-dark with dissolve
+    show letter_from_lee with dissolve
     pause 2.0
     
     m "상의할 것이 있으니, 워싱턴에 있는 구미위원부로 와달라고? 누가 보낸 거야? 이승만이라면!"
@@ -245,8 +282,6 @@ label jang_ch2:
     scene bg_black with fade_slow
     pause 1.0
     
-    narrator "나는 조국의 독립을 위하여 곧장 달려갔다."
-    
     jump jang_ch2_scene2
 
 # =============================================================================
@@ -254,8 +289,6 @@ label jang_ch2:
 # =============================================================================
 label jang_ch2_scene2:
     # 블랙아웃에서 시작
-    scene bg_black
-    pause 1.0
     
     jang_thought "나는 조국의 독립을 위하여 곧장 달려갔다."
     
@@ -282,13 +315,13 @@ label jang_ch2_gumi_choice:
             
             hide lee with dissolve
             
-            narrator "독립운동을 하기 위한 돈을 모으고, 해외에 거주하고 있는 우리나라 사람에게 독립의 중요성을 알린다는 뜻이구나!"
+            m "독립운동을 하기 위한 돈을 모으고, 해외에 거주하고 있는 우리나라 사람에게 독립의 중요성을 알린다는 뜻이구나!"
             
-            narrator "열심히 해보자!"
+            m "열심히 해보자!"
             
             # 블랙아웃
             scene bg_black with fade_slow
-            pause 2.0
+            pause 1.0
             
             # Scene3로 이어짐
             jump jang_ch2_scene3
@@ -297,20 +330,14 @@ label jang_ch2_gumi_choice:
 # Scene 3: 1930년대 미국 길거리 - 독립자금 모금 활동
 # =============================================================================
 label jang_ch2_scene3:
-    # 블랙아웃에서 시작
-    scene bg_black
-    pause 1.0
     
     # 1930년대 미국 길거리 배경
     scene bg_usa_street with fade_slow
     pause 1.0
     
-    narrator "거리에서 독립자금 모금 활동을 시작했다."
-    
-    narrator "하지만 많은 사람들이 의구심과 회의적인 반응을 보였다."
-    
     # 인터랙티브 스크린 호출
-    call screen interactive_fundraising
+    scene bg_usa_street-dark with dissolve
+    call screen interactive_fundraising 
     
     # 모든 말풍선을 클릭한 후
     jump jang_ch2_finale
@@ -322,25 +349,247 @@ label jang_ch2_finale:
 
     # 기억구슬 등장
     scene bg_usa_street with dissolve
-    show memory_orb with dissolve
-    pause 1.0
+    
+    show memory_orb-2
+    with dissolve
+    hide memory_orb-2
+
+    # 클릭 후 사라짐
+    call screen interactive_objects("memory_orb-2")
+    hide memory_orb-2
+    pause 0.5
     
     # 화면 중앙에 텍스트 표시
     show screen framed_message("++챕터2 기억구슬 획득++", text_size=60)
-    pause 3.0
+    pause 2.0
     hide screen framed_message with dissolve
     
-    hide memory_orb with dissolve
+    hide memory_orb-2 with dissolve
     
     # 블랙아웃
     scene bg_black with fade_slow
     pause 2.0
     
-    # 챕터3로 이어짐 (나중에 구현)
-    jump jang_ch3_placeholder
+    # 챕터3로 이어짐
+    jump jang_ch3
 
-label jang_ch3_placeholder:
-    narrator "챕터2가 완료되었습니다. 챕터3은 준비 중입니다."
+# =============================================================================
+# 챕터3: 미국-일본 전쟁 확대로 한미 공동 전투 활동 필요성 통감한 후 미군에 자원입대
+# =============================================================================
+label jang_ch3:
+    # Scene 1: 1930년대 미국 길거리
+    
+    # 블랙아웃에서 시작
+    scene bg_black
+    pause 1.0
+    
+    # 1930년대 미국 길거리 배경
+    scene bg_usa_street with fade_slow
+    
+    m "구미위원부의 재정난으로 인디애나 대학으로 돌아가 다시 공부를 계속했다."
+    
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 1.0
+    
+    # 신문이 아래에서 위로 올라오는 애니메이션
+    show usa_newspaper:
+        xalign 0.5
+        yalign 1.75
+        easein 1.25 yalign 0.5
+    pause 2.0
+    hide usa_newspaper
+    
+    # 신문 클릭 대기
+    call screen interactive_objects("usa_newspaper")
+    
+    # 신문을 클릭한 후
+    jump jang_ch3_after_newspaper
+
+label jang_ch3_after_newspaper:
+    # 신문 펼친 화면
+    scene bg_black
+    show usa_newspaper_open with dissolve
+    pause 1.0
+    
+    # 신문 속 텍스트 표시
+    show screen framed_message("1941년 12월 8일\n일본이 진주만을 기습", text_size=50)
+    pause 2.0
+    hide screen framed_message with dissolve
+    
+    jang_thought "일본이 드디어 잠자는 사자 미국을 깨워놓고 말았구나."
+    jang_thought "드디어 우리나라가 독립할 때가 왔구나. 이제야 기회가 왔구나."
+    jang_thought "워싱턴에 있는 이박사에게 당장 전화를 걸어야겠다."
+    
+    m "전화라고요? 전화를 걸어보자."
+    
+    # 전화기 배경으로 전환
+    scene bg_usa_phone with dissolve
+    
+    # 전화기 클릭 대기
+    call screen interactive_objects("usa_phone")
+    
+    # 전화기를 클릭한 후
+    jump jang_ch3_phone_menu
+
+label jang_ch3_phone_menu:
+    
+    menu:
+        "이박사님 저희 이제 어떡하면 좋은가요?":
+            show text "{size=200}...{/size}" at truecenter with dissolve
+            pause 2.0
+            hide text with dissolve
+            
+            m "음? 아직 연결이 안 되었구나."
+            
+            jump jang_ch3_phone_menu
+        
+        "조국의 해방이 눈앞에 보이는 듯합니다. 그대로 있을 수 없어 그곳으로 바로 떠나겠습니다.":
+            lee "아주 기쁘오. 곧 오기 바랍니다."
+            
+            jump jang_ch3_finale
+
+label jang_ch3_finale:
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 1.5
+    
+    jang_thought "이박사와 상의 끝에 미군에 지원입대키로 결심했다. 미국은 35세 미만의 젊은 남성만을 뽑았기 때문에 40세인 나는 35세라고 속이고 지원병으로 들어갔다."
+    
+    m "네? 나이까지 속여서요? 이분 대체 뭐지?"
+    
+    jang_thought "이 기회를 놓치면 한국인으로서 독립운동에 참가할 기회가 없어지고 만다."
+    
+    m "잠깐! 그러면 나 이분의 몸으로 지금 미군에 입대하는 거야?"
+    
+    # 기억구슬 등장
+    scene bg_black with dissolve
+    show memory_orb-3 
+    with dissolve
+    hide memory_orb-3
+
+    # 클릭 후 사라짐
+    call screen interactive_objects("memory_orb-3")
+    hide memory_orb-3
+    pause 0.5
+    
+    # 화면 중앙에 텍스트 표시
+    show screen framed_message("++챕터3 기억구슬 획득++", text_size=60)
+    pause 2.0
+    hide screen framed_message with dissolve
+    
+    hide memory_orb-3 with dissolve
+    
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 2.0
+    
+    # 챕터4로 이어짐
+    jump jang_ch4
+
+# =============================================================================
+# 챕터4: 미군으로 제 2차 세계 대전 참전 및 충칭 임시정부 연락원 활동
+# =============================================================================
+label jang_ch4:
+    
+    # Scene 1: 태평양 전쟁 및 충칭 임시정부 연락원
+    # 태평양 지도 배경
+    scene bg_pacific_map with fade_slow
+    
+    jang_thought "나는 미국 전략사무국인 OSS에 추천되어 정보, 통신 등의 특수교육을 받을 수 있었다."
+    jang_thought "비밀리에 유격훈련을 받은 후 남태평양 지구에 투입되었고, 나는 조국의 광복을 위하여 위험한 일을 도맡아 했다."
+    jang_thought "조국을 위하여 나의 목숨을 걸고 적군이 있는 근처의 지리와 군세에 관한 정보를 수집, 제공하는 일을 했다."
+    jang_thought "나는 현재 육군 항공대 중령으로서 제2차 세계 대전에 참전하는 중이다."
+    
+    # 화면 전환 (디졸브) - 충칭 임시정부 청사
+    scene bg_chungking_gov with dissolve
+    pause 1.0
+    
+    jang_thought "충칭에 있는 임시정부의 연락원으로 활동하며 임시정부와의 협력을 다시 이어갔다."
+    
+    m "어? 전에는 상해에 있었다며 이제는 충칭인가?"
+    m "연락원은 무슨 일을 하는 거지?"
+
+    window hide
+    
+    # 오브젝트들 등장
+    show walkie_talkie with dissolve:
+        xalign 0.125 yalign 0.02 zoom 0.25
+    show translate_icon with dissolve:
+        xalign 0.125 yalign 0.35 zoom 0.2
+    show secret_doc with dissolve:
+        xalign 0.112 yalign 0.60 zoom 0.2
+    show old_map with dissolve:
+        xalign 0.1 yalign 0.95 zoom 0.25
+    pause 1.0
+
+    narrator "오브젝트들을 이동시키자."
+    window hide
+    pause 1.0
+    
+    hide walkie_talkie with dissolve
+    hide translate_icon with dissolve
+    hide secret_doc with dissolve
+    hide old_map with dissolve
+    pause 1.0
+    
+    jump jang_ch4_radio
+
+label jang_ch4_radio:
+    
+    # 라디오가 있는 어두운 배경으로 전환
+    scene bg_radio_dark with dissolve
+    
+    # 라디오 클릭 대기
+    call screen interactive_objects("radio")
+    
+    # 라디오 클릭 후
+    jump jang_ch4_liberation
+
+label jang_ch4_liberation:
+    # 라디오 뉴스 텍스트 표시
+    show screen framed_message("일본이 러시아를 중간에 내세워 항복을 교섭…", text_size=50)
+    pause 2.0
+    hide screen framed_message with dissolve
+    
+    # 배경음 전환
+    play music jang_ch4_bgm fadeout 2.0 fadein 2.0
+    
+    m "지금이 대체 몇 년도 몇 월 며칠이지?"
+    m "항복이라면 우리나라가 곧 독립된다는 것인가?"
+    m "일제에 저항한 독립투사분들이 있고, 독립 의지를 세계에 얼마나 힘들게 끊임없이 알렸는데! 제발 해방이요!"
+    
+    jang_thought "갑작스럽기는 하지만 조국의 광복을 위해 희생한 동지들과 세계를 향해 알린 우리의 독립 정신을 온 힘을 다해 알렸기에 분명히 독립할 수 있을 것이다."
+    jang_thought "틀림없이 머지않아 우리나라가 독립되는구나."
+    
+    # 기억구슬 등장
+    show memory_orb-4
+    with dissolve
+    hide memory_orb-4
+    
+    call screen interactive_objects("memory_orb-4")
+    
+    m "이게 마지막 구슬인가?"
+    m "광복과 동시에 나는 현실 세계로 복귀하는구나."
+    
+    # 기억구슬 클릭 후 사라짐
+    hide memory_orb-4 with dissolve
+    pause 0.5
+    
+    # 화면 중앙에 텍스트 표시
+    show screen framed_message("++챕터4 기억구슬 획득++", text_size=50)
+    pause 2.0
+    hide screen framed_message with dissolve
+    
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 2.0
+    
+    # 엔딩으로 이어짐 (나중에 구현)
+    jump jang_ending_placeholder
+
+label jang_ending_placeholder:
+    narrator "장기영 루트가 완료되었습니다."
     return
 
 # =============================================================================
@@ -359,8 +608,6 @@ init python:
     current_jang_text = ""
 
 screen interactive_fundraising():
-    
-    add "bg_usa_street" at custom_size
     
     # 화폐 이미지들
     if not clicked_money1:
@@ -458,27 +705,17 @@ screen interactive_fundraising():
                 text_hover_color "#FFFF00"
                 action Return("all_bubbles_clicked")
 
-screen interactive_passport_doc():
+screen interactive_objects(idle_image, hover_image=None, use_alpha=False):
     
-    # 클릭 가능한 여권 신청서 영역
-    imagemap:
-        ground "bg_room"
-        hover "bg_passport_doc-hover"  # hover 이미지
-        alpha True
-        at custom_size
-
-        hotspot (0, 0, 1920, 1080):  # 전체 화면 클릭 가능
-            action Return("passport_clicked")
-
-screen interactive_envelope():
-    
-    # 기본 배경
-    add "bg_usa_street" at custom_size
-    
-    # 클릭 가능한 전보 봉투 영역
+    # 클릭 가능한 오브젝트 영역
     imagebutton:
-        idle "envelop"
-        hover "envelop_hover"
+        idle idle_image
+        if hover_image:
+            hover hover_image
+        elif use_alpha:
+            hover Transform(idle_image, alpha=0.8)
+        else:
+            hover idle_image + "_hover"
         focus_mask True
         at truecenter
-        action Return("envelope_clicked")
+        action Return("clicked")
