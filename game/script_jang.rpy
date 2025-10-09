@@ -123,7 +123,9 @@ label jang_ch1:
     m "이 책은 뭐지? 경제학 공부하는 학생인가? 이건 여권 신청서?"
     
     # 여권 신청서 인터랙티브 화면
+    show screen mission_guide("책상 위의 여권 신청서를 눌러보세요", icon="📄")
     call screen interactive_objects("table_passport_doc")
+    hide screen mission_guide
     
     # 여권 신청서를 클릭한 후
     jump jang_ch1_passport_choice
@@ -183,11 +185,9 @@ label jang_ch1_scene2:
     pause 2.0
     
     jang_thought "이곳이 상해구나."
-    
     jang_thought "상해에 왔으니, 임시정부에 있는 위원들을 찾아가 보자. 미국으로 갈 수 있는 방법을 찾을 수 있을 거야"
     
     m "상해임시정부? 아, 나 설마 지금 일제강점기에 와 있는 거야?"
-    
     m "기억 구슬 찾아서 집에 돌아가려면 이 마음의 소리대로 해야겠어."
     
     # 상해임시정부 건물 앞으로 전환
@@ -217,7 +217,9 @@ label jang_ch1_final_choice:
             with dissolve
             hide memory_orb-1
             
+            show screen mission_guide("기억구슬을 눌러보세요", icon="🔮")
             call screen interactive_objects("memory_orb-1")
+            hide screen mission_guide
             
             m "중력의 영향을 받지 않고 떠있는 걸 보니 이게 기억 구슬이구나!"
             
@@ -228,7 +230,7 @@ label jang_ch1_final_choice:
             m "어라? 분명히 쥐었는데 바로 사라졌어. 뭐지?"
             
             # 화면 중앙에 텍스트 표시 (프레임 배경 포함)
-            show screen framed_message("++챕터1 기억구슬 획득++", text_size=60)
+            show screen framed_message("챕터1 | 기억구슬 획득", text_size=60)
             with dissolve
 
             pause 3.0
@@ -255,19 +257,19 @@ label jang_ch2:
     
     jang_thought "호놀룰루의 교회에서 뵈었던 이박사님께서는 언제 본토에 들어오시는 것인가?"
     jang_thought "1, 2년 뒤면 올 것이라 하셨는데 벌써 5년이나 지났다."
-    
     jang_thought "어서 연락이 닿아서 내가 이 땅에서 할 수 있는 일을 하고 싶어."
     
     m "뭐? 5년? 미국 본토로 바로 올 수 있었던 것이 아니구나. 이분은 어떤 독립운동을 하셨던 걸까?"
     
     jang_thought "나는 지금 내가 당장 할 수 있는 일에 집중해야겠어."
-    
     jang_thought "인디애나 대학에서의 국제법 공부는 일본과 맞서 싸우는 것에 도움이 될 것이야."
     
     m "어라? 이 편지봉투는 뭐지?"
     
     # 전보 인터랙티브 화면
+    show screen mission_guide("편지봉투를 눌러보세요", icon="✉️")
     call screen interactive_objects("envelop")
+    hide screen mission_guide
     
     # 전보를 클릭한 후 - 편지 내용 표시
     scene bg_usa_street-dark with dissolve
@@ -275,7 +277,6 @@ label jang_ch2:
     pause 2.0
     
     m "상의할 것이 있으니, 워싱턴에 있는 구미위원부로 와달라고? 누가 보낸 거야? 이승만이라면!"
-    
     m "아까 그 이박사가 이승만 선생님이었구나!"
     
     # 블랙아웃
@@ -299,9 +300,7 @@ label jang_ch2_scene2:
     show lee with dissolve
     
     lee "기다리던 중 빨리 와주어 고맙소."
-    
     lee "국제연맹에 가 항의할 것이 있어 그런데…"
-    
     lee "석정이 구미위원부 위원이 되어 이곳 사무실을 지켜줄 수 있겠는가?"
 
 label jang_ch2_gumi_choice:
@@ -337,7 +336,9 @@ label jang_ch2_scene3:
     
     # 인터랙티브 스크린 호출
     scene bg_usa_street-dark with dissolve
-    call screen interactive_fundraising 
+    show screen mission_guide("교민들의 말풍선을 모두 눌러보세요", icon="💰")
+    call screen interactive_fundraising
+    hide screen mission_guide 
     
     # 모든 말풍선을 클릭한 후
     jump jang_ch2_finale
@@ -355,12 +356,14 @@ label jang_ch2_finale:
     hide memory_orb-2
 
     # 클릭 후 사라짐
+    show screen mission_guide("기억구슬을 눌러보세요", icon="🔮")
     call screen interactive_objects("memory_orb-2")
+    hide screen mission_guide
     hide memory_orb-2
     pause 0.5
     
     # 화면 중앙에 텍스트 표시
-    show screen framed_message("++챕터2 기억구슬 획득++", text_size=60)
+    show screen framed_message("챕터2 | 기억구슬 획득", text_size=60)
     pause 2.0
     hide screen framed_message with dissolve
     
@@ -401,7 +404,9 @@ label jang_ch3:
     hide usa_newspaper
     
     # 신문 클릭 대기
+    show screen mission_guide("신문을 눌러보세요", icon="📰")
     call screen interactive_objects("usa_newspaper")
+    hide screen mission_guide
     
     # 신문을 클릭한 후
     jump jang_ch3_after_newspaper
@@ -427,7 +432,9 @@ label jang_ch3_after_newspaper:
     scene bg_usa_phone with dissolve
     
     # 전화기 클릭 대기
+    show screen mission_guide("전화기를 눌러보세요", icon="📞")
     call screen interactive_objects("usa_phone")
+    hide screen mission_guide
     
     # 전화기를 클릭한 후
     jump jang_ch3_phone_menu
@@ -469,12 +476,14 @@ label jang_ch3_finale:
     hide memory_orb-3
 
     # 클릭 후 사라짐
+    show screen mission_guide("기억구슬을 눌러보세요", icon="🔮")
     call screen interactive_objects("memory_orb-3")
+    hide screen mission_guide
     hide memory_orb-3
     pause 0.5
     
     # 화면 중앙에 텍스트 표시
-    show screen framed_message("++챕터3 기억구슬 획득++", text_size=60)
+    show screen framed_message("챕터3 | 기억구슬 획득", text_size=60)
     pause 2.0
     hide screen framed_message with dissolve
     
@@ -523,15 +532,19 @@ label jang_ch4:
         xalign 0.1 yalign 0.95 zoom 0.25
     pause 1.0
 
-    narrator "오브젝트들을 이동시키자."
+    narrator "오브젝트들을 이동시켜보자."
     window hide
     pause 1.0
+
+    show screen mission_guide("오브젝트들을 이동시켜보세요", icon="🔍")
     
     hide walkie_talkie with dissolve
     hide translate_icon with dissolve
     hide secret_doc with dissolve
     hide old_map with dissolve
     pause 1.0
+
+    hide screen mission_guide
     
     jump jang_ch4_radio
 
@@ -541,7 +554,9 @@ label jang_ch4_radio:
     scene bg_radio_dark with dissolve
     
     # 라디오 클릭 대기
+    show screen mission_guide("라디오를 눌러보세요", icon="📻")
     call screen interactive_objects("radio")
+    hide screen mission_guide
     
     # 라디오 클릭 후
     jump jang_ch4_liberation
@@ -567,7 +582,9 @@ label jang_ch4_liberation:
     with dissolve
     hide memory_orb-4
     
+    show screen mission_guide("기억구슬을 눌러보세요", icon="🔮")
     call screen interactive_objects("memory_orb-4")
+    hide screen mission_guide
     
     m "이게 마지막 구슬인가?"
     m "광복과 동시에 나는 현실 세계로 복귀하는구나."
@@ -577,7 +594,7 @@ label jang_ch4_liberation:
     pause 0.5
     
     # 화면 중앙에 텍스트 표시
-    show screen framed_message("++챕터4 기억구슬 획득++", text_size=50)
+    show screen framed_message("챕터4 | 기억구슬 획득", text_size=50)
     pause 2.0
     hide screen framed_message with dissolve
     
@@ -704,6 +721,49 @@ screen interactive_fundraising():
                 text_color "#FFFFFF"
                 text_hover_color "#FFFF00"
                 action Return("all_bubbles_clicked")
+
+# =============================================================================
+# 임무창 스크린 (좌측 상단)
+# =============================================================================
+screen mission_guide(mission_text, icon="📍"):
+    zorder 100
+    
+    frame:
+        xalign 0.04
+        yalign 0.04
+        xmaximum 450
+        background Frame(Solid("#2C3E50DD"), 15, 15)
+        padding (20, 20)
+        
+        vbox:
+            spacing 10
+            
+            # 제목 바
+            hbox:
+                spacing 10
+                text icon:
+                    size 30
+                    color "#FFD700"
+                text "미션":
+                    size 28
+                    color "#FFD700"
+                    bold True
+            
+            # 구분선
+            null height 5
+            frame:
+                xsize 410
+                ysize 2
+                background "#FFD70080"
+                padding (0, 0)
+            null height 5
+            
+            # 임무 내용
+            text mission_text:
+                size 22
+                color "#FFFFFF"
+                line_spacing 8
+                text_align 0.0
 
 screen interactive_objects(idle_image, hover_image=None, use_alpha=False):
     
