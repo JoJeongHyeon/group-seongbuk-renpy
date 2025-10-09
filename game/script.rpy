@@ -106,7 +106,7 @@ label start:
     
     scene bg_table with fade_slow
     
-    narrator '테이블 위에 네 가지 물건이 보인다.\n책상을 살펴보자.'
+    narrator '테이블 위에 세 가지 물건이 보인다.\n책상을 살펴보자.'
     
     # 인터랙티브 테이블 사용
     show screen mission_guide("테이블에 있는 물건 하나를 눌러보세요", icon="🔍")
