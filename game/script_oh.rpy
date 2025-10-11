@@ -45,6 +45,9 @@ define audio.oh_main_bgm = "audio/bgm/oh_main_bgm.mp3"
 define audio.oh_ch1 = "audio/bgm/oh_ch1.mp3"
 define audio.oh_ch2 = "audio/bgm/oh_ch2.mp3"
 
+# 캐릭터 설정
+define wife = Character("부인", color="#6bffba")
+
 # =========================================
 # 라벨: 오세창 루트 
 # =========================================
@@ -58,19 +61,16 @@ label oh_chap1:
     play music oh_main_bgm fadein 1.0 loop
     
     scene bg_appointment with fade_slow
+    m "오케이! 빨리 기억 구슬을 찾고 돌아가야겠어!"
     m "뭐야. 내가 조선시대의 관복을 입고 있잖아?"
-    m "관직 임명장? 내가 박문국의 주사라고?"
+    m "관직 임명장? 내가 신문, 잡지 등을 만드는 조선시대 국가 기관인 박문국의 팀장이라고?"
+    wife "당신, 출근 안 해요? 얼른 다녀와요."
+    m "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
     
-    # 박문국: 1883년(고종 20) 인쇄·출판 사무를 관장하기 위해 설치된 관서
-    "내가 대신해서 관직 업무를 봐야 한다. 일단 출근하자."
-    
+    "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 발행하는 것이 내 업무라고 한다."
+    m "오, 그럼 신문을 만들어 볼까?"
     scene bg_bakmunguk with fade_fast
-    show screen info_tooltip("박문국: 1883년(고종 20) 인쇄·출판 사무를 관장하기 위해 설치된 관서")
-    "박문국에 출근했다. <한성주보>를 발행하는 것이 내 업무다."
-    m "오, 신문을 만들어 볼까?"
-    hide screen info_tooltip
-    
-    # 신문 발행 시퀀스 (선택지 하나만 있으므로 menu 제거)
+    # 신문 발행 시퀀스 
     menu:
         "신문 발행하기":
             #동전 -> 신문 트레이드오프 애니메이션
@@ -86,29 +86,55 @@ label oh_chap1:
             pause 0.90
 
     stop music fadeout 1.0
-    "재정이 떨어져 더 이상 신문을 만들 수 없게 되었다."
+    "박문국의 돈이 다 떨어져 더 이상 신문을 만들 수 없게 되었다."
     
     scene bg_bakmunguk_shutdown with fade_fast
     play music oh_ch1 fadein 1.0
     
-    "후에 나는 여러 곳에서 관직 생활을 했지만, 곧 역모에 휘말리게 되었다."
+    "후에 나는 몸의 주인을 대신해서 여러 곳에서 관직 생활을 했지만, 곧 역모에 휘말리게 되었다..."
+
+    # ----- 잉크 번짐 전환 (bg_bakmunguk_shutdown 위) -----
+    scene bg_bakmunguk_shutdown with fade_fast
+
+    python:
+    # (이미 bg_bakmunguk_shutdown이 아래에서 보이는 상태)
+        ink_frames = [
+            ("bg_ink_1", 0.80),
+            ("bg_ink_2", 0.70),
+            ("bg_ink_3", 0.60),
+            ("bg_ink_4", 0.50),
+            ("bg_ink_5", 0.40),
+            ("bg_ink_6", 0.35),
+            ("bg_ink_7", 0.30),
+            ("bg_ink_8", 0.25),
+        ]
+    
+    # 순차적으로 먹물 이미지 겹치기
+        for name, delay in ink_frames:
+            renpy.show(name, at_list=[], layer="overlay")  # bg_bakmunguk_shutdown 위에 겹치게 표시
+            renpy.pause(delay, hard=True)
+    
+
     
     # 먹물 애니메이션 (overlay 레이어 사용)
-    python:
-        for i in range(1, 9):
-            name = f"bg_ink_{i}"
-            renpy.show(name, at_list=[], layer="overlay")
-            renpy.pause(0.70, hard=True)
+    #python:
+        #for i in range(1, 9):
+            #name = f"bg_ink_{i}"
+            #renpy.show(name, at_list=[], layer="overlay")
+            #renpy.pause(0.70, hard=True)
         # 마지막 프레임 유지하면서 배경 교체
-        renpy.scene()  # 기존 배경 제거
-        renpy.show("bg_black")
-        renpy.pause(0.4, hard=True)
+        #renpy.scene()  # 기존 배경 제거
+        #renpy.show("bg_black")
+        #renpy.pause(0.4, hard=True)
         # overlay 레이어 정리
-        for i in range(1, 9):
-            renpy.hide(f"bg_ink_{i}", layer="overlay")
-        
+        #for i in range(1, 9):
+            #renpy.hide(f"bg_ink_{i}", layer="overlay")
+
     
-    m "어떡하지? 이러다가는 목숨을 잃고 말 거야."
+
+        
+    scene bg_black
+    m "어떡하지? 이러다가는 목숨을 잃고 말 거야….어디로든 도망가야 해!"
     
     # 망명 선택
     call exile_menu_loop
@@ -116,7 +142,8 @@ label oh_chap1:
     # 망명 후 항구 장면
     scene bg_harbor with fade_fast
     m "어쩔 수 없다. 일본으로 망명해야겠다."
-    "항구에서 구슬을 주웠다. 아마 기억이 담긴 구슬인 것 같다."
+    m "어? 저 빛나는 건 뭔지? 눌러봐야겠다."
+    m "기억 구슬이 맞나 보구나!"
     
     stop music fadeout 1.0
     # Ch1 종료, Ch2로 이어짐
@@ -146,19 +173,29 @@ label oh_chap2:
     "일본으로 망명해서 다카지마 류조로 살던 도중, 천도교 교주인 손병희를 만났다."
     
     scene bg_talk with fade_fast
-    show screen info_tooltip("천도교: 1860년 조선 말기에 최제우라는 사람이 창시한 민족 종교로, 사람 마음속의 하늘(한울님)과 연결되어 서로를 존중하며 세상을 더 좋게 만들자는 가르침을 전하는 종교. 많은 천도교 사람들이 독립을 위해 앞장서 싸웠음.")
-    m "대화해 보니 말이 너무 잘 통하는 것 같아. 천도교에 입문해야겠어."
-    hide screen info_tooltip
+    
 
     scene bg_clock_12 
-    pause 0.90
+    pause 0.60
     scene bg_clock_3
-    pause 0.90
+    pause 0.50
     scene bg_clock_6
-    pause 0.90
+    pause 0.40
     scene bg_clock_9
-    pause 0.90
+    pause 0.35
     scene bg_clock_12
+    pause 0.30
+    scene bg_clock_3
+    pause 0.20
+    scene bg_clock_6
+    pause 0.15
+    scene bg_clock_9
+    pause 0.10
+    scene bg_clock_12
+    pause 0.10
+    scene bg_clock_3
+    pause 0.05
+    scene bg_clock_6
     pause 0.90
 
     m "시간이 흘러 드디어 귀국했다. 너무 그리웠어……."
@@ -186,6 +223,7 @@ label oh_chap2:
     m "역사 시간에서 배우던 독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다."
     m "근데 하다 보니 일진회의 문제점이 너무 많잖아? 일진회를 막을 더 확실한 방법이 없을까?"
     m "하는 김에 민족 정신에 대한 교육도 더 집중적으로 할 수 있는 협회가 있었으면 좋겠어."
+    "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
 
     # 드래그 앤 드롭 미니게임
     call daehan_association_minigame
