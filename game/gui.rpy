@@ -130,6 +130,7 @@ define gui.namebox_tile = False
 
 ## 텍스트박스에서 대사의 위치입니다. These can be a whole number of pixels
 ## relative to the left or top side of the textbox, or 0.5 to center.
+
 # define gui.dialogue_xpos = 402
 # define gui.dialogue_ypos = 75
 define gui.dialogue_xpos = 425
@@ -144,6 +145,19 @@ define gui.dialogue_width = 1000
 ## 대사 글자의 수평 정렬입니다. 이것은 0.0으로 좌측 정렬, 0.5로 중앙, 그리고
 ## 1.0으로 우측 정렬이 될 수 있습니다.
 define gui.dialogue_text_xalign = 0.0
+
+
+## 클릭 유도 인디케이터 (CTC) ######################################################
+##
+## 대사가 모두 표시되었을 때 나타나는 클릭 유도 표시입니다.
+
+## 텍스트박스 내에서 ctc 인디케이터의 위치입니다.
+# define gui.ctc_position_x = 1.0  # 우측 정렬
+# define gui.ctc_position_y = 1.0  # 하단 정렬
+define gui.ctc_position_x = 0.78  # 중앙 정렬
+define gui.ctc_position_y = 0.8  # 중앙 정렬
+define gui.ctc_offset_x = -20    # 우측에서 왼쪽으로 20px 오프셋
+define gui.ctc_offset_y = -20    # 하단에서 위로 20px 오프셋
 
 
 ## 버튼들 #########################################################################
@@ -279,6 +293,8 @@ define gui.slot_spacing = 15
 ## 메인 메뉴 글자의 위치입니다.
 define gui.main_menu_text_xalign = 1.0
 
+# 행 간격 설정
+define gui.dialogue_line_spacing = 14
 
 ## 프레임들 ########################################################################
 ##

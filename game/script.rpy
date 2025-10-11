@@ -8,75 +8,37 @@ define fade_very_slow = Fade(0.7, 1.5, 2.0)
 define fade_slow = Fade(0.5, 1.0, 0.5)
 define fade_fast = Fade(0.2, 0.4, 0.2)
 
-# 위치/스케일
+# 이미지를 1920x1080 크기에 맞추는 설정
 transform custom_size:
     size (1920, 1080)
     # fit "cover" 이런 애도 있다고 함. 자세한 건 문서 ㄱ
-
-# 스크린
-# 거울 호버 기능
-# 다른 오브젝트에도 호버 기능이 지원되도록 범용적이게 만들어보자.
-screen interactive_mirror(character_portrait):
-
-    # imagemap을 사용합니다.
-    imagemap:
-        ground "bg_mirror"
-        hover "bg_mirror_hover"
-        alpha True
-        at custom_size
-
-        hotspot (0, 0, 1920, 1080):
-            action Return("mirror_hovered")
-
-screen interactive_table():
-    # 기본 테이블 이미지
-    add "bg_table" at custom_size
-    
-    # 신문 영역 (중간 하단)
-    imagemap:
-        ground Null(1920, 1080)  # 투명한 배경
-        hover "bg_table_news_hover"
-        alpha True
-        at custom_size
-        hotspot (0, 0, 1920, 1080):
-            action Return("news_selected")
-            
-    # 책 영역 (우측 상단)
-    imagemap:
-        ground Null(1920, 1080)  # 투명한 배경
-        hover "bg_table_book_hover"
-        alpha True
-        at custom_size
-        hotspot (0, 0, 1920, 1080):
-            action Return("book_selected")
-    
-    # 총 영역 (좌측 상단)
-    imagemap:
-        ground Null(1920, 1080)  # 투명한 배경
-        hover "bg_table_gun_hover"
-        alpha True
-        at custom_size
-        hotspot (0, 0, 1920, 1080):
-            action Return("gun_selected")
 
 # =============================================================================
 # 이미지 정의
 # =============================================================================
 # 배경 
 image bg_desk    = At("bg/intro/desk.png", custom_size)
-image bg_ceiling        = At("bg/intro/ceiling.png", custom_size)
+image bg_ceiling = At("bg/intro/ceiling.png", custom_size)
 
-image bg_mirror         = At("bg/intro/mirror.png", custom_size)             
-image bg_mirror_hover   = At("bg/intro/mirror_hover.png", custom_size)  # 거울 호버 이미지
+# 테이블
+image bg_table = At("bg/intro/table_empty.png", custom_size) 
+
+# 거울
+image bg_mirror         = At("bg/intro/bg_mirror.png", custom_size)             
 image bg_mirror_jang    = At("bg/intro/mirror_jang.png", custom_size)   # 장기영 거울 이미지
 image bg_mirror_im      = At("bg/intro/mirror_im.png", custom_size)     # 임규 거울 이미지
 image bg_mirror_oh      = At("bg/intro/mirror_oh.png", custom_size)     # 오세창 거울 이미지
 
-image bg_table             = At("bg/intro/table.png", custom_size) 
-image bg_table_book_hover  = At("bg/intro/table_book_hover.png", custom_size)
-image bg_table_gun_hover   = At("bg/intro/table_gun_hover.png", custom_size)
-image bg_table_news_hover  = At("bg/intro/table_news_hover.png", custom_size)
-image bg_table_bandage_hover  = At("bg/intro/table_bandage_hover.png", custom_size)
+# 오브젝트
+image gun = At("bg/intro/table_gun.png", custom_size)
+image gun_hover = At("bg/intro/table_gun_hover.png", custom_size)
+image book = At("bg/intro/table_book.png", custom_size)
+image book_hover = At("bg/intro/table_book_hover.png", custom_size)
+image news = At("bg/intro/table_news.png", custom_size)
+image news_hover = At("bg/intro/table_news_hover.png", custom_size)
+image mirror = At("bg/intro/mirror.png", custom_size)
+image mirror_hover = At("bg/intro/mirror_hover.png", custom_size)
+
 # 캐릭터 
 image jang_portrait = "ch/jang.png"    # 장기영 초상화
 image im_portrait = "ch/im.png"        # 임규 초상화
@@ -92,7 +54,7 @@ image bg_black = "#000000"          # 블랙아웃용 이미지
 define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 
 # 효과음
-define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
+# define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
 
 # =============================================================================
 # 캐릭터 정의
@@ -144,15 +106,20 @@ label start:
     
     scene bg_table with fade_slow
     
-    narrator '테이블 위에 네 가지 물건이 보인다.\n책상을 살펴보자.'
+    narrator '테이블 위에 세 가지 물건이 보인다.\n책상을 살펴보자.'
     
     # 인터랙티브 테이블 사용
+    show screen mission_guide("테이블에 있는 물건 하나를 눌러보세요", icon="🔍")
     call screen interactive_table
-    
+    hide screen mission_guide
+
+    show screen full_table
+
     # 선택에 따른 분기
     if _return == "gun_selected":
         $ chosen_character = "jang" # 장기영
         narrator '총을 집었다. 차가운 금속의 감촉이 느껴진다.'
+        
         jump intro_mirror_jang
     elif _return == "book_selected":
         $ chosen_character = "im" # 임규  
@@ -169,18 +136,21 @@ label start:
 # 거울 씬 (인트로 마지막 부분)
 # =============================================================================
 label intro_mirror_jang:
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
-    
-    scene bg_mirror with fade
 
+    scene bg_mirror
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    hide screen full_table with dissolve
+    
     narrator '거울을 살펴보자.'
     
     # Scene 3: 거울 - 장기영
-    call screen interactive_mirror("jang_portrait")
+    show screen mission_guide("거울을 눌러보세요", icon="🔍")
+    call screen interactive_objects("mirror")
+    hide screen mission_guide
     
     # 거울 클릭 시 장기영 거울 이미지 표시
     scene bg_mirror_jang with dissolve
-    play sound mirror_reveal  # 효과음 재생
+    # play sound mirror_reveal  # 효과음 재생
     
     narrator '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
     
@@ -190,18 +160,20 @@ label intro_mirror_jang:
     jump character_jang
 
 label intro_mirror_im:
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
 
-    scene bg_mirror with fade
+    scene bg_mirror
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    hide screen full_table with dissolve
 
     narrator '거울을 살펴보자.'
     
     # Scene 3: 거울 - 임규
-    call screen interactive_mirror("im_portrait")
-    
+    show screen mission_guide("거울을 눌러보세요", icon="🔍")
+    call screen interactive_objects("mirror")
+    hide screen mission_guide    
     # 거울 클릭 시 임규 거울 이미지 표시
     scene bg_mirror_im with dissolve
-    play sound mirror_reveal  # 효과음 재생
+    # play sound mirror_reveal  # 효과음 재생
     
     narrator '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
     
@@ -211,18 +183,21 @@ label intro_mirror_im:
     jump character_im
 
 label intro_mirror_oh:
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
 
-    scene bg_mirror with fade
+    scene bg_mirror
+    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    hide screen full_table with dissolve
 
     narrator '거울을 살펴보자.'
 
     # Scene 3: 거울 - 오세창
-    call screen interactive_mirror("oh_portrait")
+    show screen mission_guide("거울을 눌러보세요", icon="🔍")
+    call screen interactive_objects("mirror")
+    hide screen mission_guide
     
     # 거울 클릭 시 오세창 거울 이미지 표시
     scene bg_mirror_oh with dissolve
-    play sound mirror_reveal  # 효과음 재생
+    # play sound mirror_reveal  # 효과음 재생
     
     narrator '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
     
@@ -237,3 +212,41 @@ label intro_mirror_oh:
 # character_jang: script_jang.rpy에서 정의
 # character_im: script_im.rpy에서 정의  
 # character_oh: script_oh.rpy에서 정의
+
+# =============================================================================
+# 인터랙티브 스크린
+# =============================================================================
+
+screen interactive_table():
+    # 기본 테이블 배경
+    add "bg_table" at custom_size
+    
+    # 신문 영역 (중간 하단)
+    imagebutton:
+        idle "news"
+        hover "news_hover"
+        focus_mask True
+        at truecenter
+        action Return("news_selected")
+            
+    # 책 영역 (우측 상단)
+    imagebutton:
+        idle "book"
+        hover "book_hover"
+        focus_mask True
+        at truecenter
+        action Return("book_selected")
+
+    # 총 영역 (좌측 상단)
+    imagebutton:
+        idle "gun"
+        hover "gun_hover"
+        focus_mask True
+        at truecenter
+        action Return("gun_selected")
+
+screen full_table():
+    add "bg_table" at custom_size
+    add "news" at truecenter
+    add "book" at truecenter
+    add "gun" at truecenter

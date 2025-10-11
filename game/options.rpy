@@ -11,7 +11,7 @@
 ##
 ## 문자열을 _()로 둘러 쌓으면 씌우면 번역의 대상으로 표시됩니다.
 
-define config.name = _("group_seongbuk_renpy")
+define config.name = _("눈 떠보니 내가 성북구 독립운동가?!")
 
 
 ## 위에 주어진 제목이 주 메뉴 화면에 표시되는지 결정합니다. 제목을 숨기려면 이
@@ -116,7 +116,7 @@ define config.window_hide_transition = Dissolve(.2)
 ## 기본 글자 속도를 제어합니다. 기본적으로, 0은 즉시이며 다른 숫자는 초당 입력
 ## 할 문자 수입니다.
 
-default preferences.text_cps = 0
+default preferences.text_cps = 50
 
 
 ## 기본 auto-forward 지연 시간입니다. 숫자가 클수록 대기 시간이 길어지며, 0 ~
@@ -139,7 +139,7 @@ default preferences.afm_time = 15
 ## 이것은 일반적으로 변경해서는 안 되며, 항상 표현형식이 아닌 정확한 문자열이
 ## 어야 합니다.
 
-define config.save_directory = "group_seongbuk_renpy-1758795510"
+define config.save_directory = "im-1759537988"
 
 
 ## Icon ########################################################################

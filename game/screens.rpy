@@ -4,7 +4,6 @@
 
 init offset = -1
 
-
 ################################################################################
 ## 스타일
 ################################################################################
@@ -107,6 +106,16 @@ screen say(who, what):
 
         text what id "what"
 
+        ## 클릭 유도 인디케이터 (역삼각형이 깜빡이는 효과)
+        if what:
+            text "▼":
+                style "ctc_indicator"
+                xalign gui.ctc_position_x
+                yalign gui.ctc_position_y
+                xoffset gui.ctc_offset_x
+                yoffset gui.ctc_offset_y
+                at ctc_blink
+
 
     ## 사이드 이미지가 있는 경우 글자 위에 표시합니다. 휴대폰 환경에서는 보이지
     ## 않습니다.
@@ -118,12 +127,13 @@ screen say(who, what):
 ## 듭니다.
 init python:
     config.character_id_prefixes.append('namebox')
+    # 대사창이 항상 가장 앞 레이어에 있도록 설정
+    config.layers = [ "master", "transient", "screens", "overlay" ]
 
 style window is default
 style say_label is default
 style say_dialogue is default
 style say_thought is say_dialogue
-
 style namebox is default
 style namebox_label is say_label
 
@@ -160,6 +170,22 @@ style say_dialogue:
     ypos gui.dialogue_ypos
 
     adjust_spacing False
+
+## CTC 인디케이터 스타일
+style ctc_indicator:
+    size 30
+    color "#ffffff"
+    outlines [(2, "#000000", 0, 0)]
+
+## CTC 인디케이터 반짝임 애니메이션
+transform ctc_blink:
+    alpha 0.0
+    pause 0.5
+    linear 0.3 alpha 1.0
+    pause 0.3
+    linear 0.3 alpha 0.0
+    pause 0.3
+    repeat
 
 ## Input 스크린 ###################################################################
 ##

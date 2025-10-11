@@ -436,12 +436,12 @@ screen info_tooltip(info_text):
             unhovered Hide("tooltip_box")
 
 # 툴팁 박스 스크린
-screen tooltip_box(info):
+screen tooltip_box(info, xalign=0.75, yalign=0.05):
     zorder 101
     
     frame:
-        xalign 0.75
-        yalign 0.05
+        xalign xalign
+        yalign yalign
         xmaximum 500
         background "#2C3E50"
         padding (20, 20)
