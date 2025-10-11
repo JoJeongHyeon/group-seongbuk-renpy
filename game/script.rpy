@@ -59,11 +59,11 @@ define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 # =============================================================================
 # 캐릭터 정의
 # =============================================================================
-# 나레이터 (생각)
-define narrator = Character(None, what_color="#ffffff")
-
 # 주인공 (대사)
 define m = Character("나", color="#ffffff")
+
+# 주인공 (생각)
+define m_thought = Character("나", color="#ffffff", what_italic=True)
 
 # 역사 인물들
 define jang = Character("장기영", color="#ff6b6b")
@@ -82,31 +82,28 @@ label start:
     
     scene bg_desk with fade_very_slow
     
-    narrator '어젯밤, 나는 역사 시험을 위해 벼락치기로 공부하다 새벽쯤에 그대로 잠이 들었다.'
+    m_thought '어젯밤, 나는 역사 시험을 위해 벼락치기로 공부하다 새벽쯤에 그대로 잠이 들었다.'
     
     # 화면 블랙아웃
     scene bg_black with fade_fast
     
-    narrator '잠결에 어렴풋이 들려오는 대화 소리…'
+    m_thought '잠결에 어렴풋이 들려오는 대화 소리…'
     
     m "아 시끄러워…"
     
-    narrator '더 이상 잠들기 어려워 눈을 떠보려 한다.'
+    m_thought '더 이상 잠들기 어려워 눈을 떠보려 한다.'
     
     # Scene 2: 천장
     scene bg_ceiling with fade_slow
     
-    narrator '눈을 뜨자, 낯선 천장이 보인다.'
-    
-    narrator '처음 보는 공간, 그리고 들려오는 일본어 소리…'
+    m_thought '눈을 뜨자, 낯선 천장이 보인다.'
+    m_thought '처음 보는 공간, 그리고 들려오는 일본어 소리…'
     
     m "웬 일본어? 여긴 어디고, 왜 나는 여기 있지?"
     
-    narrator '손을 뻗자 무언가 잡힌다. 이건 뭐지?'
+    m_thought '손을 뻗자 무언가 잡힌다. 이건 뭐지?'
     
     scene bg_table with fade_slow
-    
-    narrator '테이블 위에 세 가지 물건이 보인다.\n책상을 살펴보자.'
     
     # 인터랙티브 테이블 사용
     show screen mission_guide("테이블에 있는 물건 하나를 눌러보세요", icon="🔍")
@@ -118,16 +115,16 @@ label start:
     # 선택에 따른 분기
     if _return == "gun_selected":
         $ chosen_character = "jang" # 장기영
-        narrator '총을 집었다. 차가운 금속의 감촉이 느껴진다.'
+        m_thought '총을 집었다.'
         
         jump intro_mirror_jang
     elif _return == "book_selected":
         $ chosen_character = "im" # 임규  
-        narrator '책을 집었다. 묵직한 무게가 손에 전해진다.'
+        m_thought '책을 집었다.'
         jump intro_mirror_im
     elif _return == "news_selected":
         $ chosen_character = "oh" # 오세창
-        narrator '신문을 집었다. 바스락거리는 종이 소리가 난다.'
+        m_thought '신문을 집었다.'
         jump intro_mirror_oh
     
     return
@@ -138,10 +135,10 @@ label start:
 label intro_mirror_jang:
 
     scene bg_mirror
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    m_thought '주변을 둘러보니, 마침 거울이 보인다.'
     hide screen full_table with dissolve
     
-    narrator '거울을 살펴보자.'
+    m_thought '거울을 살펴보자.'
     
     # Scene 3: 거울 - 장기영
     show screen mission_guide("거울을 눌러보세요", icon="🔍")
@@ -152,7 +149,7 @@ label intro_mirror_jang:
     scene bg_mirror_jang with dissolve
     # play sound mirror_reveal  # 효과음 재생
     
-    narrator '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
+    m_thought '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
     
     m "이게 나라고? 일단 밖으로 나가보자"
     
@@ -162,10 +159,10 @@ label intro_mirror_jang:
 label intro_mirror_im:
 
     scene bg_mirror
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    m_thought '주변을 둘러보니, 마침 거울이 보인다.'
     hide screen full_table with dissolve
 
-    narrator '거울을 살펴보자.'
+    m_thought '거울을 살펴보자.'
     
     # Scene 3: 거울 - 임규
     show screen mission_guide("거울을 눌러보세요", icon="🔍")
@@ -175,7 +172,7 @@ label intro_mirror_im:
     scene bg_mirror_im with dissolve
     # play sound mirror_reveal  # 효과음 재생
     
-    narrator '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
+    m_thought '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
     
     m "이게 나라고? 일단 밖으로 나가보자"
     
@@ -185,10 +182,10 @@ label intro_mirror_im:
 label intro_mirror_oh:
 
     scene bg_mirror
-    narrator '주변을 둘러보니, 마침 거울이 보인다.'
+    m_thought '주변을 둘러보니, 마침 거울이 보인다.'
     hide screen full_table with dissolve
 
-    narrator '거울을 살펴보자.'
+    m_thought '거울을 살펴보자.'
 
     # Scene 3: 거울 - 오세창
     show screen mission_guide("거울을 눌러보세요", icon="🔍")
@@ -199,7 +196,7 @@ label intro_mirror_oh:
     scene bg_mirror_oh with dissolve
     # play sound mirror_reveal  # 효과음 재생
     
-    narrator '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
+    m_thought '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
     
     m "이게 나라고? 일단 밖으로 나가보자"
     
