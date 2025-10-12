@@ -35,6 +35,16 @@ image memory_orb-2_hover = "bg/memory_orb-2_hover.png"
 image memory_orb-3_hover = "bg/memory_orb-3_hover.png"
 image memory_orb-4_hover = "bg/memory_orb-4_hover.png"
 
+# UI 스크린 - 챕터 및 구슬 발견창
+image ui_ch1 = At("ui_screen/ui_ch1.png", custom_size)
+image ui_ch2 = At("ui_screen/ui_ch2.png", custom_size)
+image ui_ch3 = At("ui_screen/ui_ch3.png", custom_size)
+image ui_ch4 = At("ui_screen/ui_ch4.png", custom_size)
+image ui_orb_found_ch1 = At("ui_screen/ui_orb_found_ch1.png", custom_size)
+image ui_orb_found_ch2 = At("ui_screen/ui_orb_found_ch2.png", custom_size)
+image ui_orb_found_ch3 = At("ui_screen/ui_orb_found_ch3.png", custom_size)
+image ui_orb_found_ch4 = At("ui_screen/ui_orb_found_ch4.png", custom_size)
+
 # 챕터2 배경 이미지
 image bg_usa_street = At("bg/main_jang/ch2/usa_street.png", custom_size)
 image bg_usa_street-dark = At(Transform("bg/main_jang/ch2/usa_street.png", matrixcolor=BrightnessMatrix(-0.3)), custom_size)
@@ -98,6 +108,7 @@ define audio.jang_pick_up_phone = "audio/sfx/jang_pick_up_phone.wav"
 # ch4
 define audio.jang_ch4_bgm = "audio/bgm/jang_ch4.mp3"
 define audio.jang_radio_change = "audio/sfx/jang_radio_change.mp3"
+define audio.jang_last_orb_get = "audio/sfx/jang_last_orb_get.mp3"
 
 # =============================================================================
 # 캐릭터 정의 (장기영 전용)
@@ -131,11 +142,6 @@ label jang_ch1:
     scene bg_room with fade_very_slow
     
     jang_thought "일본과 싸우려면 먼저 일본을 알아야 한다는 생각으로 건너왔건만, 일본 관헌의 감시는 여전하구나"
-    
-    # 화면 전환
-    scene bg_black with fade_fast
-    pause 0.5
-    scene bg_room with fade_slow
     
     m "밖에서 들리는 소리는 아니고…원래 몸 주인의 마음 속 소리인가보구나."
     m "이 책은 뭐지? 경제학 공부하는 학생인가? 책상 오른쪽에 이건 여권 신청서?"
@@ -182,13 +188,38 @@ label jang_ch1_destination_choice:
         "미국으로 가기":
             # '여권 없음' 텍스트 표시
             show text "{size=80}{color=#ff0000}여권 없음{/color}{/size}" at truecenter with dissolve
-            pause 2.0
+            pause 1.0
             hide text with dissolve
-            jump jang_ch1_destination_choice
+            
+            m "아, 여권이 없어서 미국으로 바로 갈 수는 없구나. 다른 곳에 가서 방법을 찾아봐야 하나…"
+            
+            # 상해로 가기만 표시
+            jump jang_ch1_destination_choice_shanghai_only
         
         "상해로 가기":
-            jang_thought "중국인으로 속이고 우선 상해에 무사히 도착했다."
+            m "마음속 소리대로 따라가야 나도 내가 가고 싶은 집으로 갈 수 있을거야."
+            
+            # 미국으로 가기만 표시
+            jump jang_ch1_destination_choice_usa_only
+
+label jang_ch1_destination_choice_shanghai_only:
+    menu:
+        "상해로 가기":
+            jang_thought "여권은 없었지만 중국인으로 속여서 우선 상해에 도착할 수 있었다."
             jump jang_ch1_scene2
+
+label jang_ch1_destination_choice_usa_only:
+    menu:
+        "미국으로 가기":
+            # '여권 없음' 텍스트 표시
+            show text "{size=80}{color=#ff0000}여권 없음{/color}{/size}" at truecenter with dissolve
+            pause 1.0
+            hide text with dissolve
+            
+            m "아, 여권이 없어서 미국으로 바로 갈 수는 없구나. 다른 곳에 가서 방법을 찾아봐야 하나…"
+            
+            # 상해로 가기로 이동
+            jump jang_ch1_destination_choice_shanghai_only
 
 # =============================================================================
 # Scene 2: 항구 → 상해임시정부
@@ -236,8 +267,7 @@ label jang_ch1_final_choice:
             with dissolve
             
             # 기억구슬 등장 및 클릭 대기
-            show memory_orb-1
-            with dissolve
+            show memory_orb-1 with dissolve
             play sound memory_orb_appear fadein 0.5 fadeout 3.0
             pause 1.0
             hide memory_orb-1
@@ -254,13 +284,18 @@ label jang_ch1_final_choice:
 
             m "어라? 분명히 쥐었는데 바로 사라졌어. 뭐지?"
             
-            # 화면 중앙에 텍스트 표시 (프레임 배경 포함)
-            show screen framed_message("챕터1 | 기억구슬 획득", text_size=60)
-            with dissolve
+            # 챕터1 표시
+            window hide
+            # show screen framed_message("챕터1 | 기억구슬 획득", text_size=60) with dissolve
+            show ui_ch1 with dissolve
             play sound memory_orb_get
-
             pause 2.0
-            hide screen framed_message with dissolve
+            
+            # 구슬 발견창 표시 (챕터1 숨기면서 동시에 표시)
+            hide ui_ch1 with dissolve
+            show ui_orb_found_ch1 with dissolve
+            pause 2.0
+            hide ui_orb_found_ch1 with dissolve
             
             # 블랙아웃
             scene bg_black with fade_slow
@@ -377,24 +412,29 @@ label jang_ch2_finale:
     # 기억구슬 등장
     scene bg_usa_street with dissolve
 
-    show memory_orb-2
-    with dissolve
+    show memory_orb-2 with dissolve
     play sound memory_orb_appear fadein 0.5 fadeout 3.0
     pause 1.0
-    hide memory_orb-2
-
+    
     # 클릭 후 사라짐
-    show screen mission_guide("기억구슬을 눌러보세요", icon="🔮")
+    show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
     call screen interactive_objects("memory_orb-2")
     hide screen mission_guide
-    hide memory_orb-2
+
+    hide memory_orb-2 with dissolve
     pause 0.5
     
-    # 화면 중앙에 텍스트 표시
-    show screen framed_message("챕터2 | 기억구슬 획득", text_size=60) with dissolve
+    # 챕터2 표시
+    window hide
+    show ui_ch2 with dissolve
     play sound memory_orb_get
     pause 2.0
-    hide screen framed_message with dissolve
+    
+    # 구슬 발견창 표시 (챕터2 숨기면서 동시에 표시)
+    hide ui_ch2 with dissolve
+    show ui_orb_found_ch2 with dissolve
+    pause 2.0
+    hide ui_orb_found_ch2 with dissolve
     
     # 블랙아웃
     scene bg_black with fade_slow
@@ -431,7 +471,7 @@ label jang_ch3:
     hide usa_newspaper
     
     # 신문 클릭 대기
-    show screen mission_guide("신문을 눌러보세요", icon="📰")
+    show screen mission_guide("신문을 눌러보세요.", icon="📰")
     call screen interactive_objects("usa_newspaper")
     hide screen mission_guide
     
@@ -459,7 +499,7 @@ label jang_ch3_after_newspaper:
     scene bg_usa_phone with dissolve
     
     # 전화기 클릭 대기
-    show screen mission_guide("전화기를 눌러보세요", icon="📞")
+    show screen mission_guide("전화기를 눌러보세요.", icon="📞")
     call screen interactive_objects("usa_phone")
     play sound jang_pick_up_phone
     hide screen mission_guide
@@ -502,20 +542,25 @@ label jang_ch3_finale:
     show memory_orb-3 with dissolve
     play sound memory_orb_appear fadein 0.5 fadeout 3.0
     pause 1.0
-    hide memory_orb-3
 
     # 클릭 후 사라짐
-    show screen mission_guide("기억구슬을 눌러보세요", icon="🔮")
+    show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
     call screen interactive_objects("memory_orb-3")
     hide screen mission_guide
-    hide memory_orb-3
+    hide memory_orb-3 with dissolve
     pause 0.5
     
-    # 화면 중앙에 텍스트 표시
-    show screen framed_message("챕터3 | 기억구슬 획득", text_size=60)
+    # 챕터3 표시
+    window hide
+    show ui_ch3 with dissolve
     play sound memory_orb_get
     pause 2.0
-    hide screen framed_message with dissolve
+    
+    # 구슬 발견창 표시 (챕터3 숨기면서 동시에 표시)
+    hide ui_ch3 with dissolve
+    show ui_orb_found_ch3 with dissolve
+    pause 2.0
+    hide ui_orb_found_ch3 with dissolve
 
     # 블랙아웃
     scene bg_black with fade_slow
@@ -583,7 +628,7 @@ label placing_ch4_objects:
 label ch4_all_items_placed:
 
     scene bg_chungking_gov with dissolve
-    pause 2.0
+    pause 1.0
     
     jump jang_ch4_radio
 
@@ -622,21 +667,26 @@ label jang_ch4_liberation:
     show memory_orb-4 with dissolve
     play sound memory_orb_appear fadein 0.5 fadeout 3.0
     pause 1.0
-    hide memory_orb-4
     
     show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
     call screen interactive_objects("memory_orb-4")
     hide screen mission_guide
-    hide memory_orb-4
+    hide memory_orb-4 with dissolve
     
     m "이게 마지막 구슬인가?"
     m "광복과 동시에 나는 현실 세계로 복귀하는구나."
     
-    # 화면 중앙에 텍스트 표시
-    show screen framed_message("챕터4 | 기억구슬 획득", text_size=50)
-    play sound memory_orb_get
+    # 챕터4 표시
+    window hide
+    show ui_ch4 with dissolve
+    play sound jang_last_orb_get
     pause 2.0
-    hide screen framed_message with dissolve
+    
+    # 구슬 발견창 표시 (챕터4 숨기면서 동시에 표시)
+    hide ui_ch4 with dissolve
+    show ui_orb_found_ch4 with dissolve
+    pause 2.0
+    hide ui_orb_found_ch4 with dissolve
     
     # 블랙아웃
     scene bg_black with fade_slow
@@ -754,64 +804,6 @@ screen interactive_fundraising():
     # 모든 말풍선을 클릭했는지 확인
     if clicked_bubble1 and clicked_bubble2 and clicked_bubble3 and not show_jang_response:
         timer 0.5 action Return("all_bubbles_clicked")
-
-# =============================================================================
-# 임무창 스크린 (좌측 상단)
-# =============================================================================
-screen mission_guide(mission_text, icon="📍"):
-    zorder 100
-    
-    frame:
-        xalign 0.04
-        yalign 0.04
-        xmaximum 450
-        background Frame(Solid("#2C3E50DD"), 15, 15)
-        padding (20, 20)
-        
-        vbox:
-            spacing 10
-            
-            # 제목 바
-            hbox:
-                spacing 10
-                text icon:
-                    size 30
-                    color "#FFD700"
-                text "미션":
-                    size 28
-                    color "#FFD700"
-                    bold True
-            
-            # 구분선
-            null height 5
-            frame:
-                xsize 410
-                ysize 2
-                background "#FFD70080"
-                padding (0, 0)
-            null height 5
-            
-            # 임무 내용
-            text mission_text:
-                size 22
-                color "#FFFFFF"
-                line_spacing 8
-                text_align 0.0
-
-screen interactive_objects(idle_image, hover_image=None, use_alpha=False):
-    
-    # 클릭 가능한 오브젝트 영역
-    imagebutton:
-        idle idle_image
-        if hover_image:
-            hover hover_image
-        elif use_alpha:
-            hover Transform(idle_image, alpha=0.8)
-        else:
-            hover idle_image + "_hover"
-        focus_mask True
-        at truecenter
-        action Return("clicked")
 
 # =============================================================================
 # 챕터4 드래그 앤 드롭 스크린
