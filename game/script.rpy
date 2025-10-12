@@ -8,6 +8,10 @@ define fade_very_slow = Fade(0.7, 1.5, 2.0)
 define fade_slow = Fade(0.5, 1.0, 0.5)
 define fade_fast = Fade(0.2, 0.4, 0.2)
 
+# 디졸브 효과
+define dissolve_fast = Dissolve(0.2)
+define dissolve_slow = Dissolve(1.0)
+
 # 이미지를 1920x1080 크기에 맞추는 설정
 transform custom_size:
     size (1920, 1080)
@@ -16,6 +20,10 @@ transform custom_size:
 # =============================================================================
 # 이미지 정의
 # =============================================================================
+# UI 스크린 이미지
+image ui_mission_guide = At("ui_screen/ui_mission_guide.png", custom_size)
+image ui_intro_mission = At("ui_screen/ui_intro_mission.png", custom_size)
+
 # 배경 
 image bg_desk    = At("bg/intro/desk.png", custom_size)
 image bg_ceiling = At("bg/intro/ceiling.png", custom_size)
@@ -106,7 +114,7 @@ label start:
     scene bg_table with fade_slow
     
     # 인터랙티브 테이블 사용
-    show screen mission_guide("테이블에 있는 물건 하나를 눌러보세요", icon="🔍")
+    show screen mission_guide("테이블에 있는 물건 하나를 선택하세요.", icon="🔍")
     call screen interactive_table
     hide screen mission_guide
 
@@ -141,7 +149,7 @@ label intro_mirror_jang:
     m_thought '거울을 살펴보자.'
     
     # Scene 3: 거울 - 장기영
-    show screen mission_guide("거울을 눌러보세요", icon="🔍")
+    show screen mission_guide("거울을 눌러보세요.", icon="🔍")
     call screen interactive_objects("mirror")
     hide screen mission_guide
     
@@ -149,9 +157,19 @@ label intro_mirror_jang:
     scene bg_mirror_jang with dissolve
     # play sound mirror_reveal  # 효과음 재생
     
-    m_thought '끝이 위를 향한 눈썹과 초롱초롱한 눈을 가진 남성의 모습이다.'
+    m_thought '반짝이는 눈과 근엄한 인상을 가진 남성의 모습이다. '
     
     m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 임무창 표시
+    window hide
+    show ui_intro_mission with dissolve
+    pause 2.0
+    
+    m "어? 이건 뭐지? 이게 말로만 듣던 퀘스트창?"
+    m "큰일이네. 빨리 기억 구슬을 찾아서 집으로 가야겠어!"
+    
+    hide ui_intro_mission with dissolve
     
     # 장기영 루트로 이동
     jump character_jang
@@ -165,7 +183,7 @@ label intro_mirror_im:
     m_thought '거울을 살펴보자.'
     
     # Scene 3: 거울 - 임규
-    show screen mission_guide("거울을 눌러보세요", icon="🔍")
+    show screen mission_guide("거울을 눌러보세요.", icon="🔍")
     call screen interactive_objects("mirror")
     hide screen mission_guide    
     # 거울 클릭 시 임규 거울 이미지 표시
@@ -175,6 +193,16 @@ label intro_mirror_im:
     m_thought '짧게 자른 머리와 수염이 눈에 띄는 남성의 모습이다.'
     
     m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 임무창 표시
+    window hide
+    show ui_intro_mission with dissolve
+    pause 2.0
+    
+    m "어? 이건 뭐지? 이게 말로만 듣던 퀘스트창?"
+    m "큰일이네. 빨리 기억 구슬을 찾아서 집으로 가야겠어!"
+    
+    hide ui_intro_mission with dissolve
     
     # 임규 루트로 이동
     jump character_im
@@ -188,7 +216,7 @@ label intro_mirror_oh:
     m_thought '거울을 살펴보자.'
 
     # Scene 3: 거울 - 오세창
-    show screen mission_guide("거울을 눌러보세요", icon="🔍")
+    show screen mission_guide("거울을 눌러보세요.", icon="🔍")
     call screen interactive_objects("mirror")
     hide screen mission_guide
     
@@ -196,9 +224,19 @@ label intro_mirror_oh:
     scene bg_mirror_oh with dissolve
     # play sound mirror_reveal  # 효과음 재생
     
-    m_thought '강인한 턱선과 날카로운 눈빛의 근엄한 인상을 가진 남성의 모습이다.'
+    m_thought '강인한 턱선과 날카로운 눈빛의 차분한 인상을 가진 남성의 모습이다.'
     
     m "이게 나라고? 일단 밖으로 나가보자"
+    
+    # 임무창 표시
+    window hide
+    show ui_intro_mission with dissolve
+    pause 2.0
+    
+    m "어? 이건 뭐지? 이게 말로만 듣던 퀘스트창?"
+    m "큰일이네. 빨리 기억 구슬을 찾아서 집으로 가야겠어!"
+    
+    hide ui_intro_mission with dissolve
     
     # 오세창 루트로 이동
     jump character_oh
@@ -214,36 +252,122 @@ label intro_mirror_oh:
 # 인터랙티브 스크린
 # =============================================================================
 
-screen interactive_table():
-    # 기본 테이블 배경
-    add "bg_table" at custom_size
+# 범용 오브젝트 인터랙션 스크린 (script_jang.rpy 스타일)
+screen interactive_objects(idle_image, hover_image=None, use_alpha=False, return_value="clicked"):
     
-    # 신문 영역 (중간 하단)
+    # 클릭 가능한 오브젝트 영역
     imagebutton:
-        idle "news"
-        hover "news_hover"
+        idle idle_image
+        if hover_image:
+            hover hover_image
+        elif use_alpha:
+            hover Transform(idle_image, alpha=0.8)
+        else:
+            hover idle_image + "_hover"
         focus_mask True
         at truecenter
-        action Return("news_selected")
-            
-    # 책 영역 (우측 상단)
-    imagebutton:
-        idle "book"
-        hover "book_hover"
-        focus_mask True
-        at truecenter
-        action Return("book_selected")
+        action Return(return_value)
 
-    # 총 영역 (좌측 상단)
-    imagebutton:
-        idle "gun"
-        hover "gun_hover"
-        focus_mask True
-        at truecenter
-        action Return("gun_selected")
+screen interactive_table():
+    
+    # 분기를 위해 return_value를 사용. 일반적인 인터랙티브에는 필요 없음.
+    use interactive_objects("news", return_value="news_selected")
+    use interactive_objects("book", return_value="book_selected")
+    use interactive_objects("gun", return_value="gun_selected")
 
 screen full_table():
     add "bg_table" at custom_size
     add "news" at truecenter
     add "book" at truecenter
     add "gun" at truecenter
+
+# =============================================================================
+# 미션 가이드 스크린 (이미지 배경 버전)
+# =============================================================================
+screen mission_guide(mission_text, icon="📍"):
+    # 다른 화면과 비교해서 최상단에 위치하도록 설정
+    # 0-100 사이의 값으로 설정
+    zorder 100
+    
+    # 미션창 배경 이미지
+    add "ui_mission_guide"
+    
+    # 텍스트 컨테이너
+    frame:
+        xalign 0.03
+        yalign 0.165
+        xmaximum 480
+        background None  # 배경 이미지를 사용하므로 투명하게
+        padding (30, 30)
+        
+        vbox:            
+            # 임무 내용
+            text mission_text:
+                font "fonts/HeirofLightRegular.ttf"
+                size 24
+                color "#FFFFFF"
+                line_spacing 8 # 줄 간격
+                text_align 0.0 # 왼쪽 정렬 0.0 중앙 정렬 0.5 오른쪽 정렬 1.0
+
+# =============================================================================
+# 이전 임무창 스크린 (좌측 상단)
+# =============================================================================
+screen mission_guide_old(mission_text, icon="📍"):
+    zorder 100
+    
+    frame:
+        xalign 0.04
+        yalign 0.04
+        xmaximum 450
+        background Frame(Solid("#2C3E50DD"), 15, 15)
+        padding (20, 20)
+        
+        vbox:
+            spacing 10
+            
+            # 제목 바
+            hbox:
+                spacing 10
+                text icon:
+                    size 30
+                    color "#FFD700"
+                text "미션":
+                    size 28
+                    color "#FFD700"
+                    bold True
+            
+            # 구분선
+            null height 5
+            frame:
+                xsize 410
+                ysize 2
+                background "#FFD70080"
+                padding (0, 0)
+            null height 5
+            
+            # 임무 내용
+            text mission_text:
+                size 22
+                color "#FFFFFF"
+                line_spacing 8
+                text_align 0.0
+
+# =============================================================================
+# 화면 중앙 메시지 스크린 (챕터 획득 등)
+# =============================================================================
+screen framed_message(message_text, text_size=60):
+    zorder 200
+    
+    frame:
+        xalign 0.5
+        yalign 0.5
+        xpadding 80
+        ypadding 40
+        background Frame(Solid("#000000CC"), 20, 20)
+        
+        text message_text:
+            font "fonts/HeirofLightRegular.ttf"
+            size text_size
+            color "#FFD700"
+            text_align 0.5
+
