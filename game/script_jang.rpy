@@ -120,7 +120,7 @@ define jang_thought = Character("???", color="#ff6b6b", what_color="#888888", wh
 define kim_ahn = Character("김구, 안창호", color="#37c2f5")
 
 # ch2 이승만
-define lee = Character("이승만", color="#ff6b9d", what_line_spacing = 14)
+define lee = Character("이승만", color="#ff6b9d")
 
 # =============================================================================
 # 챕터1로 이동
@@ -697,7 +697,7 @@ label jang_ch4_liberation:
 
 label jang_ending_placeholder:
     narrator "장기영 루트가 완료되었습니다."
-    return
+    jump ending_scene
 
 # =============================================================================
 # 인터랙티브 스크린
