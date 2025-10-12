@@ -83,7 +83,7 @@ image bg_radio = At("bg/main_jang/ch4/bg_radio.png", custom_size)
 # 챕터4 오브젝트 이미지
 image radio = At("bg/main_jang/ch4/radio.png", custom_size)
 image radio_hover = At("bg/main_jang/ch4/radio_hover.png", custom_size)
-image map_circle = At("bg/main_jang/ch4/map_circle.png", custom_size)
+image red_circle = Transform("bg/main_jang/ch4/red_circle.png", zoom=0.66)
 image walkie_talkie = "bg/main_jang/ch4/walkie_talkie.png"
 image translate_icon = "bg/main_jang/ch4/translate_icon.png"
 image secret_doc = "bg/main_jang/ch4/secret_doc.png"
@@ -501,7 +501,7 @@ label jang_ch3_after_newspaper:
     # 전화기 클릭 대기
     show screen mission_guide("전화기를 눌러보세요.", icon="📞")
     call screen interactive_objects("usa_phone")
-    play sound jang_pick_up_phone
+    play sound jang_pick_up_phone volume 3.0
     hide screen mission_guide
     
     # 전화기를 클릭한 후
@@ -728,51 +728,60 @@ screen interactive_fundraising():
     
     # 말풍선 1
     if not clicked_bubble1:
-        imagebutton:
-            idle "bubble-1"
-            hover Transform("bubble-1", alpha=0.8)
-            focus_mask True
-            action [
-                Play("sound", "audio/sfx/jang_money_get.mp3"),
-                SetVariable("clicked_bubble1", True),
-                SetVariable("clicked_money1", True),
-                SetVariable("show_jang_response", True),
-                SetVariable("current_jang_text", "작은 외침이 모여야 큰 목소리가 되고, 그제야 세계가 우리를 들을 수 있습니다."),
-                Hide("interactive_fundraising"),
-                Show("interactive_fundraising")
-            ]
+        if not show_jang_response:
+            imagebutton:
+                idle "bubble-1"
+                hover Transform("bubble-1", alpha=0.8)
+                focus_mask True
+                action [
+                    Play("sound", "audio/sfx/jang_money_get.mp3"),
+                    SetVariable("clicked_bubble1", True),
+                    SetVariable("clicked_money1", True),
+                    SetVariable("show_jang_response", True),
+                    SetVariable("current_jang_text", "작은 외침이 모여야 큰 목소리가 되고, 그제야 세계가 우리를 들을 수 있습니다."),
+                    Hide("interactive_fundraising"),
+                    Show("interactive_fundraising")
+                ]
+        else:
+            add "bubble-1"
     
     # 말풍선 2
     if not clicked_bubble2:
-        imagebutton:
-            idle "bubble-2"
-            hover Transform("bubble-2", alpha=0.8)
-            focus_mask True
-            action [
-                Play("sound", "audio/sfx/jang_money_get.mp3"),
-                SetVariable("clicked_bubble2", True),
-                SetVariable("clicked_money2", True),
-                SetVariable("show_jang_response", True),
-                SetVariable("current_jang_text", "조국 없는 삶은 결국 뿌리 없는 삶이니, 우리 후손에게는 반드시 독립된 나라를 물려주어야 합니다."),
-                Hide("interactive_fundraising"),
-                Show("interactive_fundraising")
-            ]
+        if not show_jang_response:
+            imagebutton:
+                idle "bubble-2"
+                hover Transform("bubble-2", alpha=0.8)
+                focus_mask True
+                action [
+                    Play("sound", "audio/sfx/jang_money_get.mp3"),
+                    SetVariable("clicked_bubble2", True),
+                    SetVariable("clicked_money2", True),
+                    SetVariable("show_jang_response", True),
+                    SetVariable("current_jang_text", "조국 없는 삶은 결국 뿌리 없는 삶이니, 우리 후손에게는 반드시 독립된 나라를 물려주어야 합니다."),
+                    Hide("interactive_fundraising"),
+                    Show("interactive_fundraising")
+                ]
+        else:
+            add "bubble-2"
     
     # 말풍선 3
     if not clicked_bubble3:
-        imagebutton:
-            idle "bubble-3"
-            hover Transform("bubble-3", alpha=0.8)
-            focus_mask True
-            action [
-                Play("sound", "audio/sfx/jang_money_get.mp3"),
-                SetVariable("clicked_bubble3", True),
-                SetVariable("clicked_money3", True),
-                SetVariable("show_jang_response", True),
-                SetVariable("current_jang_text", "당신의 작은 헌신이 모여 독립군의 총알이 되고, 세계에 조국의 목소리를 이어줍니다."),
-                Hide("interactive_fundraising"),
-                Show("interactive_fundraising")
-            ]
+        if not show_jang_response:
+            imagebutton:
+                idle "bubble-3"
+                hover Transform("bubble-3", alpha=0.8)
+                focus_mask True
+                action [
+                    Play("sound", "audio/sfx/jang_money_get.mp3"),
+                    SetVariable("clicked_bubble3", True),
+                    SetVariable("clicked_money3", True),
+                    SetVariable("show_jang_response", True),
+                    SetVariable("current_jang_text", "당신의 작은 헌신이 모여 독립군의 총알이 되고, 세계에 조국의 목소리를 이어줍니다."),
+                    Hide("interactive_fundraising"),
+                    Show("interactive_fundraising")
+                ]
+        else:
+            add "bubble-3"
     
     # 장기영의 응답 표시 (화면 하단)
     if show_jang_response and current_jang_text:
@@ -810,6 +819,7 @@ screen interactive_fundraising():
 # =============================================================================
 init python:
     def drag_placed(drags, drop):
+        # drop이 없으면 드롭 실패
         if not drop:
             return
         
@@ -822,9 +832,6 @@ screen drag_drop_ch4():
     # 태평양 지도 배경
     add "bg_pacific_map"
     
-    # 붉은 원 표시
-    add "map_circle"
-    
     # 드래그 그룹
     draggroup:
         # ===== 무전기 =====
@@ -833,11 +840,10 @@ screen drag_drop_ch4():
             drag:
                 drag_name "walkie_item"
                 child Transform("walkie_talkie", zoom=0.4)
-                draggable True
                 droppable False
                 dragged drag_placed
                 drag_raise True
-                xalign 0.6
+                xalign 0.6 
                 yalign 0.02
         
         # ===== 번역 아이콘 =====
@@ -850,7 +856,7 @@ screen drag_drop_ch4():
                 droppable False
                 dragged drag_placed
                 drag_raise True
-                xalign 0.9
+                xalign 0.9 
                 yalign 0.1
         
         # ===== 비밀 문서 =====
@@ -863,7 +869,7 @@ screen drag_drop_ch4():
                 droppable False
                 dragged drag_placed
                 drag_raise True
-                xalign 0.6
+                xalign 0.6 
                 yalign 0.8
         
         # ===== 낡은 지도 =====
@@ -882,8 +888,8 @@ screen drag_drop_ch4():
         # ===== 붉은 원 드롭 영역 =====
         drag:
             drag_name "circle_drop"
-            child Solid("#ff000000", xysize=(400, 400))  # 투명 영역
+            child "red_circle" # map_circle은 원 이미지 + 네모 영역 => drag를 어디에 해도 인식됨.
             draggable False
             droppable True
             xalign 0.23
-            yalign 0.38
+            yalign 0.28
