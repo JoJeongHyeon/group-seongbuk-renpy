@@ -62,7 +62,7 @@ image bg_black = "#000000"          # 블랙아웃용 이미지
 define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 
 # 효과음
-# define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
+define audio.mirror_reveal = "audio/sfx/mirror_reveal.mp3"  # 거울 속 인물 등장
 
 # =============================================================================
 # 캐릭터 정의

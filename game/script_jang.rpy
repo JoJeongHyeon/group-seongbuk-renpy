@@ -511,7 +511,7 @@ label jang_ch3_phone_menu:
     
     menu:
         "이박사님 저희 이제 어떡하면 좋은가요?":
-            show text "{size=200}...{/size}" at truecenter with dissolve
+            show text "{color=#000}{size=300}...{/size}{/color}" at Position(xalign=0.5, yalign=0.2) with dissolve
             pause 2.0
             hide text with dissolve
             
@@ -839,51 +839,51 @@ screen drag_drop_ch4():
         if not walkie_placed:
             drag:
                 drag_name "walkie_item"
-                child Transform("walkie_talkie", zoom=0.4)
+                child Transform("walkie_talkie", zoom=0.35)
                 droppable False
                 dragged drag_placed
                 drag_raise True
-                xalign 0.6 
-                yalign 0.02
+                xalign 0.68 
+                yalign 0.12
         
         # ===== 번역 아이콘 =====
         # 드래그 가능한 번역 아이콘
         if not translate_placed:
             drag:
                 drag_name "translate_item"
-                child Transform("translate_icon", zoom=0.3)
+                child Transform("translate_icon", zoom=0.25)
                 draggable True
                 droppable False
                 dragged drag_placed
                 drag_raise True
-                xalign 0.9 
-                yalign 0.1
+                xalign 0.88 
+                yalign 0.86
         
         # ===== 비밀 문서 =====
         # 드래그 가능한 비밀 문서
         if not doc_placed:
             drag:
                 drag_name "doc_item"
-                child Transform("secret_doc", zoom=0.3)
+                child Transform("secret_doc", zoom=0.25)
                 draggable True
                 droppable False
                 dragged drag_placed
                 drag_raise True
-                xalign 0.6 
-                yalign 0.8
+                xalign 0.58 
+                yalign 0.65
         
         # ===== 낡은 지도 =====
         # 드래그 가능한 낡은 지도
         if not map_placed:
             drag:
                 drag_name "map_item"
-                child Transform("old_map", zoom=0.35)
+                child Transform("old_map", zoom=0.25)
                 draggable True
                 droppable False
                 dragged drag_placed
                 drag_raise True
-                xalign 0.95
-                yalign 0.75
+                xalign 0.92
+                yalign 0.4
         
         # ===== 붉은 원 드롭 영역 =====
         drag:
@@ -892,4 +892,4 @@ screen drag_drop_ch4():
             draggable False
             droppable True
             xalign 0.23
-            yalign 0.28
+            yalign 0.48
