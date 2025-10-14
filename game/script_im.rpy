@@ -4,7 +4,6 @@
 # -------- BGM/효과음 --------
 define audio.im_main_bgm = "audio/bgm/im_main_bgm.mp3"
 define audio.im_ch1 = "audio/bgm/im_ch1.wav"
-
 # === 책 정보 (전역) ===
 screen interactive_table_im():
     # 기본 테이블 이미지
@@ -77,8 +76,11 @@ image word_seo = "bg/main_im/ch3/seo.png"
 #chapter4
 image imch4_bg = At("bg/main_im/ch4/bg_chapter4.png", custom_size)
 image imch4_bgp = At("bg/main_im/ch4/bg_chapter4p.png", custom_size)
+<<<<<<< HEAD
 image imch4_bgpc = At("bg/main_im/ch4/bg_chapter4pc.png")
 
+=======
+>>>>>>> a15f905da2a11d725d73171623a954bca9db1406
 image p1 = "bg/main_im/ch4/puzzle1.png"
 image p2 = "bg/main_im/ch4/puzzle2.png"
 image p3 = "bg/main_im/ch4/puzzle3.png"
@@ -88,6 +90,7 @@ image p6 = "bg/main_im/ch4/puzzle6.png"
 image p7 = "bg/main_im/ch4/puzzle7.png"
 image p8 = "bg/main_im/ch4/puzzle8.png"
 image pf = "bg/main_im/ch4/puzzle_frame.png"   
+<<<<<<< HEAD
 image pf = "bg/main_im/ch4/frame0.png"         
 
 #해야할 거.
@@ -95,6 +98,9 @@ image pf = "bg/main_im/ch4/frame0.png"
 # 2. 이미지 정리하기
 # 3. 
 
+=======
+image pf = "bg/main_im/ch4/frame0.png"
+>>>>>>> a15f905da2a11d725d73171623a954bca9db1406
 # 게임 시작
 #===========================================================================
 # 챕터 1 일본어에 능통하고, 조선광문회에서 고전 발간 편집을 진행한 것.
@@ -298,6 +304,10 @@ label next_ch1:
 
     narrator "저 사람은 일본 총리, 하라 다카시다."
 
+<<<<<<< HEAD
+=======
+    show screen info_tooltip("일본 제19대 총리(재임 1918~1921)로, 조선에 대한 강압적 무단통치를 완화하고 '문화정치' 방침을 내세웠다.")
+>>>>>>> a15f905da2a11d725d73171623a954bca9db1406
     hara "가만, 조선놈인가?"
 
     menu:

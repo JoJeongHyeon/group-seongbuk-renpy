@@ -108,7 +108,7 @@ define gui.textbox_yalign = 1.0
 ## 말하는 캐릭터의 이름을 텍스트 박스를 기준으로 배치합니다. 이것은 좌측이나
 ## 최상단으로부터 전체 픽셀값의 숫자가 되거나, 0.5로 중앙이 될 수 있습니다.
 define gui.name_xpos = 360
-define gui.name_ypos = 0
+define gui.name_ypos = 10
 
 ## 캐릭터들의 이름을 수평으로 정렬합니다. 이것은 0.0으로 좌측 정렬, 0.5로 중앙,
 ## 그리고 1.0으로 우측 정렬될 수 있습니다.
@@ -145,6 +145,19 @@ define gui.dialogue_width = 1000
 ## 대사 글자의 수평 정렬입니다. 이것은 0.0으로 좌측 정렬, 0.5로 중앙, 그리고
 ## 1.0으로 우측 정렬이 될 수 있습니다.
 define gui.dialogue_text_xalign = 0.0
+
+
+## 클릭 유도 인디케이터 (CTC) ######################################################
+##
+## 대사가 모두 표시되었을 때 나타나는 클릭 유도 표시입니다.
+
+## 텍스트박스 내에서 ctc 인디케이터의 위치입니다.
+# define gui.ctc_position_x = 1.0  # 우측 정렬
+# define gui.ctc_position_y = 1.0  # 하단 정렬
+define gui.ctc_position_x = 0.78  # 중앙 정렬
+define gui.ctc_position_y = 0.8  # 중앙 정렬
+define gui.ctc_offset_x = -20    # 우측에서 왼쪽으로 20px 오프셋
+define gui.ctc_offset_y = -20    # 하단에서 위로 20px 오프셋
 
 
 ## 버튼들 #########################################################################
