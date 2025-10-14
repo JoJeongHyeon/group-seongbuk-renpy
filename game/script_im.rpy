@@ -38,17 +38,17 @@ screen interactive_table_im():
             action Return("next_ch")
 
     # 역사 인물들
-define choi = Character("최남선", image = "choi",color="#4a2222")
-define w = Character("???", image = "choi0",color="#4a2222")
-define w1 = Character("???", image = "hara0",color="#ff3030")
+define choi = Character("최남선", image = "choi",color="#49b9bf")
+define w = Character("낯선 사람", image = "choi0",color="#b28080")
 define hara = Character("하라 다카시", image = "hara",color="#ff3030") 
+define w1 = Character("???", image = "hara0",color="#aa7c7c")
 
-image side choi  = "ch/choi.png"
-image side w  = "ch/choi0.png"
-image side hara  = "ch/hara.png"
-image side w1  = "ch/hara0.png"   
 
-image bead  = "bg/main_im/bead.png"
+#기억구슬 이미지
+image bead1  = "bg/memory_orb-1.png"
+image bead2  = "bg/memory_orb-2.png"
+image bead3  = "bg/memory_orb-3.png"
+image bead4  = "bg/memory_orb-4.png"
 
 #chapter1
 image bk-1               = At("bg/main_im/ch1/bk-1.png", custom_size)
@@ -77,6 +77,7 @@ image word_seo = "bg/main_im/ch3/seo.png"
 #chapter4
 image imch4_bg = At("bg/main_im/ch4/bg_chapter4.png", custom_size)
 image imch4_bgp = At("bg/main_im/ch4/bg_chapter4p.png", custom_size)
+image imch4_bgpc = At("bg/main_im/ch4/bg_chapter4pc.png")
 
 image p1 = "bg/main_im/ch4/puzzle1.png"
 image p2 = "bg/main_im/ch4/puzzle2.png"
@@ -88,6 +89,11 @@ image p7 = "bg/main_im/ch4/puzzle7.png"
 image p8 = "bg/main_im/ch4/puzzle8.png"
 image pf = "bg/main_im/ch4/puzzle_frame.png"   
 image pf = "bg/main_im/ch4/frame0.png"         
+
+#해야할 거.
+# 1. 대사 서체 구분하기
+# 2. 이미지 정리하기
+# 3. 
 
 # 게임 시작
 #===========================================================================
@@ -111,9 +117,12 @@ label character_im:
     # 선택에 따른 분기
     if _return == "next_ch":
         # $ chosen_character = "jang" # 장기영
-        narrator '우리 민족 전통은 이어져야 하지. 그러기 위해선 고전을 잊어선 안돼.'
-        m "머릿속에서 들리는 말이나, 여기 책들을 보면 고전을 연구하던 분이셨구나."
-        m "밖에서 쓰는 말이나, 보이는 풍경으로 봐서는 일제강점기 같은데..."
+        narrator '우리 민족 전통은 이어져야 하지.'
+        narrator '그러기 위해선 고전을 잊어선 안돼.'
+        m "머릿속에서 들리는 말이나" 
+        m "여기 책들을 보면 고전을 연구하던 분이셨구나."
+        m "밖에서 쓰는 말이나" 
+        m "보이는 풍경으로 봐서는 일제강점기 같은데..."
         m "이런 시기에 우리의 고전을 연구하셨다면, 대단하신 분이네."
         jump chapter1
 return
@@ -126,7 +135,7 @@ label chapter1:
     #=========제2장=========
     stop music fadeout 1.0
 
-    show bead with fade_slow   #구슬 등장
+    show bead1 with fade_slow   #구슬 등장
     m "이게 뭐지? 갑자기 웬 구슬"
     m "이건...."
 
@@ -134,7 +143,7 @@ label chapter1:
 
     ##### 퀘스트창 구슬을 잡습니다. 보상: 현실 세계로 복귀
 
-    hide bead with fade_slow #구슬 사라짐
+    hide bead1 with fade_slow #구슬 사라짐
 
     m "아, 이런 구슬을 찾으라는 이야기였구나!"
 
@@ -142,15 +151,16 @@ label chapter1:
 # 챕터 2
 #===========================================================================
 
-    play music im_ch1 fadein 1.0
 
-    scene ch1_door with Dissolve(5) # 교차 디졸브
 
-    play music im_main_bgm fadeout 1.0 loop
+    scene ch1_door with Dissolve(3) # 교차 디졸브
+
 
     m "뭔가 시간대가 바뀐 거 같은데.."
     m "음? 밖에 누가 온 것 같은데?"
 
+    m "똑똑"
+    play music im_ch1 fadein 1.0
 
     w "우정 선생님, 안에 계신가요?"
 
@@ -186,10 +196,9 @@ return
 
 label chapter2:
     scene bg_darkroom with fade_slow
-    show screen info_tooltip("독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
     choi "우정 선생님, 우리는 만세 운동을 시행하려고 합니다."
 
-    m '만세 운동? 3.1운동을 만하는 건가?'
+    m '만세 운동? 3.1운동을 말하는 건가?'
     m '그럼 지금은 3.1운동 직전 시기인가 보네.'
 
     choi "저는 독립선언서를 작성하기로 했습니다."
@@ -212,8 +221,7 @@ label stop_choi:
     choi "지금이 아니면 안됩니다!"
 
     m "선택의 여지가 없다.."
-    
-    hide screen info_tooltip
+
 
     menu:
         "지지한다":
@@ -227,11 +235,11 @@ label support_choi:
     m "’도와주겠다는 마음을 먹자, 저절로 입이 열렸다.’"
     m "’이분은 큰 위험을 감수하고도 만세 운동을 돕고자 하는 사람이었던 것 같다.’"
 
-    show bead with fade_slow
+    show bead2 with fade_slow
 
     m "어, 또 구슬이다."
     m "이번에도 구슬을 만지니, 사라졌다."
-    hide bead with fade_slow
+    hide bead2 with fade_slow
 
     #########show 두번째 구슬을 찾았습니다.#######################
 
@@ -251,13 +259,13 @@ label chapter3:
     m "아까 있던 곳과는 확인히 다르다."
     m "여기는....?"
 
-    im "일본이다."
-    im "나는 일본에 독립선언서를 우송하고자 왔다."
+    m "일본이다."
+    m "나는 일본에 독립선언서를 우송하고자 왔다."
     
     m "아까 말한대로 정말 일본으로 전달하는 임무를 하고 계시다니."
     m "나는 괜히 떨리는 마음에 침을 꿀꺽 삼켰다."
 
-    im "일본 수상과 의회에 독립선언서를 보내야 한다. 그러기 위해서는...."
+    m "일본 수상과 의회에 독립선언서를 보내야 한다. 그러기 위해서는...."
 
 # ======드래그 앤 드롭==================
 
@@ -290,9 +298,8 @@ label next_ch1:
 
     narrator "저 사람은 일본 총리, 하라 다카시다."
 
-    show screen info_tooltip("일본 제19대 총리(재임 1918~1921)로, 조선에 대한 강압적 무단통치를 완화하고 ‘문화정치’ 방침을 내세웠다.")
     hara "가만, 조선놈인가?"
-    hide screen info_tooltip
+
     menu:
 
         "나는 조선의 임규요. 조선의 독립을 선포하려 이곳에 왔소!":
@@ -307,16 +314,15 @@ label next_ch2:
     narrator "국무총리는 나의 당당한 태도에 놀랐는지, 그대로 굳었다."
     m "나는 그를 노려보다가 자리를 피했다."
 
-    show bead with fade_slow
+    show bead3 with fade_slow
 
     m "아, 이번에도 구슬이다."
-    hide bead with fade_slow
 
     #########퀘스트창:세번째 구슬을 찾았습니다################
 
     m "또 다른 곳으로 이동하려는 것 같다."
 
-    hide bead with fade_slow
+    hide bead3 with fade_slow
 
     jump chapter4
 
@@ -328,7 +334,6 @@ return
 
 label chapter4:
     scene imch4_bg with fade_slow
-    show screen info_tooltip("조선어학연구회:1921년에 설립된 우리나라 최초의 한글 연구 단체로, 한글의 표준화와 보급을 목표로 했다. 이후 한글학회의 전신이 되었다.")
 
     m "여기는 또 어디지? 연구실 같은데..."
     m "가장 가까이에 있는 책상을 살펴보았다."
@@ -338,7 +343,6 @@ label chapter4:
     m "사전이라도 만들려는 것일까?"
     m "어?.. 이건.."
 
-    hide screen info_tooltip
 
     $ setup_puzzle()
     call screen reassemble_puzzle
@@ -347,7 +351,7 @@ label chapter4:
 
 label reasseble_complete:
 
-    scene imch4_bg with fade_fast
+    scene imch4_bgpc with fade_fast
 
     m "표음주의 철자법을 따를 필요가 있다?"
     m "이분은 소리가 나는 대로 쓰는 철자법을 주장하셨구나."
@@ -355,8 +359,13 @@ label reasseble_complete:
     m "선생님들 덕분에 정말 다행이다."
     m "그런데, 내가 빙의한 이분은 대체 누구시지..? 들어본 적이 없는데.."
 
-    show bead with fade_slow
-    hide bead with fade_slow 
+    show bead4 with fade_slow
+    
+    m "아, 찾았다."
+    m "이게, 마지막인 것 같은데..."
+    m "이제 현실로 돌아가는 거겠지?"
+
+    hide bead4 with fade_slow 
 
 return
 
@@ -416,7 +425,7 @@ screen reassemble_puzzle:
     frame:
         background "bg/main_im/ch4/puzzle_frame.png"
         xysize full_page_size
-        anchor(0.5, 0.5)
+        anchor(0, 0)
         pos(161, 154)
     
     draggroup:
@@ -643,52 +652,3 @@ screen dokrip_rail():
         spacing 20
         textbutton "확인"     action Function(_rail_check_then_return)
 
-
-
-
-# =========================================
-# 정보 툴팁 스크린
-# =========================================
-
-screen info_tooltip(info_text):
-    zorder 100
-    
-    # 물음표 아이콘 버튼
-    frame:
-        xalign 0.95
-        yalign 0.05
-        xysize (50, 50)
-        background "#4169E1"
-        padding (0, 0)
-        
-        button:
-            xysize (50, 50)
-            background None
-            action NullAction()
-            
-            text "?":
-                align (0.5, 0.5)
-                size 35
-                color "#FFFFFF"
-                bold True
-            
-            # 마우스 호버 시 툴팁 표시
-            hovered Show("tooltip_box", info=info_text)
-            unhovered Hide("tooltip_box")
-
-# 툴팁 박스 스크린
-screen tooltip_box(info):
-    zorder 101
-    
-    frame:
-        xalign 0.55
-        yalign 0.05
-        xmaximum 500
-        background "#2C3E50"
-        padding (20, 20)
-        
-        text info:
-            size 20
-            color "#FFFFFF"
-            line_spacing 5
-            text_align 0.0
