@@ -3,6 +3,21 @@
 # script.rpy의 정의들을 모두 사용 가능
 
 # =============================================================================
+# 애니메이션 정의
+# =============================================================================
+
+transform slide_up_from_bottom:
+    yalign 2.0  # 더 아래쪽에서 시작 (값이 클수록 아래)
+    easein 0.8 yalign 0.5  # 더 천천히 시작 (시간값 조정)
+    easeout 0.3 yalign 0.5  # 더 빨리 정착 (시간값 조정)
+
+transform slide_backwards:
+    zoom 0.7
+    xalign 0.5
+    yalign -0.5
+    easein 1.0 yalign 1.0
+
+# =============================================================================
 # 변수 정의
 # =============================================================================
 default draggable = ""
@@ -13,7 +28,7 @@ default droppable = ""
 # =============================================================================
 # 챕터1 배경 이미지
 image bg_room = At("bg/main_jang/ch1/room.png", custom_size)
-image bg_passport_doc = At("bg/main_jang/ch1/passport_doc.png", custom_size)
+image bg_passport_doc = "bg/main_jang/ch1/passport_doc.png" # At custom_size 애니메이션 안됨.
 image bg_shanghai_harbor = At("bg/main_jang/ch1/harbor.png", custom_size)
 image bg_shanghai_gov = At("bg/main_jang/ch1/shanghai_gov.png", custom_size)
 
@@ -53,7 +68,7 @@ image bg_office = At("bg/main_jang/ch2/office.png", custom_size)
 # 챕터2 오브젝트 이미지
 image envelop = "bg/main_jang/ch2/envelop.png"
 image envelop_hover = "bg/main_jang/ch2/envelop_hover.png"
-image letter_from_lee = At("bg/main_jang/ch2/letter.png", custom_size)
+image letter_from_lee = "bg/main_jang/ch2/letter.png"
 image money-1 = At("bg/main_jang/ch2/money-1.png", custom_size)
 image money-2 = At("bg/main_jang/ch2/money-2.png", custom_size)
 image money-3 = At("bg/main_jang/ch2/money-3.png", custom_size)
@@ -97,16 +112,22 @@ define audio.memory_orb_appear = "audio/sfx/memory_orb_appear.mp3"
 define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
 
 # ch1
+define audio.jang_refusal = "audio/sfx/jang_refusal.mp3"
 define audio.boat_horn = "audio/sfx/boat_horn.mp3"
 
 # ch2
+define audio.jang_letter_get = "audio/sfx/jang_letter_get.mp3"
 define audio.jang_money_get = "audio/sfx/jang_money_get.mp3"
 
 # ch3
 define audio.jang_pick_up_phone = "audio/sfx/jang_pick_up_phone.wav"
+define audio.jang_newspaper_appear = "audio/sfx/jang_newspaper_appear.mp3"
 
 # ch4
-define audio.jang_ch4_bgm = "audio/bgm/jang_ch4.mp3"
+define audio.jang_ch4_independence = "audio/bgm/jang_ch4_independence.mp3"
+define audio.jang_ch4_liberation = "audio/bgm/jang_ch4_liberation.mp3"
+define audio.jang_goal_in = "audio/sfx/jang_goal_in.mp3"
+define audio.jang_fighter_jet = "audio/sfx/jang_fighter_jet.wav"
 define audio.jang_radio_change = "audio/sfx/jang_radio_change.mp3"
 define audio.jang_last_orb_get = "audio/sfx/jang_last_orb_get.mp3"
 
@@ -136,13 +157,13 @@ label jang_ch1:
     # Scene 1: 일본 대학생의 방
     
     # 검은 배경에서 페이드인
-    scene bg_black
+    scene bg_black with dissolve
     pause 1.0
-    
-    scene bg_room with fade_very_slow
     
     jang_thought "일본과 싸우려면 먼저 일본을 알아야 한다는 생각으로 건너왔건만, 일본 관헌의 감시는 여전하구나"
     
+    scene bg_room with fade_very_slow
+
     m "밖에서 들리는 소리는 아니고…원래 몸 주인의 마음 속 소리인가보구나."
     m "이 책은 뭐지? 경제학 공부하는 학생인가? 책상 오른쪽에 이건 여권 신청서?"
     
@@ -157,8 +178,7 @@ label jang_ch1:
 label jang_ch1_passport_choice:
 
     python:
-        
-        renpy.show("bg_passport_doc")
+        renpy.show("bg_passport_doc", at_list=[slide_backwards])
         renpy.with_statement(dissolve)
         renpy.pause(1.5)
 
@@ -175,11 +195,14 @@ label jang_ch1_passport_choice:
                 renpy.hide("reject_text")
                 renpy.with_statement(dissolve)
             
-        renpy.hide("bg_passport_doc")
+        renpy.hide("bg_passport_doc") # 여기서는 다시 슬라이드 못하나?  
         renpy.with_statement(dissolve)
                 
-    m "뭐지? 버그인가?"
-    m_thought "미국으로 가야 한다. 미국으로 가야 한다. 같은 소리가 머릿속에서 반복되어서 들린다."
+    m "뭐지? 왜 신청을 안 받아주는 거야?"
+
+    jang_thought "미국으로 가야 한다... 미국으로 가야 한다..." 
+
+    m_thought "미국으로 가야 한다는 소리가 머릿속에서 반복되어서 들린다."
             
     jump jang_ch1_destination_choice
 
@@ -188,6 +211,7 @@ label jang_ch1_destination_choice:
         "미국으로 가기":
             # '여권 없음' 텍스트 표시
             show text "{size=80}{color=#ff0000}여권 없음{/color}{/size}" at truecenter with dissolve
+            play sound jang_refusal
             pause 1.0
             hide text with dissolve
             
@@ -213,6 +237,7 @@ label jang_ch1_destination_choice_usa_only:
         "미국으로 가기":
             # '여권 없음' 텍스트 표시
             show text "{size=80}{color=#ff0000}여권 없음{/color}{/size}" at truecenter with dissolve
+            play sound jang_refusal
             pause 1.0
             hide text with dissolve
             
@@ -236,10 +261,10 @@ label jang_ch1_scene2:
 
     jang_thought "상해에 왔으니, 임시정부에 있는 위원들을 찾아가 보자. 미국으로 갈 수 있는 방법을 찾을 수 있을 거야"
     
-    m "상해임시정부? 아, 나 설마 지금 일제강점기에 와 있는 거야?"
+    m "상해임시정부? 공부하면서 봤던 거야! 그럼 여기는 아마 1920년대 이후겠구나."
     m "기억 구슬 찾아서 집에 돌아가려면 이 마음의 소리대로 해야겠어."
 
-    scene bg_black with fade_very_slow
+    scene bg_black with fade_slow
 
     m "어? 갑자기 잠이 쏟아지네. 이러면 안되는데."
     
@@ -250,7 +275,7 @@ label jang_ch1_scene2:
     show kim at left with dissolve
     show ahn at right with dissolve
     
-    kim_ahn "상해에서 함께 활동해 주어서 고맙네. 전한군사위원회{font=SourceHanSansLite.ttf}{size=30}(全韓軍事委員會){/size}{/font}의 위원으로도 활약한 자네였기에 더욱 든든했어."
+    kim_ahn "상해에서 함께 활동해 주어서 고맙네. 어린 나이 때부터 러시아의 전한군사위원회{font=SourceHanSansLite.ttf}{size=30}(全韓軍事委員會){/size}{/font}의 위원으로도 활약한 자네였기에 더욱 든든했어."
     kim_ahn "이제는 미국 땅으로 가서 하던 공부를 이어서 하고 조국의 광복을 위해 힘써주게나."
     
     m_thought "이분들은 김구 선생님과 안창호 선생님? 교과서에서 봤어! 나는 독립운동가의 몸에 들어왔나 봐!"
@@ -258,7 +283,7 @@ label jang_ch1_scene2:
 label jang_ch1_final_choice:
     menu:
         "저는 여기가 좋아요.":
-            m_thought "내가 지금 정확히 누구 몸에 들어왔는지는 모르겠지만 이 사람이 원하는 대로 해보자"
+            m_thought "내가 지금 정확히 누구 몸에 들어왔는지는 모르겠지만 이 사람이 원하는 대로 해보자. 미국으로 가고 싶다는 말을 몇 번이나 들었는지 모르겠어."
             jump jang_ch1_final_choice
         
         "가겠습니다.":
@@ -320,7 +345,7 @@ label jang_ch2:
     jang_thought "1, 2년 뒤면 올 것이라 하셨는데 벌써 5년이나 지났다."
     jang_thought "어서 연락이 닿아서 내가 이 땅에서 할 수 있는 일을 하고 싶어."
     
-    m "뭐? 5년? 미국 본토로 바로 올 수 있었던 것이 아니구나. 이분은 어떤 독립운동을 하셨던 걸까?"
+    m "뭐? 5년이나 지났어? 호놀룰루라면 하와이인데…미국 본토로 바로 올 수 있었던 것이 아니구나. 이분은 어떤 독립운동을 하셨던 걸까?"
     
     jang_thought "나는 지금 내가 당장 할 수 있는 일에 집중해야겠어."
     jang_thought "인디애나 대학에서의 국제법 공부는 일본과 맞서 싸우는 것에 도움이 될 것이야."
@@ -330,11 +355,14 @@ label jang_ch2:
     # 전보 인터랙티브 화면
     show screen mission_guide("편지봉투를 눌러보세요.", icon="✉️")
     call screen interactive_objects("envelop")
+    play sound jang_letter_get
     hide screen mission_guide
     
     # 전보를 클릭한 후 - 편지 내용 표시
-    scene bg_usa_street-dark with dissolve
-    show letter_from_lee with dissolve
+    scene bg_usa_street-dark
+    show letter_from_lee at slide_backwards
+    with dissolve
+
     pause 2.0
     
     m "상의할 것이 있으니, 워싱턴에 있는 구미위원부로 와달라고? 누가 보낸 거야? 이승만이라면!"
@@ -367,7 +395,7 @@ label jang_ch2_scene2:
 label jang_ch2_gumi_choice:
     menu:
         "다른 선배님들께 맡기는 것이 좋지 않겠습니까?":
-            lee "일본대학을 졸업한 사람이 일본 사람의 심부름이 싫어 미국으로 온 줄 알았는데 일본 사람에게 협조하러 이곳에 온 것이로군"
+            lee "일본 사람의 심부름이 싫어 미국으로 온 줄 알았는데 일본 사람에게 협조하러 이곳에 온 것이로군."
             jump jang_ch2_gumi_choice
         
         "이곳에 남아 일할테니, 내일이라도 곧 떠나십시오.":
@@ -394,9 +422,9 @@ label jang_ch2_scene3:
     scene bg_usa_street with fade_slow
     pause 1.0
     
-    m_thought "거리에서 독립자금 모금 활동을 시작했다."
-    m_thought "하지만 많은 사람들이 의구심과 회의적인 반응을 보였다."
-    m_thought "교민들의 반응을 듣고 설득해보자"
+    jang_thought "거리에서 독립자금 모금 활동을 시작했다."
+    jang_thought "하지만 많은 사람들이 의구심과 회의적인 반응을 보였다."
+    jang_thought "교민들의 반응을 듣고 설득해보자."
 
     # 인터랙티브 스크린 호출
     scene bg_usa_street-dark with dissolve
@@ -458,11 +486,8 @@ label jang_ch3:
     
     m_thought "구미위원부의 재정난으로 인디애나 대학으로 돌아가 다시 공부를 계속했다."
     
-    # 블랙아웃
-    scene bg_black with fade_slow
-    pause 1.0
-    
     # 신문이 아래에서 위로 올라오는 애니메이션
+    play sound jang_newspaper_appear volume 2.0
     show usa_newspaper:
         xalign 0.5
         yalign 1.75
@@ -472,6 +497,7 @@ label jang_ch3:
     
     # 신문 클릭 대기
     show screen mission_guide("신문을 눌러보세요.", icon="📰")
+    
     call screen interactive_objects("usa_newspaper")
     hide screen mission_guide
     
@@ -479,8 +505,7 @@ label jang_ch3:
     jump jang_ch3_after_newspaper
 
 label jang_ch3_after_newspaper:
-    # 신문 펼친 화면
-    scene bg_black
+
     show usa_newspaper_open with dissolve
     pause 1.0
     
@@ -576,6 +601,7 @@ label jang_ch4:
     
     # Scene 1: 태평양 전쟁 및 충칭 임시정부 연락원
     # 태평양 지도 배경
+    play music jang_ch4_independence fadeout 2.0 fadein 2.0
     scene bg_pacific_map with fade_slow
     
     jang_thought "나는 미국 전략사무국인 OSS에 추천되어 정보, 통신 등의 특수교육을 받을 수 있었다."
@@ -611,12 +637,24 @@ label placing_ch4_objects:
     # 드래그 앤 드롭 결과 처리
     if draggable == "walkie_item" and droppable == "circle_drop":
         $ walkie_placed = True
+        scene bg_pacific_map
+        play sound jang_goal_in
+        jang_thought "연합군으로부터 작전 명령을 수신하고, 충칭의 임시정부와 다른 지역 간에 실시간으로 연락을 가능케 했어!"
     elif draggable == "translate_item" and droppable == "circle_drop":
         $ translate_placed = True
+        scene bg_pacific_map
+        play sound jang_goal_in
+        jang_thought "임시정부와 OSS의 합작을 위해 문서를 번역하고 연합국 측의 정보를 입수했어!"
     elif draggable == "doc_item" and droppable == "circle_drop":
         $ doc_placed = True
+        scene bg_pacific_map
+        play sound jang_goal_in
+        jang_thought "국내외 독립운동 조직 간의 정치적, 군사적, 행정적 정보를 은밀하게 전달했어!"
     elif draggable == "map_item" and droppable == "circle_drop":
         $ map_placed = True
+        scene bg_pacific_map
+        play sound jang_goal_in
+        jang_thought "지도를 전달해서 군사 작전을 계획하고 수행하는 것에 도움이 되었어!"
     
     # 모든 아이템이 배치되었는지 확인
     if walkie_placed and translate_placed and doc_placed and map_placed:
@@ -627,8 +665,11 @@ label placing_ch4_objects:
 
 label ch4_all_items_placed:
 
-    scene bg_chungking_gov with dissolve
+    scene bg_pacific_map with dissolve
+    play sound jang_fighter_jet
     pause 1.0
+
+    jang_thought "나는 다른 임무를 위해 다른 지역으로 비행하는 중 라디오 방송으로 일본의 항복 관 소식을 들었다. 이는 종전을 의미한다. 그 비행기에 타고 있던 군인들이 모두 함성을 질렀다."
     
     jump jang_ch4_radio
 
@@ -653,7 +694,7 @@ label jang_ch4_liberation:
     hide screen framed_message with dissolve
     
     # 배경음 전환
-    play music jang_ch4_bgm fadeout 2.0 fadein 2.0
+    play music jang_ch4_liberation fadeout 2.0 fadein 2.0
     
     m_thought "지금이 대체 몇 년도 몇 월 며칠이지?"
     m_thought "항복이라면 우리나라가 곧 독립된다는 것인가?"
@@ -734,7 +775,6 @@ screen interactive_fundraising():
                 hover Transform("bubble-1", alpha=0.8)
                 focus_mask True
                 action [
-                    Play("sound", "audio/sfx/jang_money_get.mp3"),
                     SetVariable("clicked_bubble1", True),
                     SetVariable("clicked_money1", True),
                     SetVariable("show_jang_response", True),
@@ -753,7 +793,6 @@ screen interactive_fundraising():
                 hover Transform("bubble-2", alpha=0.8)
                 focus_mask True
                 action [
-                    Play("sound", "audio/sfx/jang_money_get.mp3"),
                     SetVariable("clicked_bubble2", True),
                     SetVariable("clicked_money2", True),
                     SetVariable("show_jang_response", True),
@@ -772,7 +811,6 @@ screen interactive_fundraising():
                 hover Transform("bubble-3", alpha=0.8)
                 focus_mask True
                 action [
-                    Play("sound", "audio/sfx/jang_money_get.mp3"),
                     SetVariable("clicked_bubble3", True),
                     SetVariable("clicked_money3", True),
                     SetVariable("show_jang_response", True),
@@ -786,24 +824,27 @@ screen interactive_fundraising():
     # 장기영의 응답 표시 (화면 하단)
     if show_jang_response and current_jang_text:
         frame:
-            xalign 0.5
-            ypos 800
-            xsize 1050
-            background Frame(Solid("#333333DD"), 20, 20)
-            padding (40, 30)
+            #xalign 0.5
+            yalign 0.95
+            #ypos 800
+            #xsize 1050
+            background "gui/textbox.png"
+            #Frame(Solid("#333333DD"), 20, 20)
+            padding (400, 20)
             
             vbox:
-                text "독립의 희망을 북돋기" size 32 color "#ff6b6b"xalign 0.0
-                text " " size 20
-                text current_jang_text size 30 color "#FFFFFF" line_spacing 13
-                
-                textbutton "▶ 독립운동자금 받기":
+                text "독립의 희망을 북돋기" size 32 color "#ff6b6b"
+                text " " size 22
+                text current_jang_text size 30 color "#FFFFFF" line_spacing 10
+                text " " size 33
+                textbutton "▷ 독립운동자금 받기":
                     xalign 0.5
                     ypos 10
                     text_size 28
                     text_color "#FFD700"
                     text_hover_color "#FFA500"
                     action [
+                        Play("sound", "audio/sfx/jang_money_get.mp3"),
                         SetVariable("show_jang_response", False),
                         SetVariable("current_jang_text", ""),
                         Hide("interactive_fundraising"),
@@ -819,7 +860,6 @@ screen interactive_fundraising():
 # =============================================================================
 init python:
     def drag_placed(drags, drop):
-        # drop이 없으면 드롭 실패
         if not drop:
             return
         
