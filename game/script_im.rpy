@@ -128,13 +128,14 @@ label character_im:
     mt "얼굴은 한국인 같았는데, 한국이려나?"
     mt "책상에는 일본어책도 여러 권 있고, \n원래 이분은 일본어를 상당히 잘하셨나?"
     m "그리고 이건 한국 고전인가?"
+    
+    show screen mission_guide("책을 눌러 정보를 확인하세요.", icon="📄")
     m "책상 위에 책들이 이리저리 놓여 있네."
 
-    show screen mission_guide("책을 눌러 정보를 확인하세요.", icon="📄")
+    hide screen mission_guide
     
     call screen interactive_table_im
 
-    hide screen mission_guide
 
     # 선택에 따른 분기
     if _return == "next_ch":
@@ -228,20 +229,23 @@ label chapter2_scene2:
             jump say_choi
 
         "열어 주지 않는다.":
+            show screen info_tooltip("최남선\n독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
+            
             choi "선생님 접니다, 최남선."
             m "최남선? 들어본 것 같은데.."
             m "누군가 속삭이는 소리가 들린다"
             im_t "이 사람은 믿을 수 있다. 함께 일하는 동지 최남선이다."
 
             m "나는 홀린 듯이 문을 열었다."
+            hide screen info_tooltip
             jump say_choi
 return
 
 label say_choi:
+    show screen info_tooltip("최남선\n독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
     choi "사실, 오늘은 긴히 드릴 말씀이 있어 이리 찾아오게 되었습니다."
-    
+            
     jump chapter2_scene3
-
 return
 
 label chapter2_scene3:
@@ -249,13 +253,14 @@ label chapter2_scene3:
     scene bg_darkroom with fade_slow
 
     choi "우정 선생님, 우리는 만세 운동을 시행하려고 합니다."
-
-    m '만세 운동? 3.1운동을 말하는 건가?'
-    m '그럼 지금은 3.1운동 직전 시기인가 보네.'
+    show screen info_tooltip("최남선\n독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
+            
+    mt '만세 운동? 3.1운동을 말하는 건가?'
+    mt '그럼 지금은 3.1운동 직전 시기인가 보네.'
 
     choi "저는 독립선언서를 작성하기로 했습니다."
     choi "그래서, 선생님께 이 일에 대한 조언을 구하고자 합니다"
-
+    hide screen info_tooltip
     m "뭐라고 대답하지..?"
     menu:
         "말린다":
@@ -371,20 +376,22 @@ label next_ch1:
     w1 "그대는 누구이길래 나를 노려보는가?"
 
     im_t "저 사람은 일본 총리, 하라 다카시다."
-
+    show screen info_tooltip("하라 다카시\n일본 제19대 총리로, 조선 식민통치를 총독부 중심의 ‘문화통치’로 전환시킨 인물이다.")
+    
     hara "가만, 조선놈인가?"
-
+    
     menu:
-
+        
         "나는 조선의 임규요. 조선의 독립을 선포하려 이곳에 왔소!":
             jump next_ch2
         "민족자결주의에 따라 조선인의 일은 조선인이 담당해야 하는 법!":
             jump next_ch2
         "속히 총독부의 문을 닫고 조선엔 있는 일본군을 철수하시오!":
             jump next_ch2
+    
 
 label next_ch2:
-    
+    hide screen info_tooltip
     scene imch3_bg with fade_slow
 
     show ui_ch3 with dissolve
@@ -787,3 +794,20 @@ screen dokrip_rail():
         spacing 20
         textbutton "확인"     action Function(_rail_check_then_return)
 
+
+# 툴팁 박스 스크린
+screen tooltip_box(info, xalign=0.75, yalign=0.05):
+    zorder 101
+    
+    frame:
+        xalign xalign
+        yalign yalign
+        xmaximum 500
+        background "#2C3E50"
+        padding (20, 20)
+        
+        text info:
+            size 20
+            color "#FFFFFF"
+            line_spacing 5
+            text_align 0.0
