@@ -110,10 +110,8 @@ image p8 = "bg/main_im/ch4/puzzle8.png"
 image pf = "bg/main_im/ch4/puzzle_frame.png"   
 image pf = "bg/main_im/ch4/frame0.png"         
 
-#해야할 거.
-# 1. 대사 서체 구분하기
-# 2. 이미지 정리하기
-# 3. 
+
+define mt = Character("나", color="#ffffff", what_italic=True)
 
 # 게임 시작
 #===========================================================================
@@ -122,11 +120,13 @@ image pf = "bg/main_im/ch4/frame0.png"
 label character_im:   
     play music im_main_bgm fadein 1.0 loop
     scene ch1_table_ex with fade_slow   #책들이 놓여있는 이미지, 이미지 축소해야함.
+    show ui_ch1 with dissolve
 
     m "구슬을 찾으려면 어떻게 해야 하지?"
-    m "그리고 여긴 또 어디야…"
-    m "얼굴은 한국인 같았는데, 한국이려나?"
-    m "책상에는 일본어책도 여러 권 있고, \n원래 이분은 일본어를 상당히 잘하셨나?"
+    hide ui_ch1 with dissolve
+    mt "그리고 여긴 또 어디야…"
+    mt "얼굴은 한국인 같았는데, 한국이려나?"
+    mt "책상에는 일본어책도 여러 권 있고, \n원래 이분은 일본어를 상당히 잘하셨나?"
     m "그리고 이건 한국 고전인가?"
     m "책상 위에 책들이 이리저리 놓여 있네."
 
@@ -155,11 +155,11 @@ label next:
     pause 1.0
     
     
-    m "이게 뭐지? 갑자기 웬 구슬?"
-    m "이건...."
+    mt "이게 뭐지? 갑자기 웬 구슬?"
             
-    m "왜 자꾸 둥둥 떠있는 거야.."
-    m "잡아야 하는 건가?"
+    mt "왜 자꾸 둥둥 떠 있는 거야.."
+    mt "잡아야 하는 건가?"
+
     show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
     call screen interactive_objects("memory_orb-1")
     hide memory_orb-1
@@ -169,17 +169,17 @@ label next:
 
     hide memory_orb-1 with dissolve
 
-    m "아, 이런 구슬을 찾으라는 이야기였구나!"
+    mt "아, 이런 구슬을 찾으라는 이야기였구나!"
             
     # 챕터1 표시
     window hide
     # show screen framed_message("챕터1 | 기억구슬 획득", text_size=60) with dissolve
-    show ui_ch1 with dissolve
+
     play sound memory_orb_get
     pause 2.0
             
     # 구슬 발견창 표시 (챕터1 숨기면서 동시에 표시)
-    hide ui_ch1 with dissolve
+
     show ui_orb_found_ch1 with dissolve
     pause 2.0
     hide ui_orb_found_ch1 with dissolve
@@ -201,17 +201,19 @@ label chapter2:
 
     scene bg_darkroom with Dissolve(3) # 교차 디졸브
 
+    show ui_ch2 with dissolve
 
-    m "뭔가 시간대가 바뀐 거 같은데.."
-    m "음? 밖에 누가 왔나?"
+    mt "뭔가 시간대가 바뀐 거 같은데.."
+    hide ui_ch2 with dissolve
+    mt "음? 밖에 누가 왔나?"
     jump chapter2_scene2
 
 label chapter2_scene2:
     
     scene ch2_door with fade_slow
 
-    m "똑똑"
     play sound im_ch1 fadein 1.0
+    narrator "똑똑"
 
     w "우정 선생님, 안에 계신가요?" ##낯선 사람!!!!
 
@@ -236,7 +238,7 @@ label chapter2_scene2:
 return
 
 label say_choi:
-    choi "사실, 전 오늘은 긴히 드릴 말씀이 있어 이리 찾아오게 되었습니다."
+    choi "사실, 오늘은 긴히 드릴 말씀이 있어 이리 찾아오게 되었습니다."
     
     jump chapter2_scene3
 
@@ -303,12 +305,10 @@ label support_choi:
 
     # 챕터2 표시
     window hide
-    show ui_ch2 with dissolve
     play sound memory_orb_get
     pause 2.0
     
     # 구슬 발견창 표시 (챕터2 숨기면서 동시에 표시)
-    hide ui_ch2 with dissolve
     show ui_orb_found_ch2 with dissolve
     pause 2.0
     hide ui_orb_found_ch2 with dissolve
@@ -318,8 +318,7 @@ label support_choi:
     pause 2.0
 
     m "그런데 이번에는 아까와 다르게"
-    
-    m "그런데 이번에는 아까와 다르게 공간이 바뀌는 기분이 들었다."
+    m "공간이 바뀌는 기분이 들었다."
     m "뮈지? 순간이동?"
 
     jump chapter3
@@ -331,7 +330,7 @@ label support_choi:
 label chapter3:
     scene imch3_bg with fade_slow
 
-    m "아까 있던 곳과는 확인히 다르다."
+    m "아까 있던 곳과는 확연히 다르다."
     m "여기는....?"
 
     im_t "일본이다."
@@ -354,7 +353,7 @@ label chapter3:
         $ result = renpy.call_screen("dokrip_rail")
         if result == "success":
             "좋아! 순서를 맞췄다."
-            m "머릿속에서 말해주는대로, 독립선어서를 차례로 우송했다."
+            m "머릿속에서 말해주는 대로, 독립선언서를 차례로 우송했다."
             m "하는 동안 손이 덜덜 떨렸지만, \n무사히 마치고 나니 뿌듯한 감정도 들었다."
             m "그러고 숙소로 돌아오는 길에 한 일본인을 마주쳤다."
             jump next_ch1   # ← 성공 후 이동할 라벨명으로 바꿔줘
@@ -388,7 +387,9 @@ label next_ch2:
     
     scene imch3_bg with fade_slow
 
+    show ui_ch3 with dissolve
     m "우리 조선은 반드시 자주 독립을 이룰 것이다."
+    hide ui_ch3 with dissolve
     m "국무총리는 나의 당당한 태도에 놀랐는지, 그대로 굳었다."
     
     im_t "여기에 오래 있으면, 얼마 안 가 현장에서 체포될 것이다."
@@ -401,8 +402,7 @@ label next_ch2:
     play sound memory_orb_appear fadein 0.5 fadeout 3.0
     pause 1.0
 
-    m "구슬을 하나 더 찾았네.
-    "
+    mt "구슬을 하나 더 찾았네."
     # 클릭 후 사라짐
     show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
     call screen interactive_objects("memory_orb-3")
@@ -412,12 +412,10 @@ label next_ch2:
     
     # 챕터3 표시
     window hide
-    show ui_ch3 with dissolve
     play sound memory_orb_get
     pause 2.0
     
     # 구슬 발견창 표시 (챕터3 숨기면서 동시에 표시)
-    hide ui_ch3 with dissolve
     show ui_orb_found_ch3 with dissolve
     pause 2.0
     hide ui_orb_found_ch3 with dissolve
@@ -426,7 +424,7 @@ label next_ch2:
     scene bg_black with fade_slow
     pause 2.0
 
-    m "그리고, 또 다른 곳으로 이동하려는 것 같다."
+    mt "그리고, 또 다른 곳으로 이동하려는 것 같다."
     
     # 챕터4로 이어짐
     jump chapter4
@@ -439,14 +437,16 @@ return
 
 label chapter4:
     scene imch4_bg with fade_slow
+    show ui_ch4 with dissolve
 
     m "여기는 또 어디지? 연구실 같은데..."
+    hide ui_ch4 with dissolve
     m "가장 가까이에 있는 책상을 살펴보았다."
 
-    m "와.. 자료가 엄청 많네"
+    m "와, 자료가 엄청 많네"
     m "우리 말과 관련된 자료들이 널려있고, \n사전의 일부 같은 종이들도 눈에 띈다."
     m "사전이라도 만들려는 것일까?"
-    m "어?.. 이건.."
+    m "어? 이건..."
 
 
     $ setup_puzzle()
@@ -454,14 +454,14 @@ label chapter4:
 
     return
 
-label reasseble_complete:
+label reassemble_complete:
 
     scene imch4_bgpc with fade_fast
 
     m "표음주의 철자법을 따를 필요가 있다?"
     m "이분은 소리가 나는 대로 쓰는 철자법을 주장하셨구나."
     m "그리고 여기 자료들을 보면 사전을 만드려고 하셨던 것 같은데..."
-    m "선생님들 덕분에 정말 다행이다."
+    m "이런 분들의 노력이 있었어서 정말 다행이야."
     m "그런데, 내가 빙의한 이분은 대체 누구시지..? 들어본 적이 없는데.."
 
     # 기억구슬 등장
@@ -474,18 +474,17 @@ label reasseble_complete:
     hide screen mission_guide
     hide memory_orb-4 with dissolve
     
-    m "아, 찾았다."
-    m "이게 마지막인 것 같은데.."
-    m "이제 현실로 돌아가는 거겠지?"
+    mt "아, 찾았다."
+    mt "이게 마지막인 것 같은데.."
+    mt "이제 현실로 돌아가는 거겠지?"
     
     # 챕터4 표시
     window hide
-    show ui_ch4 with dissolve
     play sound jang_last_orb_get
     pause 2.0
     
     # 구슬 발견창 표시 (챕터4 숨기면서 동시에 표시)
-    hide ui_ch4 with dissolve
+    
     show ui_orb_found_ch4 with dissolve
     pause 2.0
     hide ui_orb_found_ch4 with dissolve
@@ -497,8 +496,6 @@ label reasseble_complete:
     # 엔딩으로 이어짐 (나중에 구현)
     jump im_ending_placeholder
 
-label im_ending_placeholder:
-    narrator "임규 루트가 완료되었습니다."
 
 return
 
@@ -529,6 +526,7 @@ default initial_piece_coordinates = []
 default finished_pieces = 0
 
 
+default puzzle_complete = False
 
 init python:
     def setup_puzzle():
@@ -541,7 +539,7 @@ init python:
             initial_piece_coordinates.append(rand_loc)
 
     def piece_drop(dropped_on, dragged_piece):
-        global finished_pieces
+        global finished_pieces, puzzle_complete
 
         if dragged_piece[0].drag_name == dropped_on.drag_name:
             dragged_piece[0].snap(dropped_on.x, dropped_on.y)
@@ -549,7 +547,8 @@ init python:
             finished_pieces += 1
 
             if finished_pieces == page_pieces:
-                renpy. jump("reasseble_complete")
+                puzzle_complete = True
+                renpy.restart_interaction()  # 화면 즉시 갱신
 
 
 screen reassemble_puzzle:
@@ -580,6 +579,9 @@ screen reassemble_puzzle:
                 pos piece_coordinates[i]
                 focus_mask True
                 image "bg/main_im/ch4/puzzle%s.png" % (i + 1) alpha 0.0
+
+                if puzzle_complete:
+                    timer 2.0 action [Hide("reassemble_puzzle"), Jump("reassemble_complete")]
 
 
 
