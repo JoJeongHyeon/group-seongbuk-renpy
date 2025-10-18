@@ -17,6 +17,12 @@ transform custom_size:
     size (1920, 1080)
     # fit "cover" 이런 애도 있다고 함. 자세한 건 문서 ㄱ
 
+# 미션 가이드 슬라이드 인 애니메이션 (왼쪽에서 오른쪽으로)
+transform slide_in_left:
+    xoffset -300  # 화면 왼쪽 밖에서 시작
+    alpha 0.0
+    easein 0.5 xoffset 0 alpha 1.0  # 0.5초 동안 원래 위치로 이동하며 페이드 인
+
 # =============================================================================
 # 이미지 정의
 # =============================================================================
@@ -110,12 +116,10 @@ label start:
     m "웬 일본어? 여긴 어디고, 왜 나는 여기 있지?"
     
     m_thought '손을 뻗자 무언가 잡힌다. 이건 뭐지?'
-    
-    scene bg_table with fade_slow
-    
+        
     # 인터랙티브 테이블 사용
     show screen mission_guide("테이블에 있는 물건 하나를 선택하세요.", icon="🔍")
-    call screen interactive_table
+    call screen interactive_table with dissolve
     hide screen mission_guide
 
     show screen full_table
@@ -270,16 +274,17 @@ screen interactive_objects(idle_image, hover_image=None, use_alpha=False, return
 
 screen interactive_table():
     
+    add "bg_table"
     # 분기를 위해 return_value를 사용. 일반적인 인터랙티브에는 필요 없음.
     use interactive_objects("news", return_value="news_selected")
     use interactive_objects("book", return_value="book_selected")
     use interactive_objects("gun", return_value="gun_selected")
 
 screen full_table():
-    add "bg_table" at custom_size
-    add "news" at truecenter
-    add "book" at truecenter
-    add "gun" at truecenter
+    add "bg_table"
+    add "news"
+    add "book"
+    add "gun"
 
 # =============================================================================
 # 미션 가이드 스크린 (이미지 배경 버전)
@@ -289,11 +294,12 @@ screen mission_guide(mission_text, icon="📍"):
     # 0-100 사이의 값으로 설정
     zorder 100
     
-    # 미션창 배경 이미지
-    add "ui_mission_guide"
+    # 미션창 배경 이미지 (슬라이드 인 애니메이션 적용)
+    add "ui_mission_guide" at slide_in_left
     
-    # 텍스트 컨테이너
+    # 텍스트 컨테이너 (슬라이드 인 애니메이션 적용)
     frame:
+        at slide_in_left
         xalign 0.03
         yalign 0.165
         xmaximum 480
@@ -308,49 +314,6 @@ screen mission_guide(mission_text, icon="📍"):
                 color "#FFFFFF"
                 line_spacing 8 # 줄 간격
                 text_align 0.0 # 왼쪽 정렬 0.0 중앙 정렬 0.5 오른쪽 정렬 1.0
-
-# =============================================================================
-# 이전 임무창 스크린 (좌측 상단)
-# =============================================================================
-screen mission_guide_old(mission_text, icon="📍"):
-    zorder 100
-    
-    frame:
-        xalign 0.04
-        yalign 0.04
-        xmaximum 450
-        background Frame(Solid("#2C3E50DD"), 15, 15)
-        padding (20, 20)
-        
-        vbox:
-            spacing 10
-            
-            # 제목 바
-            hbox:
-                spacing 10
-                text icon:
-                    size 30
-                    color "#FFD700"
-                text "미션":
-                    size 28
-                    color "#FFD700"
-                    bold True
-            
-            # 구분선
-            null height 5
-            frame:
-                xsize 410
-                ysize 2
-                background "#FFD70080"
-                padding (0, 0)
-            null height 5
-            
-            # 임무 내용
-            text mission_text:
-                size 22
-                color "#FFFFFF"
-                line_spacing 8
-                text_align 0.0
 
 # =============================================================================
 # 화면 중앙 메시지 스크린 (챕터 획득 등)

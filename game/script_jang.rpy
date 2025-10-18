@@ -57,7 +57,7 @@ image memory_orb-4_hover = "bg/memory_orb-4_hover.png"
 
 # 챕터2 배경 이미지
 image bg_usa_street = At("bg/main_jang/ch2/usa_street.png", custom_size)
-image bg_usa_street-dark = At(Transform("bg/main_jang/ch2/usa_street.png", matrixcolor=BrightnessMatrix(-0.3)), custom_size)
+image bg_usa_street_dark = At(Transform("bg/main_jang/ch2/usa_street.png", matrixcolor=BrightnessMatrix(-0.3)), custom_size)
 image bg_office = At("bg/main_jang/ch2/office.png", custom_size)
 
 # 챕터2 오브젝트 이미지
@@ -354,7 +354,7 @@ label jang_ch2:
     hide screen mission_guide
     
     # 전보를 클릭한 후 - 편지 내용 표시
-    scene bg_usa_street-dark
+    scene bg_usa_street_dark
     show letter_from_lee at slide_backwards
     with dissolve
 
@@ -422,7 +422,7 @@ label jang_ch2_scene3:
     jang_thought "교민들의 반응을 듣고 설득해보자."
 
     # 인터랙티브 스크린 호출
-    scene bg_usa_street-dark with dissolve
+    scene bg_usa_street_dark with dissolve
     show screen mission_guide("교민들의 말풍선을 모두 눌러보세요.", icon="💰")
     call screen interactive_fundraising
     hide screen mission_guide
@@ -623,41 +623,44 @@ label jang_ch4:
 label placing_ch4_objects:
     
     show screen mission_guide("흩어져 있는 정보들을 충칭 임정 청사로 보내세요.", icon="🔍")
-    call screen drag_drop_ch4
+    call screen drag_drop_ch4()
     hide screen mission_guide
     
     # 드래그 앤 드롭 결과 처리
     if draggable == "walkie_item" and droppable == "circle_drop":
         $ walkie_placed = True
-        scene bg_pacific_map
         play sound jang_goal_in
+        show screen after_drag_drop_ch4()
         jang_thought "연합군으로부터 작전 명령을 수신하고, 충칭의 임시정부와 다른 지역 간에 실시간으로 연락을 가능케 했어!"
     elif draggable == "translate_item" and droppable == "circle_drop":
         $ translate_placed = True
-        scene bg_pacific_map
         play sound jang_goal_in
+        show screen after_drag_drop_ch4()
         jang_thought "임시정부와 OSS의 합작을 위해 문서를 번역하고 연합국 측의 정보를 입수했어!"
     elif draggable == "doc_item" and droppable == "circle_drop":
         $ doc_placed = True
-        scene bg_pacific_map
         play sound jang_goal_in
+        show screen after_drag_drop_ch4()
         jang_thought "국내외 독립운동 조직 간의 정치적, 군사적, 행정적 정보를 은밀하게 \n전달했어!"
     elif draggable == "map_item" and droppable == "circle_drop":
         $ map_placed = True
-        scene bg_pacific_map
         play sound jang_goal_in
+        show screen after_drag_drop_ch4()
         jang_thought "지도를 전달해서 군사 작전을 계획하고 수행하는 것에 도움이 되었어!"
     
     # 모든 아이템이 배치되었는지 확인
     if walkie_placed and translate_placed and doc_placed and map_placed:
         hide screen mission_guide
+        hide screen after_drag_drop_ch4
         jump ch4_all_items_placed
     else:
         jump placing_ch4_objects
 
 label ch4_all_items_placed:
 
-    scene bg_pacific_map with dissolve
+    scene bg_pacific_map:
+        matrixcolor BrightnessMatrix(-0.3)
+    with dissolve
     play sound jang_fighter_jet
     pause 1.0
 
@@ -812,23 +815,45 @@ screen interactive_fundraising():
     
     # 장기영의 응답 표시 (화면 하단)
     if show_jang_response and current_jang_text:
-        frame:
-            #xalign 0.5
-            yalign 0.95
-            #ypos 800
-            #xsize 1050
-            background "gui/textbox.png"
-            #Frame(Solid("#333333DD"), 20, 20)
-            padding (400, 20)
+        window:
+            id "jang_response_window"
+            xalign 0.5
+            xfill True
+            yalign gui.textbox_yalign
+            ysize gui.textbox_height
+            background Image("gui/textbox.png", xalign=0.5, yalign=1.0)
             
+            # 화자 이름박스 (screens.rpy의 namebox 스타일 참고)
+            window:
+                id "jang_namebox"
+                xanchor 0.302
+                xsize gui.namebox_width
+                yalign 0.05
+                ysize gui.namebox_height
+                background Frame("gui/namebox.png", gui.namebox_borders, tile=gui.namebox_tile, xalign=gui.name_xalign)
+                padding gui.namebox_borders.padding
+                
+                text "독립의 희망을 북돋기":
+                    properties gui.text_properties("name", accent=True)
+                    xalign gui.name_xalign
+                    yalign 0.5
+                    color "#ff5e5e"
+            
+            # 대사 내용 (screens.rpy의 say_dialogue 스타일 참고)
             vbox:
-                text "독립의 희망을 북돋기" size 32 color "#ff6b6b"
-                text " " size 22
-                text current_jang_text size 30 color "#FFFFFF" line_spacing 10
-                text " " size 33
+                xpos gui.dialogue_xpos
+                xsize gui.dialogue_width
+                ypos gui.dialogue_ypos
+                
+                text current_jang_text:
+                    properties gui.text_properties("dialogue")
+                    line_spacing gui.dialogue_line_spacing
+                    color "#FFFFFF"
+                
+                text " " size 10  # 간격 조정
+                
                 textbutton "▷ 독립운동자금 받기":
                     xalign 0.5
-                    ypos 10
                     text_size 28
                     text_color "#FFD700"
                     text_hover_color "#FFA500"
@@ -856,11 +881,26 @@ init python:
         store.droppable = drop.drag_name
         return True
 
+screen after_drag_drop_ch4():
+    
+    add "bg_pacific_map"
+    if not walkie_placed:
+        add "walkie_talkie":
+            zoom 0.6 xalign 0.68 yalign 0.12
+    if not translate_placed:
+        add "translate_icon":
+            zoom 0.6 xalign 0.88 yalign 0.86
+    if not doc_placed:
+        add "secret_doc":
+            zoom 0.6 xalign 0.58 yalign 0.65
+    if not map_placed:
+        add "old_map":
+            zoom 0.6 xalign 0.92 yalign 0.4
+
 screen drag_drop_ch4():
     
-    # 태평양 지도 배경
     add "bg_pacific_map"
-    
+
     # 드래그 그룹
     draggroup:
         # ===== 무전기 =====
