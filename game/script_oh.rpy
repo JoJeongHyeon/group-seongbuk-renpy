@@ -6,6 +6,10 @@
 # 오세창 루트:
 # =========================================
 # -------- 배경/오브젝트 이미지 정의 --------
+
+#구슬/상태창
+image daehan = "images/bg/main_oh/ch3/bead/memory_bead.png"
+
 #chap1
 image bg_appointment = At("images/bg/main_oh/ch1/appointment.png", custom_size)
 image bg_bakmunguk = At("images/bg/main_oh/ch1/bakmunguk.png", custom_size)
@@ -27,6 +31,7 @@ image bg_ink_8 = At("images/bg/main_oh/ch1/ink/8.png", custom_size)
 
 #chap2
 image bg_talk = At("images/bg/main_oh/ch2/talk.png", custom_size)
+image bg_speech = At("images/bg/main_oh/ch2/speech.png", custom_size)
 image bg_news_machine = At("images/bg/main_oh/ch2/news_machine.png", custom_size)
 image bg_clock_12 = At("images/bg/main_oh/ch2/clock/12.png", custom_size)
 image bg_clock_3 = At("images/bg/main_oh/ch2/clock/3.png", custom_size)
@@ -40,6 +45,50 @@ image education = "images/bg/main_oh/ch2/jokja/education.png"
 image daehan = "images/bg/main_oh/ch2/jokja/daehan.png"
 image taegeuk_box = "images/bg/main_oh/ch2/taegeuk_box.png"
 
+#chap3
+image bg_oh_desk = At("images/bg/main_oh/ch3/oh_desk.png", custom_size)
+image bg_crowd_news_1 = At("images/bg/main_oh/ch3/crowd_news/1.png", custom_size)
+image bg_crowd_news_2 = At("images/bg/main_oh/ch3/crowd_news/2.png", custom_size)
+image bg_crowd_news_3 = At("images/bg/main_oh/ch3/crowd_news/3.png", custom_size)
+image bg_crowd_news_4 = At("images/bg/main_oh/ch3/crowd_news/4.png", custom_size)
+image bg_crowd_news_5 = At("images/bg/main_oh/ch3/crowd_news/5.png", custom_size)
+image bg_crowd_news_6 = At("images/bg/main_oh/ch3/crowd_news/6.png", custom_size)
+image bg_crowd_news_7 = At("images/bg/main_oh/ch3/crowd_news/7.png", custom_size)
+image bg_crowd_novel_1 = At("images/bg/main_oh/ch3/crowd_novel/1.png", custom_size)
+image bg_crowd_novel_2 = At("images/bg/main_oh/ch3/crowd_novel/2.png", custom_size)
+image bg_crowd_novel_3 = At("images/bg/main_oh/ch3/crowd_novel/3.png", custom_size)
+image bg_crowd_novel_4 = At("images/bg/main_oh/ch3/crowd_novel/4.png", custom_size)
+image bg_crowd_novel_5 = At("images/bg/main_oh/ch3/crowd_novel/5.png", custom_size)
+image bg_crowd_novel_6 = At("images/bg/main_oh/ch3/crowd_novel/6.png", custom_size)
+image bg_crowd_novel_7 = At("images/bg/main_oh/ch3/crowd_novel/7.png", custom_size)
+image cartoon = "images/bg/main_oh/ch3/cartoon.png"
+image essay = "images/bg/main_oh/ch3/essay.png"
+image news_cylinder = "images/bg/main_oh/ch3/news_cylinder.png"
+image colleague = "images/bg/main_oh/ch3/colleague.png"
+
+#chap4
+image bg_doknip_1 = At("images/bg/main_oh/ch4/doknip/1.png", custom_size)
+image bg_doknip_2 = At("images/bg/main_oh/ch4/doknip/2.png", custom_size)
+image bg_doknip_3 = At("images/bg/main_oh/ch4/doknip/3.png", custom_size)
+image bg_doknip_4 = At("images/bg/main_oh/ch4/doknip/4.png", custom_size)
+image bg_taegeuk_draw_1 = At("images/bg/main_oh/ch4/taegeuk_draw/1.png", custom_size)
+image bg_taegeuk_draw_2 = At("images/bg/main_oh/ch4/taegeuk_draw/2.png", custom_size)
+image bg_taegeuk_draw_3 = At("images/bg/main_oh/ch4/taegeuk_draw/3.png", custom_size)
+image bg_taegeuk_draw_4 = At("images/bg/main_oh/ch4/taegeuk_draw/4.png", custom_size)
+image bg_gather = At("images/bg/main_oh/ch4/gather.png", custom_size)
+image bg_manse = At("images/bg/main_oh/ch4/manse.png", custom_size)
+image bg_paper_machine = At("images/bg/main_oh/ch4/paper_machine.png", custom_size)
+image bg_police = At("images/bg/main_oh/ch4/police.png", custom_size)
+image chundogyo = "images/bg/main_oh/ch4/chundogyo.png"
+image taegeuk = "images/bg/main_oh/ch4/taegeuk.png"
+image black_brush = "images/bg/main_oh/ch4/taegeuk_draw/black.png"
+image black_high = "images/bg/main_oh/ch4/taegeuk_draw/black_high.png"
+image blue_brush = "images/bg/main_oh/ch4/taegeuk_draw/blue.png"
+image blue_high = "images/bg/main_oh/ch4/taegeuk_draw/blue_high.png"
+image red_brush = "images/bg/main_oh/ch4/taegeuk_draw/red.png"
+image red_high = "images/bg/main_oh/ch4/taegeuk_draw/red_high.png"
+
+
 # -------- BGM/효과음 --------
 define audio.oh_main_bgm = "audio/bgm/oh_main_bgm.mp3"
 define audio.oh_ch1 = "audio/bgm/oh_ch1.mp3"
@@ -47,6 +96,13 @@ define audio.oh_ch2 = "audio/bgm/oh_ch2.mp3"
 
 # 캐릭터 설정
 define wife = Character("부인", color="#6bffba")
+define coll = Character("동료", color="#6bffba")
+define son = Character("손병희", color="#d36bff")
+define reader_1 = Character("독자1", color="#6bffba")
+define reader_2 = Character("독자2", color="#6bffba")
+define reader_3 = Character("독자3", color="#6bffba")
+define chondo = Character("천도교도", color="#6bffba")
+define voice = Character("???", color="#ffffff")
 
 # =========================================
 # 라벨: 오세창 루트 
@@ -70,10 +126,10 @@ label oh_chap1:
     "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 발행하는 것이 내 업무라고 한다."
     m "오, 그럼 신문을 만들어 볼까?"
     scene bg_bakmunguk with fade_fast
+    
     # 신문 발행 시퀀스 
     menu:
         "신문 발행하기":
-            #동전 -> 신문 트레이드오프 애니메이션
             scene bg_tradeoff_1
             pause 0.90
             scene bg_tradeoff_2
@@ -93,11 +149,10 @@ label oh_chap1:
     
     "후에 나는 몸의 주인을 대신해서 여러 곳에서 관직 생활을 했지만, 곧 역모에 휘말리게 되었다..."
 
-    # ----- 잉크 번짐 전환 (bg_bakmunguk_shutdown 위) -----
+    # ----- 잉크 번짐 전환 (수정된 파이썬 블록) -----
     scene bg_bakmunguk_shutdown with fade_fast
 
     python:
-    # (이미 bg_bakmunguk_shutdown이 아래에서 보이는 상태)
         ink_frames = [
             ("bg_ink_1", 0.80),
             ("bg_ink_2", 0.70),
@@ -108,31 +163,18 @@ label oh_chap1:
             ("bg_ink_7", 0.30),
             ("bg_ink_8", 0.25),
         ]
-    
-    # 순차적으로 먹물 이미지 겹치기
-        for name, delay in ink_frames:
-            renpy.show(name, at_list=[], layer="overlay")  # bg_bakmunguk_shutdown 위에 겹치게 표시
-            renpy.pause(delay, hard=True)
-    
-
-    
-    # 먹물 애니메이션 (overlay 레이어 사용)
-    #python:
-        #for i in range(1, 9):
-            #name = f"bg_ink_{i}"
-            #renpy.show(name, at_list=[], layer="overlay")
-            #renpy.pause(0.70, hard=True)
-        # 마지막 프레임 유지하면서 배경 교체
-        #renpy.scene()  # 기존 배경 제거
-        #renpy.show("bg_black")
-        #renpy.pause(0.4, hard=True)
-        # overlay 레이어 정리
-        #for i in range(1, 9):
-            #renpy.hide(f"bg_ink_{i}", layer="overlay")
-
-    
-
         
+        for name, delay in ink_frames:
+            renpy.show(name, at_list=[], layer="overlay")
+            renpy.pause(delay, hard=True)
+        
+        renpy.scene()
+        renpy.show("bg_black")
+        renpy.pause(0.4, hard=True)
+        
+        for i in range(1, 9):
+            renpy.hide(f"bg_ink_{i}", layer="overlay")
+
     scene bg_black
     m "어떡하지? 이러다가는 목숨을 잃고 말 거야….어디로든 도망가야 해!"
     
@@ -146,7 +188,6 @@ label oh_chap1:
     m "기억 구슬이 맞나 보구나!"
     
     stop music fadeout 1.0
-    # Ch1 종료, Ch2로 이어짐
     jump oh_chap2
 
 # =========================================
@@ -164,16 +205,22 @@ label exile_menu_loop:
             jump exile_menu_loop
 
 # =========================================
-# Ch2. 
+# Ch2. 천도교 입교 → 만세보 발행 → 대한협회 결성
 # =========================================
 label oh_chap2:
     scene bg_black with fade_slow
     play music oh_main_bgm fadein 1.0 loop
-    m "휴, 일본으로 도망쳐서 겨우 살았네."
-    "일본으로 망명해서 다카지마 류조로 살던 도중, 천도교 교주인 손병희를 만났다."
+    m "휴, 일본으로 도망쳐서 겨우 살았네. 모르는 곳에서 그냥 죽을 뻔..."
+    "일본으로 망명해서 살던 도중, 천도교 교주인 손병희를 만났다."
     
-    scene bg_talk with fade_fast
-    
+    scene bg_speech with fade_fast
+    son "천도교는 1860년 1대 교주인 최제우 교주님께서 창시하신 민족 종교입니다. 사람 마음속의 하늘인 한울님과 연결되어 서로를 존중하며 세상을 더 좋게 만들자는 가르침을 전하는 종교입니다."
+    son "비록 우리 천도교는 원래 개화를 싫어하지만, 3대 교주인 저는 문명 개화에 찬성하는 입장입니다."
+    son "뜻이 같은 자, 천도교로 오시오!"
+
+    m "지금 1860년이 넘었다고? 심지어 1대 교주도 아니고 3대 교주? 완전 조선시대 말이잖아!"
+    coll "자네, 어떤가? 자네도 같이 입교하는 게 좋을 것 같네! 완전 좋은 기회야! 무조건 같이 입교하는 걸세!"
+    "천도교에 입교하게 되었다."
 
     scene bg_clock_12 
     pause 0.60
@@ -201,29 +248,18 @@ label oh_chap2:
     m "시간이 흘러 드디어 귀국했다. 너무 그리웠어……."
 
     scene bg_black with fade_fast
-
-    "나도 뭔가 사람들에게 도움이 되고 싶어."
-    "대신해서 관직 업무를 하던 경험을 살려 할 수 있는 게 없을까?"
-    m "아, 박문국 주사였던 경험이 있지!"
-    "사람들의 교육을 위해 천도교 기관지를 만들자."
-    "이름은 <만세보>가 좋겠는데?"
+    coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 같이 만듭시다. 경험 있으니까 잘할 수 있지 않겠습니까? 이름은 <만세보>가 좋겠습니다."
     stop music fadeout 1.0
     play music oh_ch2 fadein 1.0
     scene bg_news_machine with fade_fast
 
-    m "민족 정신을 위해 친일파를 비판해야 하는 것이 옳아."
-    m "일단 가장 먼저 친일 단체인 일진회의 문제점을 널리 알려야겠어!" 
-
-    call menu_loop_ijh
-    call menu_loop_ljy
-    call menu_loop_lgt
+    coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳습니다. 누구를 비판하는 게 좋을 것 같습니까?"
+   
+    call menu_loop_critique
 
     scene bg_news_machine with fade_fast
-    m "친일파의 만행에 대해서 내가 직접 알리다니!"
-    m "역사 시간에서 배우던 독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다."
-    m "근데 하다 보니 일진회의 문제점이 너무 많잖아? 일진회를 막을 더 확실한 방법이 없을까?"
-    m "하는 김에 민족 정신에 대한 교육도 더 집중적으로 할 수 있는 협회가 있었으면 좋겠어."
-    "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
+    m "친일파의 만행에 대해서 내가 직접 알리다니. 역사 책에서 보던 독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다!"
+    coll "근데 아무리 생각해도 일진회를 더 견제해야 됩니다. 민족 정신에 대한 교육의 필요성이 더 중요해졌지 않습니까? 협회를 만들어야 하지 않을까 생각합니다."
 
     # 드래그 앤 드롭 미니게임
     call daehan_association_minigame
@@ -231,77 +267,565 @@ label oh_chap2:
     # 드래그 앤 드롭 완료 후
     scene bg_news_machine with fade_fast
     "대한협회 결성!"
-    m "이제 더 체계적으로 민족 정신을 지킬 수 있겠어!"
-    "신문 찍는 기계 앞에서 기억구슬을 주웠다."
+
+    "신문 찍는 기계 앞에서 구슬을 주웠다."
+    m "벌써 두 번째 구슬이다! 이 속도면 집에 빨리 갈 수 있겠지?"
     stop music fadeout 1.0
+    
+    jump oh_chap3
+    
+# =========================================
+# Ch3. 대한민보 편찬 → 연재만화 → 풍자소설
+# =========================================
+label oh_chap3:
+    scene bg_black with fade_fast
+    show colleague at Transform(zoom=0.35, xalign=0.5, yalign=0.5)
+    play music oh_main_bgm fadein 1.0 loop
+
+    coll "하, 근데 이것만으로도 아직 너무 부족한 것 같습니다."
+    coll "일본의 만행이 너무 심해지고 있습니다…. 우리나라를 하나의 뜻으로 모아야 합니다!"
+    coll "이번에는 기관지가 아닌 신문도 같이 발행해 보는 것은 어떱니까?"
+    
+    scene bg_oh_desk with fade_fast
+    "대한민보를 편찬하게 되었다."
+    m "근데 나도 긴 글 읽고 공부하는 것을 싫어하는데……. 맨날 벼락치기만 하고"
+    m "단순히 글 말고도 쉽게 사람들에게 지식을 전파할 수 있는 방법이 없을까?"
+    
+    call menu_loop_news
+    call mission_news
+    
+    scene bg_crowd_news_4
+    pause 1.0
+    scene bg_crowd_news_5
+    pause 1.0
+    scene bg_crowd_news_6
+    pause 1.0
+    scene bg_crowd_news_7
+    pause 1.0
+
+    reader_1 "오, 신문에 만화라니 신선하고 재미있는데?"
+    reader_2 "이건 어떤 신문이야? 나도 구매해야겠다. 나도 신문 한 부 주시오!"
+    m "만화 말고도 사람들이 신문을 좀 더 재미있게 읽을 수 있는 방법은 없을까? 아, 소설 같은 것도 신문에 넣으면 좋을 것 같은데."
+
+    call menu_loop_novel
+    call mission_novel
+
+    scene bg_crowd_novel_4
+    pause 1.0
+    scene bg_crowd_novel_5
+    pause 1.0
+    scene bg_crowd_novel_6
+    pause 1.0
+    scene bg_crowd_novel_7
+    pause 1.0
+
+    reader_1 "아, 이젠 풍자소설도 신문으로 볼 수 있어?"
+    reader_2 "그렇다니까. 한글로 되어 있어서 읽기도 얼마나 쉬운데?"
+    reader_3 "뭐?! 그럼 나 같은 사람도 읽을 수 있겠네!"
+    
+    scene bg_oh_desk with fade_fast
+    "신문 속에서 기억 구슬을 획득했다."
+    m "이제 다음이 마지막 구슬인가? 벌써 마지막 구슬이라니 약간은 아쉽네…."
+    
+    stop music fadeout 1.0
+    
+    # Ch3 종료 - 다음 챕터나 메인으로 이동
+    jump oh_chap4
+
+# =========================================
+# Ch4. 독립선언서 준비 → 3.1 만세운동 → 체포
+# =========================================
+label oh_chap4:
+    scene bg_gather with fade_slow
+    play music oh_main_bgm fadein 1.0 loop
+    
+    chondo "아, 그러고 보니 우리가 독립선언서를 준비해야 하네. 만세 운동도 같이 준비하기로 했어! 자네 기억하고 있지?"
+    m "뭐? 내가 언제? 다른 사람들과 만세 운동을 준비해야 된다고 한다. 어떡해?"
+    m "처음부터 성공할 것 같지는 않아…. 책에서 본 독립운동가분들도 다 이렇게 생각했겠지? 그래! 해 보자!"
+    
+    "독립만세운동과 독립선언서를 준비하는 움직임에 힘을 보태야 한다."
+    "먼저 독립선언서를 인쇄할 준비를 해 놓자."
+    
+    scene bg_paper_machine with fade_fast
+    
+    m "일본 몰래 준비하다가 일찍 들켜 독립선언서를 뺏겨 만세 운동을 못하게 될지도 모른다. 어떻게 해야 할까?"
+    
+    call declaration_backup_loop
+    
+    "이제 안심이 조금 된다. 독립선언서를 인쇄했다."
+    
+    m "3.1 만세운동을 위한 태극기도 그려야 한다."
+    
+    # 태극기 그리기 미니게임
+    call draw_taegeuk_minigame
+    
+    "태극기를 그렸다!"
+    
+    m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된대…!"
+    
+    call sign_declaration_loop
+    
+    scene bg_gather with fade_fast
+    #play music manse_effect fadein 1.0
+    
+    "대한독립선언서에 서명하고, 3.1 만세운동을 시작한다!"
+    
+    # 독립선언서 뿌리기 인터랙션
+    call screen spread_declaration
+    
+    scene bg_manse with fade_fast
+    
+    "대한독립만세!"
+    "대한독립만세!"
+    "대한독립만세!"
+    
+    voice "오세창은 민족 대표 33인 중 1인으로 독립선언서에 참여하고 만세운동을 벌였다."
+    
+    #stop music fadeout 1.0
+    scene bg_police with fade_fast
+    
+    "결국 일본에게 붙잡혀 체포되었다."
+    m "직접 해 보니 독립운동가분들에게 감사한 마음을 가져야겠어."
+    
+    scene bg_manse with fade_fast
+    
+    "대한독립만세!"
+    
+    "태극기와 함께 기억 구슬을 얻었다."
+    m "드디어 구슬을 다 모았다! 이제 집에 돌아갈 수 있겠다!"
+    
+    stop music fadeout 1.0
+    
+    # Ch4 종료
     return
 
 # =========================================
-# 일진회 비판 메뉴
+# 독립선언서 백업 선택 루프
 # =========================================
-label menu_loop_ijh:
+label declaration_backup_loop:
     menu:
-        "일진회를 비판하는 글을 <만세보>에 싣자."
+        "원본만 가지고 있기":
+            "만세 운동을 아예 할 수 없게 될지도 모른다. 그래도 원본만 가지고 있을까?"
+            jump declaration_backup_loop
         
-        "비판하기":
+        "혹시 모르니 다른 곳에 베껴 써 놓았다가 만세 운동까지 대비하기":
+            return
+
+# =========================================
+# 독립선언서 서명 선택 루프
+# =========================================
+label sign_declaration_loop:
+    menu:
+        "대한독립선언서에 서명하고, 3.1 만세운동을 진행하시겠습니까?"
+            
+        "네":
+            return
+        
+        "넵":
+            return
+        
+        "정말 결의에 찬 마음으로 예":
+            return
+        
+        "당연하지":
+            return
+ 
+   
+
+# =========================================
+# 독립선언서 뿌리기 인터랙션
+# =========================================
+screen spread_declaration():
+    modal True
+    
+    add "bg_gathering"
+    
+    text "독립선언서를 클릭하여 만세운동을 시작하세요":
+        xalign 0.5 
+        ypos 50 
+        size 40
+        color "#ffffff"
+        outlines [(2, "#000000", 0, 0)]
+    
+    # 쌓여 있는 독립선언서 (클릭 가능)
+    imagebutton:
+        idle "declaration_paper"
+        hover "declaration_paper"
+        xalign 0.5
+        yalign 0.5
+        action Return()
+# =========================================
+# 비판 메뉴 루프
+# =========================================
+label menu_loop_critique:
+    menu:
+        "친일 단체인 일진회의 문제점을 널리 알려야겠어!":
             scene bg_critique_ijh with fade_fast
-            show screen info_tooltip("일진회: 일본이 우리나라를 차지하는 데에 앞장섰던 단체로, 처음에는 나라를 발전시키자고 했지만 나중에는 일본에 나라를 넘겨주는 데 도움을 준 친일단체")
             pause 1.5
             "아! 일진회 역적 무리들이 왜적과 결탁하여 을사늑약을 찬성하고 합병을 청원하니,"
             "이 어찌 동포를 배반하고 조종의 강토를 팔아먹는 천추의 역적 행위가 아니겠는가!"
-            hide screen info_tooltip
-            #일진회: 일본이 우리나라를 차지하는 데에 앞장섰던 단체로, 
-            #처음에는 나라를 발전시키자고 했지만 나중에는 일본에 나라를 넘겨주는 데 도움을 준 친일단체
             return
         
-        "비판하지 않기":
-            m "우리나라를 일본에게 넘기는 것을 보고도 가만히 있는 게 맞을까?"
-            jump menu_loop_ijh
-
-# =========================================
-# 이지용 비판 메뉴
-# =========================================
-label menu_loop_ljy:
-    menu:
-        "친일파인 내부대신 이지용 비판하기"
-        
-        "비판하기":
+        "친일파, 을사조약에 찬성한 '을사오적' 중 한 명인 내부대신 이지용을 비판하자!":
             scene bg_critique_ljy with fade_fast
-            show screen info_tooltip("이지용: 조선 시대 말기에 살았던 왕족 출신의 관료로, 1905년에 일본이 우리나라의 외교권을 빼앗는 을사조약에 찬성한 '을사오적' 중 한 명")
             pause 1.5
             "내부대신 이지용은 대역무도한 역적으로, 왜놈의 협박에 굴복하여 을사늑약에 도장을 찍고"
             "삼천리 강토를 적에게 넘기니, 백성들의 원성이 하늘을 찌르도다!"
-            hide screen info_tooltip
-            #이지용: 조선 시대 말기에 살았던 왕족 출신의 관료로, 
-            #1905년에 일본이 우리나라의 외교권을 빼앗는 을사조약에 찬성한 '을사오적' 중 한 명
             return
-        
-        "비판하지 않기":
-            m "우리나라를 일본에게 넘기는 것을 보고도 가만히 있는 게 맞을까?"
-            jump menu_loop_ljy
 
-# =========================================
-# 이근택 비판 메뉴
-# =========================================
-label menu_loop_lgt:
-    menu:
-        "친일파인 군부대신 이근택 비판하기"
-        
-        "비판하기":
+        "친일파, 을사조약에 찬성한 '을사오적' 중 한 명인 군부대신 이근택을 비판하자!":
             scene bg_critique_lgt with fade_fast
-            show screen info_tooltip("이근택: 1905년 군부대신으로서 일본과 맺은 을사조약에 찬성해 우리나라 주권을 빼앗기는 데 앞장섰고, 이후 일본이 나라를 다스릴 때 중요한 자리를 맡아 친일 행위를 한 일제 강점기 대표적인 친일파")
             pause 1.5
             "군부대신 이근택은 나라의 군권을 지켜야 할 자리에 있으면서도"
             "왜적의 칼날 앞에 무릎 꿇고 을사늑약에 서명하여 국권을 도적질하였으니, 이 무슨 염치없는 배신인가!"
-            hide screen info_tooltip
-            #이근택: 1905년 군부대신으로서 일본과 맺은 을사조약에 찬성해 우리나라 주권을 빼앗기는 데 앞장섰고, 
-            #이후 일본이 나라를 다스릴 때 중요한 자리를 맡아 친일 행위를 한 일제 강점기 대표적인 친일파
             return
-        
-        "비판하지 않기":
-            m "우리나라를 일본에게 넘기는 것을 보고도 가만히 있는 게 맞을까?"
-            jump menu_loop_lgt
 
+        "그냥 비판하지 말자!":
+            "진짜 우리나라가 일본에게 팔리는 것을 보고도 가만히 있을 건가?"
+            jump menu_loop_critique
+
+# =========================================
+# 신문 콘텐츠 선택 메뉴 루프
+# =========================================
+label menu_loop_news:
+    menu:
+        "연재 만화를 싣기":
+            show cartoon at Transform(zoom=0.55, xalign=0.5, yalign=0.5)
+            pause 1.0
+            "우리나라 최초의 신문 연재 만화가 되었다!"
+            return
+
+        "엄청 긴 글을 싣기":
+            show essay
+            pause 1.0
+            "사람들이 재미없어 할 것 같다."
+            hide essay
+            jump menu_loop_news
+
+# =========================================
+# 소설 콘텐츠 선택 메뉴 루프
+# =========================================
+label menu_loop_novel:
+    menu:
+        "풍자 소설과 설명을 돕는 그림 싣기":
+            show novel at Transform(zoom=0.8, xalign=0.5, yalign=0.5)
+            pause 1.0
+            "순한글로 되어 있는 풍자소설 <금수재판>이 연재되어 많은 독자들을 얻게 되었다!"
+            return
+
+        "긴 글만 싣기":
+            show essay 
+            pause 1.0
+            "아… 글로만 되어 있는 신문은 너무 어려운 것 같은데?"
+            hide essay
+            jump menu_loop_novel
+
+# =========================================
+# 신문 배포 미션 (Reader 1 → Reader 2) 
+# =========================================
+
+# 전체 미션 진입
+label mission_news:
+    call mission_news_r1
+    call mission_news_r2
+    return
+
+
+# ---------- Reader 1 ----------
+label mission_news_r1:
+    # 상태 초기화
+    $ news_delivered_r1 = False
+    
+    # 루프 (대한협회 틀)
+    label mission_news_r1_loop:
+        call screen news_delivery_r1
+
+        if news_delivered_r1:
+            return
+        else:
+            jump mission_news_r1_loop
+
+
+screen news_delivery_r1():
+    modal True
+
+    # 배경
+    add "bg_crowd_news_2"
+
+    # 타이틀
+    text "신문을 새로운 독자에게 권유하기 (1/2)":
+        xalign 0.5
+        ypos 50
+        size 40
+        color "#ffffff"
+        outlines [(2, "#000000", 0, 0)]
+
+    # ✅ 완료 체크: True일 때만 자동 종료
+    if news_delivered_r1:
+        timer 0.05 action Return()
+
+    # 드래그 & 드롭
+    draggroup:
+        # 드롭 존 (정확한 히트박스)
+        drag:
+            drag_name "reader_zone_r1"
+            draggable False
+            droppable True
+            drag_raise False
+            xpos 950
+            ypos 600
+            child Solid("#dc6969a9", xysize=(300, 400))
+
+        # 드래그 아이템 (신문)
+        drag:
+            drag_name "news_cylinder_r1"
+            droppable False
+            dragged news_drag_callback_r1
+            xpos 150
+            ypos 600
+            add "news_cylinder" zoom 0.3
+
+
+init python:
+    def news_drag_callback_r1(drags, drop):
+        # 드롭 실패 시 스냅백
+        if drop is None:
+            return False
+
+        drag = drags[0]
+
+        # 정확히 일치할 때만 성공
+        if (drop.drag_name == "reader_zone_r1") and (drag.drag_name == "news_cylinder_r1"):
+            if not store.news_delivered_r1:
+                store.news_delivered_r1 = True
+                renpy.restart_interaction()  # 같은 화면에서 즉시 갱신 후 timer로 Return
+                return True
+
+        # 나머지는 실패 (스냅백)
+        return False
+
+
+
+# ---------- Reader 2 ----------
+label mission_news_r2:
+    # 상태 초기화
+    $ news_delivered_r2 = False
+    
+    # 루프 (대한협회 틀)
+    label mission_news_r2_loop:
+        call screen news_delivery_r2
+
+        if news_delivered_r2:
+            return
+        else:
+            jump mission_news_r2_loop
+
+
+screen news_delivery_r2():
+    modal True
+
+    # 배경
+    add "bg_crowd_news_3"
+
+    # 타이틀
+    text "신문을 새로운 독자에게 권유하기 (2/2)":
+        xalign 0.5
+        ypos 50
+        size 40
+        color "#ffffff"
+        outlines [(2, "#000000", 0, 0)]
+
+    # ✅ 완료 체크: True일 때만 자동 종료
+    if news_delivered_r2:
+        timer 0.05 action Return()
+
+   
+    # 드래그 & 드롭
+    draggroup:
+        # 드롭 존 (정확한 히트박스)
+        drag:
+            drag_name "reader_zone_r2"
+            draggable False
+            droppable True
+            drag_raise False
+            xpos 600
+            ypos 600
+            child Solid("#dc6b6ba9", xysize=(150, 350))
+
+        # 드래그 아이템 (신문)
+        drag:
+            drag_name "news_cylinder_r2"
+            droppable False
+            dragged news_drag_callback_r2
+            xpos 150
+            ypos 600
+            add "news_cylinder" zoom 0.3
+
+
+init python:
+    def news_drag_callback_r2(drags, drop):
+        if drop is None:
+            return False
+
+        drag = drags[0]
+
+        if (drop.drag_name == "reader_zone_r2") and (drag.drag_name == "news_cylinder_r2"):
+            if not store.news_delivered_r2:
+                store.news_delivered_r2 = True
+                renpy.restart_interaction()
+                return True
+
+        return False
+
+# =========================================
+# 소설 배포 미션 (Reader 1 → Reader 2) 
+# =========================================
+
+# 전체 미션 진입
+label mission_novel:
+    call mission_novel_r1
+    call mission_novel_r2
+    return
+
+
+# ---------- Reader 1 ----------
+label mission_novel_r1:
+    $ novel_delivered_r1 = False
+
+    label mission_novel_r1_loop:
+        call screen novel_delivery_r1
+
+        if novel_delivered_r1:
+            return
+        else:
+            jump mission_novel_r1_loop
+
+
+screen novel_delivery_r1():
+    modal True
+
+    # 배경
+    add "bg_crowd_novel_2"
+
+    # 타이틀
+    text "신문을 새로운 독자에게 권유하기 (1/2)":
+        xalign 0.5
+        ypos 50
+        size 40
+        color "#ffffff"
+        outlines [(2, "#000000", 0, 0)]
+
+    # ✅ 완료 체크
+    if novel_delivered_r1:
+        timer 0.05 action Return()
+
+
+    # 드래그 & 드롭
+    draggroup:
+        # 드롭 존
+        drag:
+            drag_name "reader_zone_novel_r1"
+            draggable False
+            droppable True
+            drag_raise False
+            xpos 1200
+            ypos 550
+            child Solid("#e87e7eaa", xysize=(250, 450))
+
+        # 드래그 아이템
+        drag:
+            drag_name "news_cylinder_novel_r1"
+            droppable False
+            dragged novel_drag_callback_r1
+            xpos 150
+            ypos 600
+            add "news_cylinder" zoom 0.3
+
+
+init python:
+    def novel_drag_callback_r1(drags, drop):
+        if drop is None:
+            return False
+
+        drag = drags[0]
+
+        if (drop.drag_name == "reader_zone_novel_r1") and (drag.drag_name == "news_cylinder_novel_r1"):
+            if not store.novel_delivered_r1:
+                store.novel_delivered_r1 = True
+                renpy.restart_interaction()
+                return True
+
+        return False
+
+
+
+# ---------- Reader 2 ----------
+label mission_novel_r2:
+    $ novel_delivered_r2 = False
+
+    label mission_novel_r2_loop:
+        call screen novel_delivery_r2
+
+        if novel_delivered_r2:
+            return
+        else:
+            jump mission_novel_r2_loop
+
+
+screen novel_delivery_r2():
+    modal True
+
+    # 배경
+    add "bg_crowd_novel_3"
+
+    # 타이틀
+    text "신문을 새로운 독자에게 권유하기(2/2)":
+        xalign 0.5
+        ypos 50
+        size 40
+        color "#ffffff"
+        outlines [(2, "#000000", 0, 0)]
+
+    # ✅ 완료 체크
+    if novel_delivered_r2:
+        timer 0.05 action Return()
+
+    # 드래그 & 드롭
+    draggroup:
+        # 드롭 존
+        drag:
+            drag_name "reader_zone_novel_r2"
+            draggable False
+            droppable True
+            drag_raise False
+            xpos 700
+            ypos 550
+            child Solid("#f26a6aa1", xysize=(250, 450))
+
+        # 드래그 아이템
+        drag:
+            drag_name "news_cylinder_novel_r2"
+            droppable False
+            dragged novel_drag_callback_r2
+            xpos 150
+            ypos 600
+            add "news_cylinder" zoom 0.3
+
+
+init python:
+    def novel_drag_callback_r2(drags, drop):
+        if drop is None:
+            return False
+
+        drag = drags[0]
+
+        if (drop.drag_name == "reader_zone_novel_r2") and (drag.drag_name == "news_cylinder_novel_r2"):
+            if not store.novel_delivered_r2:
+                store.novel_delivered_r2 = True
+                renpy.restart_interaction()
+                return True
+
+        return False
 # =========================================
 # 대한협회 결성 드래그 앤 드롭 미니게임
 # =========================================
@@ -405,49 +929,232 @@ init python:
         # 태극기 상자가 아닌 곳에 놓거나, 잘못된 아이템이면 실패
         return False
 
-
 # =========================================
-# 정보 툴팁 스크린
+# 태극기 그리기 미니게임 (모두 드래그 가능)
 # =========================================
-screen info_tooltip(info_text):
-    zorder 100
-    
-    # 물음표 아이콘 버튼
-    frame:
-        xalign 0.95
-        yalign 0.05
-        xysize (50, 50)
-        background "#4169E1"
-        padding (0, 0)
-        
-        button:
-            xysize (50, 50)
-            background None
-            action NullAction()
-            
-            text "?":
-                align (0.5, 0.5)
-                size 35
-                color "#FFFFFF"
-                bold True
-            
-            # 마우스 호버 시 툴팁 표시
-            hovered Show("tooltip_box", info=info_text)
-            unhovered Hide("tooltip_box")
 
-# 툴팁 박스 스크린
-screen tooltip_box(info, xalign=0.75, yalign=0.05):
-    zorder 101
+label draw_taegeuk_minigame:
+    call taegeuk_stage_1
+    call taegeuk_stage_2
+    call taegeuk_stage_3
     
-    frame:
-        xalign xalign
-        yalign yalign
-        xmaximum 500
-        background "#2C3E50"
-        padding (20, 20)
-        
-        text info:
-            size 20
-            color "#FFFFFF"
-            line_spacing 5
-            text_align 0.0
+    scene bg_taegeuk_draw_4 with fade_fast
+    $ renpy.pause(1.0, hard=True)
+    return
+
+
+# ----------------------------------------------------------------------
+# ---------- Stage 1 : 빨간 붓만 성공 (Red Brush Required) ----------
+# ----------------------------------------------------------------------
+label taegeuk_stage_1:
+    $ tae_s1_done = False
+    call screen taegeuk_draw_s1
+    return
+
+screen taegeuk_draw_s1():
+    modal True
+
+    if tae_s1_done:
+        timer 0.05 action Return()
+
+    # 모든 디스플레이어를 fixed로 감싸서 구조를 명확히 함
+    fixed:
+        add "bg_taegeuk_draw_1"
+        add Solid("#ffff0080", xysize=(640, 360)) xpos 640 ypos 300
+
+        # 1) 드래그 그룹 (모든 붓을 drag 객체로 만듦)
+        draggroup:
+            # 드롭 존(종이)
+            drag:
+                drag_name "paper_zone_s1"
+                draggable False
+                droppable True
+                drag_raise False
+                xpos 640
+                ypos 300
+                child Solid("#00000000", xysize=(640, 360))
+
+            # 검은 붓 (움직일 수 있지만 성공 조건은 아님)
+            drag:
+                drag_name "black_move_s1"
+                droppable False
+                dragged taegeuk_drag_cb_s1 # 모든 붓이 같은 콜백을 사용
+                xpos 400
+                ypos 620
+                child "black_brush" at Transform(zoom=0.85)
+
+            # 파란 붓 (움직일 수 있지만 성공 조건은 아님)
+            drag:
+                drag_name "blue_move_s1"
+                droppable False
+                dragged taegeuk_drag_cb_s1
+                xpos 600
+                ypos 650
+                child "blue_brush" at Transform(zoom=0.85)
+
+            # 빨간 붓 (빛나며, 성공 조건)
+            drag:
+                drag_name "red_move_s1"
+                droppable False
+                dragged taegeuk_drag_cb_s1
+                xpos 820
+                ypos 610
+                child "red_high" at Transform(zoom=0.85)
+
+init python:
+    # 콜백 함수에서 특정 붓(red_move_s1)만 체크하도록 로직 수정
+    def taegeuk_drag_cb_s1(drags, drop):
+        if drop is None:
+            return False
+        drag = drags[0]
+        # Stage 1: 빨간 붓만 성공
+        if drop.drag_name == "paper_zone_s1" and drag.drag_name == "red_move_s1":
+            store.tae_s1_done = True
+            renpy.restart_interaction()
+            return True
+        # 다른 붓이 드롭 존에 닿으면 드롭은 허용하지만 장면 전환은 하지 않음
+        if drop.drag_name == "paper_zone_s1":
+            return True # 드롭은 성공하지만 False를 리턴하여 drag를 원래 위치로 되돌릴 수도 있음
+        return False # 드롭 존이 아닌 다른 곳에 드롭 시 드래그 취소
+
+
+# ----------------------------------------------------------------------
+# ---------- Stage 2 : 파란 붓만 성공 (Blue Brush Required) ----------
+# ----------------------------------------------------------------------
+label taegeuk_stage_2:
+    $ tae_s2_done = False
+    call screen taegeuk_draw_s2
+    return
+
+screen taegeuk_draw_s2():
+    modal True
+    
+    if tae_s2_done:
+        timer 0.05 action Return()
+
+    fixed:
+        add "bg_taegeuk_draw_2"
+        add Solid("#ffff0080", xysize=(640, 360)) xpos 640 ypos 300
+
+        draggroup:
+            drag:
+                drag_name "paper_zone_s2"
+                draggable False
+                droppable True
+                drag_raise False
+                xpos 640
+                ypos 300
+                child Solid("#00000000", xysize=(640, 360))
+
+            # 검은 붓 (움직일 수 있지만 성공 조건은 아님)
+            drag:
+                drag_name "black_move_s2"
+                droppable False
+                dragged taegeuk_drag_cb_s2
+                xpos 400
+                ypos 620
+                child "black_brush" at Transform(zoom=0.85)
+            
+            # 빨간 붓 (움직일 수 있지만 성공 조건은 아님)
+            drag:
+                drag_name "red_move_s2"
+                droppable False
+                dragged taegeuk_drag_cb_s2
+                xpos 820
+                ypos 610
+                child "red_brush" at Transform(zoom=0.85)
+
+            # 파란 붓 (빛나며, 성공 조건)
+            drag:
+                drag_name "blue_move_s2"
+                droppable False
+                dragged taegeuk_drag_cb_s2
+                xpos 600
+                ypos 650
+                child "blue_high" at Transform(zoom=0.85)
+
+init python:
+    # 콜백 함수에서 특정 붓(blue_move_s2)만 체크하도록 로직 수정
+    def taegeuk_drag_cb_s2(drags, drop):
+        if drop is None:
+            return False
+        drag = drags[0]
+        # Stage 2: 파란 붓만 성공
+        if drop.drag_name == "paper_zone_s2" and drag.drag_name == "blue_move_s2":
+            store.tae_s2_done = True
+            renpy.restart_interaction()
+            return True
+        if drop.drag_name == "paper_zone_s2":
+            return True
+        return False
+
+
+# ----------------------------------------------------------------------
+# ---------- Stage 3 : 검은 붓만 성공 (Black Brush Required) ----------
+# ----------------------------------------------------------------------
+label taegeuk_stage_3:
+    $ tae_s3_done = False
+    call screen taegeuk_draw_s3
+    return
+
+screen taegeuk_draw_s3():
+    modal True
+    
+    if tae_s3_done:
+        timer 0.05 action Return()
+
+    fixed:
+        add "bg_taegeuk_draw_3"
+        add Solid("#ffff0080", xysize=(640, 360)) xpos 640 ypos 300
+
+        draggroup:
+            drag:
+                drag_name "paper_zone_s3"
+                draggable False
+                droppable True
+                drag_raise False
+                xpos 640
+                ypos 300
+                child Solid("#00000000", xysize=(640, 360))
+
+            # 빨간 붓 (움직일 수 있지만 성공 조건은 아님)
+            drag:
+                drag_name "red_move_s3"
+                droppable False
+                dragged taegeuk_drag_cb_s3
+                xpos 820
+                ypos 610
+                child "red_brush" at Transform(zoom=0.85)
+
+            # 파란 붓 (움직일 수 있지만 성공 조건은 아님)
+            drag:
+                drag_name "blue_move_s3"
+                droppable False
+                dragged taegeuk_drag_cb_s3
+                xpos 600
+                ypos 650
+                child "blue_brush" at Transform(zoom=0.85)
+
+            # 검은 붓 (빛나며, 성공 조건)
+            drag:
+                drag_name "black_move_s3"
+                droppable False
+                dragged taegeuk_drag_cb_s3
+                xpos 400
+                ypos 620
+                child "black_high" at Transform(zoom=0.85)
+
+init python:
+    # 콜백 함수에서 특정 붓(black_move_s3)만 체크하도록 로직 수정
+    def taegeuk_drag_cb_s3(drags, drop):
+        if drop is None:
+            return False
+        drag = drags[0]
+        # Stage 3: 검은 붓만 성공
+        if drop.drag_name == "paper_zone_s3" and drag.drag_name == "black_move_s3":
+            store.tae_s3_done = True
+            renpy.restart_interaction()
+            return True
+        if drop.drag_name == "paper_zone_s3":
+            return True
+        return False
