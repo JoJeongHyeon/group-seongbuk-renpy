@@ -1,9 +1,16 @@
 # 민욱 담당
 # 임규 루트 스크립트
 
-# -------- BGM/효과음 --------
-define audio.im_main_bgm = "audio/bgm/im_main_bgm.mp3"
+# =============================================================================
+# 오디오 정의
+# =============================================================================
+# 기억구슬 효과음
+define audio.memory_orb_appear = "audio/sfx/memory_orb_appear.mp3"
+define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
+
+#똑똑
 define audio.im_ch1 = "audio/bgm/im_ch1.wav"
+
 # === 책 정보 (전역) ===
 screen interactive_table_im():
     # 기본 테이블 이미지
@@ -37,17 +44,32 @@ screen interactive_table_im():
             action Return("next_ch")
 
     # 역사 인물들
-define choi = Character("최남선", image = "choi",color="#4a2222")
-define w = Character("???", image = "choi0",color="#4a2222")
-define w1 = Character("???", image = "hara0",color="#ff3030")
+define choi = Character("최남선", image = "choi",color="#49b9bf")
+define w = Character("낯선 사람", image = "choi0",color="#b28080")
 define hara = Character("하라 다카시", image = "hara",color="#ff3030") 
+define w1 = Character("???", image = "hara0",color="#aa7c7c")
+define im_t = Character("???", color="#ff6b6b", what_color="#888888", what_italic=True)
 
-image side choi  = "ch/choi.png"
-image side w  = "ch/choi0.png"
-image side hara  = "ch/hara.png"
-image side w1  = "ch/hara0.png"   
+# 기억구슬
+image memory_orb-1 = "bg/memory_orb-1.png"
+image memory_orb-2 = "bg/memory_orb-2.png"
+image memory_orb-3 = "bg/memory_orb-3.png"
+image memory_orb-4 = "bg/memory_orb-4.png"
+image memory_orb-1_hover = "bg/memory_orb-1_hover.png"
+image memory_orb-2_hover = "bg/memory_orb-2_hover.png"
+image memory_orb-3_hover = "bg/memory_orb-3_hover.png"
+image memory_orb-4_hover = "bg/memory_orb-4_hover.png"
 
-image bead  = "bg/main_im/bead.png"
+# UI 스크린 - 챕터 및 구슬 발견창
+image ui_ch1 = At("ui_screen/ui_ch1.png", custom_size)
+image ui_ch2 = At("ui_screen/ui_ch2.png", custom_size)
+image ui_ch3 = At("ui_screen/ui_ch3.png", custom_size)
+image ui_ch4 = At("ui_screen/ui_ch4.png", custom_size)
+image ui_orb_found_ch1 = At("ui_screen/ui_orb_found_ch1.png", custom_size)
+image ui_orb_found_ch2 = At("ui_screen/ui_orb_found_ch2.png", custom_size)
+image ui_orb_found_ch3 = At("ui_screen/ui_orb_found_ch3.png", custom_size)
+image ui_orb_found_ch4 = At("ui_screen/ui_orb_found_ch4.png", custom_size)
+
 
 #chapter1
 image bk-1               = At("bg/main_im/ch1/bk-1.png", custom_size)
@@ -57,13 +79,12 @@ image imbubble-1         = At("bg/main_im/ch1/imbubble-1.png", custom_size)
 image imbubble-2         = At("bg/main_im/ch1/imbubble-2.png", custom_size)             
 image imbubble-3         = At("bg/main_im/ch1/imbubble-3.png", custom_size)
 image bg_table_empty     = At("bg/table_empty.png", custom_size)   
-image ch1_door           = At("bg/main_im/ch1/door.png", custom_size)             
 image ch1_table          = At("bg/main_im/ch1/bg_im_table.png", custom_size)             
 image ch1_table_ex       = At("bg/main_im/ch1/table_ex.png", custom_size)   
 
 #chapter2          
 image bg_darkroom        = At("bg/main_im/ch2/darkroom.png", custom_size)
-
+image ch2_door           = At("bg/main_im/ch2/door.png", custom_size)
 #chapter3
 image imch3_bg = At("bg/main_im/ch3/bg_chapter3.png", custom_size)
 image imch3_bg_dokrip = At("bg/main_im/ch3/bg_dokrip.png", custom_size)
@@ -76,6 +97,8 @@ image word_seo = "bg/main_im/ch3/seo.png"
 #chapter4
 image imch4_bg = At("bg/main_im/ch4/bg_chapter4.png", custom_size)
 image imch4_bgp = At("bg/main_im/ch4/bg_chapter4p.png", custom_size)
+image imch4_bgpc = At("bg/main_im/ch4/bg_chapter4pc.png")
+
 image p1 = "bg/main_im/ch4/puzzle1.png"
 image p2 = "bg/main_im/ch4/puzzle2.png"
 image p3 = "bg/main_im/ch4/puzzle3.png"
@@ -85,71 +108,115 @@ image p6 = "bg/main_im/ch4/puzzle6.png"
 image p7 = "bg/main_im/ch4/puzzle7.png"
 image p8 = "bg/main_im/ch4/puzzle8.png"
 image pf = "bg/main_im/ch4/puzzle_frame.png"   
-image pf = "bg/main_im/ch4/frame0.png"
+image pf = "bg/main_im/ch4/frame0.png"         
+
+
+define mt = Character("나", color="#ffffff", what_italic=True)
+
 # 게임 시작
 #===========================================================================
 # 챕터 1 일본어에 능통하고, 조선광문회에서 고전 발간 편집을 진행한 것.
 #===========================================================================
-label character_im:
+label character_im:   
     play music im_main_bgm fadein 1.0 loop
     scene ch1_table_ex with fade_slow   #책들이 놓여있는 이미지, 이미지 축소해야함.
+    show ui_ch1 with dissolve
 
     m "구슬을 찾으려면 어떻게 해야 하지?"
-    m "그리고 여긴 또 어디야…"
-    m "얼굴은 한국인 같았는데, 한국이려나?"
-    m "책상에는 일본어책도 여러 권 있고, 원래 이분은 일본어를 상당히 잘하셨나?"
+    hide ui_ch1 with dissolve
+    mt "그리고 여긴 또 어디야…"
+    mt "얼굴은 한국인 같았는데, 한국이려나?"
+    mt "책상에는 일본어책도 여러 권 있고, \n원래 이분은 일본어를 상당히 잘하셨나?"
     m "그리고 이건 한국 고전인가?"
+    
+    show screen mission_guide("책을 눌러 정보를 확인하세요.", icon="📄")
     m "책상 위에 책들이 이리저리 놓여 있네."
 
-
+    hide screen mission_guide
+    
     call screen interactive_table_im
 
 
     # 선택에 따른 분기
     if _return == "next_ch":
         # $ chosen_character = "jang" # 장기영
-        narrator '우리 민족 전통은 이어져야 하지. 그러기 위해선 고전을 잊어선 안돼.'
-        m "머릿속에서 들리는 말이나, 여기 책들을 보면 고전을 연구하던 분이셨구나."
-        m "밖에서 쓰는 말이나, 보이는 풍경으로 봐서는 일제강점기 같은데..."
+        im_t '우리 민족 전통은 이어져야 하지.'
+        im_t '그러기 위해선 고전을 잊어선 안돼.'
+        m "머릿속에서 들리는 말이나" 
+        m "여기 책들을 보면 고전을 연구하던 분이셨구나."
+        m "밖에서 쓰는 말이나" 
+        m "보이는 풍경으로 봐서는 일제강점기 같은데..."
         m "이런 시기에 우리의 고전을 연구하셨다면, 대단하신 분이네."
-        jump chapter1
+        
+        jump next
+        return
+label next:
+    show memory_orb-1 with dissolve
+    play sound memory_orb_appear fadein 0.5 fadeout 3.0
+    pause 1.0
+    
+    
+    mt "이게 뭐지? 갑자기 웬 구슬?"
+            
+    mt "왜 자꾸 둥둥 떠 있는 거야.."
+    mt "잡아야 하는 건가?"
+
+    show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
+    call screen interactive_objects("memory_orb-1")
+    hide memory_orb-1
+    hide screen mission_guide
+            
+
+
+    hide memory_orb-1 with dissolve
+
+    mt "아, 이런 구슬을 찾으라는 이야기였구나!"
+            
+    # 챕터1 표시
+    window hide
+    # show screen framed_message("챕터1 | 기억구슬 획득", text_size=60) with dissolve
+
+    play sound memory_orb_get
+    pause 2.0
+            
+    # 구슬 발견창 표시 (챕터1 숨기면서 동시에 표시)
+
+    show ui_orb_found_ch1 with dissolve
+    pause 2.0
+    hide ui_orb_found_ch1 with dissolve
+            
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 2.0
+            
+    # 챕터2로 이어짐
+    jump chapter2
+
 return
 
-#구슬 등장
-label chapter1:
+#===========================================================================
+# 챕터 2 최남선이 독립선언서를 작성하도록 돕다
+#===========================================================================
+
+label chapter2:
+
+    scene bg_darkroom with Dissolve(3) # 교차 디졸브
+
+    show ui_ch2 with dissolve
+
+    mt "뭔가 시간대가 바뀐 거 같은데.."
+    hide ui_ch2 with dissolve
+    mt "음? 밖에 누가 왔나?"
+    jump chapter2_scene2
+
+label chapter2_scene2:
     
-    scene bg_darkroom with fade_slow
+    scene ch2_door with fade_slow
 
-    #=========제2장=========
-    stop music fadeout 1.0
+    play sound im_ch1 fadein 1.0
+    narrator "똑똑"
 
-    show bead with fade_slow   #구슬 등장
-    m "이게 뭐지? 갑자기 웬 구슬"
-    m "이건...."
-
-    m '구슬을 잡자, 구슬이 사라졌다.'
-
-    ##### 퀘스트창 구슬을 잡습니다. 보상: 현실 세계로 복귀
-
-    hide bead with fade_slow #구슬 사라짐
-
-    m "아, 이런 구슬을 찾으라는 이야기였구나!"
-
-#===========================================================================
-# 챕터 2
-#===========================================================================
-
-    play music im_ch1 fadein 1.0
-
-    scene ch1_door with Dissolve(5) # 교차 디졸브
-
-    play music im_main_bgm fadeout 1.0 loop
-
-    m "뭔가 시간대가 바뀐 거 같은데.."
-    m "음? 밖에 누가 온 것 같은데?"
-
-
-    w "우정 선생님, 안에 계신가요?"
+    w "우정 선생님, 안에 계신가요?" ##낯선 사람!!!!
 
     m "누가 찾아온 듯하다."
     m "누굴까? 함께 고전 연구를 함께하는 사람인가?"
@@ -162,38 +229,38 @@ label chapter1:
             jump say_choi
 
         "열어 주지 않는다.":
-            jump say_no
+            show screen info_tooltip("최남선\n독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
+            
+            choi "선생님 접니다, 최남선."
+            m "최남선? 들어본 것 같은데.."
+            m "누군가 속삭이는 소리가 들린다"
+            im_t "이 사람은 믿을 수 있다. 함께 일하는 동지 최남선이다."
 
-label say_no:
-    w "선생님 접니다, 최남선."
-    m "최남선? 들어본 것 같은데.."
-    m "누군가 속삭이는 소리가 들린다"
-    narrator "이 사람은 믿을 수 있다. 함께 일하는 동지 최남선이다."
-
-    m "나는 홀린 듯이 문을 열었다."
-    jump say_choi
+            m "나는 홀린 듯이 문을 열었다."
+            hide screen info_tooltip
+            jump say_choi
 return
 
 label say_choi:
-    choi "사실, 전 오늘은 긴히 드릴 말씀이 있어 이리 찾아오게 되었습니다."
-    
-    jump chapter2
-
+    show screen info_tooltip("최남선\n독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
+    choi "사실, 오늘은 긴히 드릴 말씀이 있어 이리 찾아오게 되었습니다."
+            
+    jump chapter2_scene3
 return
 
-label chapter2:
-    scene bg_darkroom with fade_slow
-    show screen info_tooltip("독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
-    choi "우정 선생님, 우리는 만세 운동을 시행하려고 합니다."
+label chapter2_scene3:
 
-    m '만세 운동? 3.1운동을 만하는 건가?'
-    m '그럼 지금은 3.1운동 직전 시기인가 보네.'
+    scene bg_darkroom with fade_slow
+
+    choi "우정 선생님, 우리는 만세 운동을 시행하려고 합니다."
+    show screen info_tooltip("최남선\n독립선언서의 기초를 작성한 계몽사상가이자 언론인으로, 《소년》 잡지를 창간해 청년 계몽운동을 주도했다.")
+            
+    mt '만세 운동? 3.1운동을 말하는 건가?'
+    mt '그럼 지금은 3.1운동 직전 시기인가 보네.'
 
     choi "저는 독립선언서를 작성하기로 했습니다."
     choi "그래서, 선생님께 이 일에 대한 조언을 구하고자 합니다"
-
-    #선택에 따른 분기
-
+    hide screen info_tooltip
     m "뭐라고 대답하지..?"
     menu:
         "말린다":
@@ -209,8 +276,7 @@ label stop_choi:
     choi "지금이 아니면 안됩니다!"
 
     m "선택의 여지가 없다.."
-    
-    hide screen info_tooltip
+
 
     menu:
         "지지한다":
@@ -221,40 +287,64 @@ label support_choi:
     m "그리고, 작성하려면 안전한 장소도 필요하겠지."
     m "우리 집을 내어줄 테니, 여기서 독립선언서를 작성하시게."
     m "그리고, 일본으로도 전달해야 하겠지? 그 임무를 내가 맡겠네."
-    m "’도와주겠다는 마음을 먹자, 저절로 입이 열렸다.’"
-    m "’이분은 큰 위험을 감수하고도 만세 운동을 돕고자 하는 사람이었던 것 같다.’"
+    m "도와주겠다는 마음을 먹자, 저절로 입이 열렸다."
+    m "이분은 큰 위험을 감수하고도 \n만세 운동을 돕고자 하는 사람이었던 것 같다."
 
-    show bead with fade_slow
+    # 기억구슬 등장
 
-    m "어, 또 구슬이다."
+    show memory_orb-2 with dissolve
+    play sound memory_orb_appear fadein 0.5 fadeout 3.0
+    pause 1.0
+    
+    m "어.. 또 구슬이다."
+
+    # 클릭 후 사라짐
+    show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
+    call screen interactive_objects("memory_orb-2")
+    hide screen mission_guide
+
+    hide memory_orb-2 with dissolve
+    pause 0.5
+    
     m "이번에도 구슬을 만지니, 사라졌다."
-    hide bead with fade_slow
 
-    #########show 두번째 구슬을 찾았습니다.#######################
+    # 챕터2 표시
+    window hide
+    play sound memory_orb_get
+    pause 2.0
+    
+    # 구슬 발견창 표시 (챕터2 숨기면서 동시에 표시)
+    show ui_orb_found_ch2 with dissolve
+    pause 2.0
+    hide ui_orb_found_ch2 with dissolve
+    
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 2.0
 
-    m "그런데 이번에는 아까와 다르게 공간이 바뀌는 기분이 들었다."
+    m "그런데 이번에는 아까와 다르게"
+    m "공간이 바뀌는 기분이 들었다."
     m "뮈지? 순간이동?"
 
     jump chapter3
 
 #===========================================================================
-# 챕터 3
+# 챕터 3 일본으로 건너가서 독립선언서를 전달하고, 선언하다
 #===========================================================================
 
 label chapter3:
-    scene imch3_bg with dissolve_slow
-    ###############show 챕터3##################
+    scene imch3_bg with fade_slow
 
-    m "아까 있던 곳과는 확인히 다르다."
+    m "아까 있던 곳과는 확연히 다르다."
     m "여기는....?"
 
-    im "일본이다."
-    im "나는 일본에 독립선언서를 우송하고자 왔다."
+    im_t "일본이다."
+    im_t "나는 일본에 독립선언서를 우송하고자 왔다."
     
     m "아까 말한대로 정말 일본으로 전달하는 임무를 하고 계시다니."
     m "나는 괜히 떨리는 마음에 침을 꿀꺽 삼켰다."
 
-    im "일본 수상과 의회에 독립선언서를 보내야 한다. 그러기 위해서는...."
+    im_t "일본 수상과 의회에 독립선언서를 보내야 한다. 그러기 위해서는...."
 
 # ======드래그 앤 드롭==================
 
@@ -268,8 +358,8 @@ label chapter3:
         $ result = renpy.call_screen("dokrip_rail")
         if result == "success":
             "좋아! 순서를 맞췄다."
-            m "머릿속에서 말해주는대로, 독립선어서를 차례로 우송했다."
-            m "하는 동안 손이 덜덜 떨렸지만, 무사히 마치고 나니 뿌듯한 감정도 들었다."
+            m "머릿속에서 말해주는 대로, 독립선언서를 차례로 우송했다."
+            m "하는 동안 손이 덜덜 떨렸지만, \n무사히 마치고 나니 뿌듯한 감정도 들었다."
             m "그러고 숙소로 돌아오는 길에 한 일본인을 마주쳤다."
             jump next_ch1   # ← 성공 후 이동할 라벨명으로 바꿔줘
         else:
@@ -285,36 +375,65 @@ label next_ch1:
 
     w1 "그대는 누구이길래 나를 노려보는가?"
 
-    narrator "저 사람은 일본 총리, 하라 다카시다."
-
-    show screen info_tooltip("일본 제19대 총리(재임 1918~1921)로, 조선에 대한 강압적 무단통치를 완화하고 '문화정치' 방침을 내세웠다.")
+    im_t "저 사람은 일본 총리, 하라 다카시다."
+    show screen info_tooltip("하라 다카시\n일본 제19대 총리로, 조선 식민통치를 총독부 중심의 ‘문화통치’로 전환시킨 인물이다.")
+    
     hara "가만, 조선놈인가?"
-    hide screen info_tooltip
+    
     menu:
-
+        
         "나는 조선의 임규요. 조선의 독립을 선포하려 이곳에 왔소!":
             jump next_ch2
         "민족자결주의에 따라 조선인의 일은 조선인이 담당해야 하는 법!":
             jump next_ch2
         "속히 총독부의 문을 닫고 조선엔 있는 일본군을 철수하시오!":
             jump next_ch2
+    
 
 label next_ch2:
+    hide screen info_tooltip
+    scene imch3_bg with fade_slow
+
+    show ui_ch3 with dissolve
     m "우리 조선은 반드시 자주 독립을 이룰 것이다."
-    narrator "국무총리는 나의 당당한 태도에 놀랐는지, 그대로 굳었다."
+    hide ui_ch3 with dissolve
+    m "국무총리는 나의 당당한 태도에 놀랐는지, 그대로 굳었다."
+    
+    im_t "여기에 오래 있으면, 얼마 안 가 현장에서 체포될 것이다."
+    
     m "나는 그를 노려보다가 자리를 피했다."
 
-    show bead with fade_slow
+    # 기억구슬 등장
+    scene bg_black with dissolve
+    show memory_orb-3 with dissolve
+    play sound memory_orb_appear fadein 0.5 fadeout 3.0
+    pause 1.0
 
-    m "아, 이번에도 구슬이다."
-    hide bead with fade_slow
+    mt "구슬을 하나 더 찾았네."
+    # 클릭 후 사라짐
+    show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
+    call screen interactive_objects("memory_orb-3")
+    hide screen mission_guide
+    hide memory_orb-3 with dissolve
+    pause 0.5
+    
+    # 챕터3 표시
+    window hide
+    play sound memory_orb_get
+    pause 2.0
+    
+    # 구슬 발견창 표시 (챕터3 숨기면서 동시에 표시)
+    show ui_orb_found_ch3 with dissolve
+    pause 2.0
+    hide ui_orb_found_ch3 with dissolve
 
-    #########퀘스트창:세번째 구슬을 찾았습니다################
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 2.0
 
-    m "또 다른 곳으로 이동하려는 것 같다."
-
-    hide bead with fade_slow
-
+    mt "그리고, 또 다른 곳으로 이동하려는 것 같다."
+    
+    # 챕터4로 이어짐
     jump chapter4
 
 return
@@ -325,35 +444,65 @@ return
 
 label chapter4:
     scene imch4_bg with fade_slow
-    show screen info_tooltip("조선어학연구회:1921년에 설립된 우리나라 최초의 한글 연구 단체로, 한글의 표준화와 보급을 목표로 했다. 이후 한글학회의 전신이 되었다.")
+    show ui_ch4 with dissolve
 
     m "여기는 또 어디지? 연구실 같은데..."
+    hide ui_ch4 with dissolve
     m "가장 가까이에 있는 책상을 살펴보았다."
 
-    m "와.. 자료가 엄청 많네"
-    m "우리 말과 관련된 자료들이 널려있고, 사전의 일부 같은 종이들도 눈에 띈다."
+    m "와, 자료가 엄청 많네"
+    m "우리 말과 관련된 자료들이 널려있고, \n사전의 일부 같은 종이들도 눈에 띈다."
     m "사전이라도 만들려는 것일까?"
-    m "어?.. 이건.."
+    m "어? 이건..."
 
-    hide screen info_tooltip
 
     $ setup_puzzle()
     call screen reassemble_puzzle
 
     return
 
-label reasseble_complete:
+label reassemble_complete:
 
-    scene imch4_bg with fade_fast
+    scene imch4_bgpc with fade_fast
 
     m "표음주의 철자법을 따를 필요가 있다?"
     m "이분은 소리가 나는 대로 쓰는 철자법을 주장하셨구나."
     m "그리고 여기 자료들을 보면 사전을 만드려고 하셨던 것 같은데..."
-    m "선생님들 덕분에 정말 다행이다."
+    m "이런 분들의 노력이 있었어서 정말 다행이야."
     m "그런데, 내가 빙의한 이분은 대체 누구시지..? 들어본 적이 없는데.."
 
-    show bead with fade_slow
-    hide bead with fade_slow 
+    # 기억구슬 등장
+    show memory_orb-4 with dissolve
+    play sound memory_orb_appear fadein 0.5 fadeout 3.0
+    pause 1.0
+    
+    show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
+    call screen interactive_objects("memory_orb-4")
+    hide screen mission_guide
+    hide memory_orb-4 with dissolve
+    
+    mt "아, 찾았다."
+    mt "이게 마지막인 것 같은데.."
+    mt "이제 현실로 돌아가는 거겠지?"
+    
+    # 챕터4 표시
+    window hide
+    play sound jang_last_orb_get
+    pause 2.0
+    
+    # 구슬 발견창 표시 (챕터4 숨기면서 동시에 표시)
+    
+    show ui_orb_found_ch4 with dissolve
+    pause 2.0
+    hide ui_orb_found_ch4 with dissolve
+    
+    # 블랙아웃
+    scene bg_black with fade_slow
+    pause 2.0
+    
+    # 엔딩으로 이어짐 (나중에 구현)
+    jump im_ending_placeholder
+
 
 return
 
@@ -384,6 +533,7 @@ default initial_piece_coordinates = []
 default finished_pieces = 0
 
 
+default puzzle_complete = False
 
 init python:
     def setup_puzzle():
@@ -396,7 +546,7 @@ init python:
             initial_piece_coordinates.append(rand_loc)
 
     def piece_drop(dropped_on, dragged_piece):
-        global finished_pieces
+        global finished_pieces, puzzle_complete
 
         if dragged_piece[0].drag_name == dropped_on.drag_name:
             dragged_piece[0].snap(dropped_on.x, dropped_on.y)
@@ -404,7 +554,8 @@ init python:
             finished_pieces += 1
 
             if finished_pieces == page_pieces:
-                renpy. jump("reasseble_complete")
+                puzzle_complete = True
+                renpy.restart_interaction()  # 화면 즉시 갱신
 
 
 screen reassemble_puzzle:
@@ -413,7 +564,7 @@ screen reassemble_puzzle:
     frame:
         background "bg/main_im/ch4/puzzle_frame.png"
         xysize full_page_size
-        anchor(0.5, 0.5)
+        anchor(0, 0)
         pos(161, 154)
     
     draggroup:
@@ -435,6 +586,9 @@ screen reassemble_puzzle:
                 pos piece_coordinates[i]
                 focus_mask True
                 image "bg/main_im/ch4/puzzle%s.png" % (i + 1) alpha 0.0
+
+                if puzzle_complete:
+                    timer 2.0 action [Hide("reassemble_puzzle"), Jump("reassemble_complete")]
 
 
 
@@ -641,45 +795,13 @@ screen dokrip_rail():
         textbutton "확인"     action Function(_rail_check_then_return)
 
 
-
-
-# =========================================
-# 정보 툴팁 스크린
-# =========================================
-
-screen info_tooltip(info_text):
-    zorder 100
-    
-    # 물음표 아이콘 버튼
-    frame:
-        xalign 0.95
-        yalign 0.05
-        xysize (50, 50)
-        background "#4169E1"
-        padding (0, 0)
-        
-        button:
-            xysize (50, 50)
-            background None
-            action NullAction()
-            
-            text "?":
-                align (0.5, 0.5)
-                size 35
-                color "#FFFFFF"
-                bold True
-            
-            # 마우스 호버 시 툴팁 표시
-            hovered Show("tooltip_box", info=info_text)
-            unhovered Hide("tooltip_box")
-
 # 툴팁 박스 스크린
-screen tooltip_box(info):
+screen tooltip_box(info, xalign=0.75, yalign=0.05):
     zorder 101
     
     frame:
-        xalign 0.55
-        yalign 0.05
+        xalign xalign
+        yalign yalign
         xmaximum 500
         background "#2C3E50"
         padding (20, 20)
