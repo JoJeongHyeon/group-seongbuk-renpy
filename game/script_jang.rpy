@@ -725,12 +725,8 @@ label jang_ch4_liberation:
     scene bg_black with fade_slow
     pause 2.0
     
-    # 엔딩으로 이어짐 (나중에 구현)
-    jump jang_ending_placeholder
-
-label jang_ending_placeholder:
-    narrator "장기영 루트가 완료되었습니다."
-    jump ending_scene
+    # 장기영 엔딩으로 이어짐
+    jump jang_ending
 
 # =============================================================================
 # 인터랙티브 스크린

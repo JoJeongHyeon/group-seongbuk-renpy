@@ -500,12 +500,10 @@ label reassemble_complete:
     scene bg_black with fade_slow
     pause 2.0
     
-    # 엔딩으로 이어짐 (나중에 구현)
-    jump im_ending_placeholder
-
+    # 임규 엔딩으로 이어짐
+    jump im_ending
 
 return
-
 
 #===========================================================================
 # 챕터 N

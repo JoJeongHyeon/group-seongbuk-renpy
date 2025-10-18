@@ -107,6 +107,7 @@ image red_high = "images/bg/main_oh/ch4/taegeuk_draw/red_high.png"
 define audio.oh_main_bgm = "audio/bgm/oh_main_bgm.mp3"
 define audio.oh_ch1 = "audio/bgm/oh_ch1.mp3"
 define audio.oh_ch2 = "audio/bgm/oh_ch2.mp3"
+define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
 
 # 캐릭터 설정
 define wife = Character("부인", color="#6bffba")
@@ -239,6 +240,7 @@ label oh_chap1:
 
     # ✅ 구슬 클릭 이벤트(클릭해야 진행)
     call screen bead_click_event(0.9, 0.8, 0.35)
+    play sound memory_orb_get
 
     # ▶ 챕터 1 종료 오버레이 (클릭해야 넘어감)
     call screen overlay_wait("bg_ch1_status")
@@ -329,6 +331,7 @@ label oh_chap2:
 
     "신문 찍는 기계 앞에서 구슬을 발견했다."
     call screen bead_click_event(0.9, 0.8, 0.35)
+    play sound memory_orb_get
 
     # ▶ 챕터 2 종료 오버레이
     call screen overlay_wait("bg_ch2_status")
@@ -391,6 +394,7 @@ label oh_chap3:
     
     scene bg_oh_desk with fade_fast
     call screen bead_click_event(0.1, 0.7, 0.4)
+    play sound memory_orb_get
 
     # ▶ 챕터 3 종료 오버레이
     call screen overlay_wait("bg_ch3_status")
@@ -428,7 +432,7 @@ label oh_chap4:
     m "3.1 만세운동을 위한 태극기도 그려야 한다."
     
     # 태극기 그리기 미니게임
-    call draw_taegeuk_minigame
+    #call draw_taegeuk_minigame
     
     "태극기를 그렸다!"
     
@@ -442,7 +446,7 @@ label oh_chap4:
     "대한독립선언서에 서명하고, 3.1 만세운동을 시작한다!"
     
     # 독립선언서 뿌리기 인터랙션
-    call screen spread_declaration
+    #call screen spread_declaration
     
     scene bg_manse with fade_fast
     
@@ -461,11 +465,15 @@ label oh_chap4:
     
     "대한독립만세!"
     
-    call screen bead_click_event(960, 540, 3.0)
+    call screen bead_click_event(960, 540, 0.35)
+    play sound memory_orb_get
     call screen overlay_wait("bg_ch4_status")
     "태극기와 함께 기억 구슬을 얻었다."
     m "드디어 구슬을 다 모았다! 이제 집에 돌아갈 수 있겠다!"  
     stop music fadeout 1.0
+    
+    jump oh_ending
+    
     return
 
 # =========================================
