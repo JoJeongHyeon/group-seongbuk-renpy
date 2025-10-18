@@ -868,7 +868,7 @@ screen drag_drop_ch4():
         if not walkie_placed:
             drag:
                 drag_name "walkie_item"
-                child Transform("walkie_talkie", zoom=0.35)
+                child Transform("walkie_talkie", zoom=0.6)
                 droppable False
                 dragged drag_placed
                 drag_raise True
@@ -880,7 +880,7 @@ screen drag_drop_ch4():
         if not translate_placed:
             drag:
                 drag_name "translate_item"
-                child Transform("translate_icon", zoom=0.25)
+                child Transform("translate_icon", zoom=0.6)
                 draggable True
                 droppable False
                 dragged drag_placed
@@ -893,7 +893,7 @@ screen drag_drop_ch4():
         if not doc_placed:
             drag:
                 drag_name "doc_item"
-                child Transform("secret_doc", zoom=0.25)
+                child Transform("secret_doc", zoom=0.6)
                 draggable True
                 droppable False
                 dragged drag_placed
@@ -906,7 +906,7 @@ screen drag_drop_ch4():
         if not map_placed:
             drag:
                 drag_name "map_item"
-                child Transform("old_map", zoom=0.25)
+                child Transform("old_map", zoom=0.6)
                 draggable True
                 droppable False
                 dragged drag_placed
