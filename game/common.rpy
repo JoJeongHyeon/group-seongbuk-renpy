@@ -1,6 +1,30 @@
 # 공동 사용 코드 정의
 
 # =============================================================================
+# 트랜지션 정의
+# =============================================================================
+
+# 트랜지션
+define fade_very_slow = Fade(0.7, 1.5, 2.0)
+define fade_slow = Fade(0.5, 1.0, 0.5)
+define fade_fast = Fade(0.2, 0.4, 0.2)
+
+# 디졸브 효과
+define dissolve_fast = Dissolve(0.2)
+define dissolve_slow = Dissolve(1.0)
+
+# 이미지를 1920x1080 크기에 맞추는 설정
+transform custom_size:
+    size (1920, 1080)
+    # fit "cover" 이런 애도 있다고 함. 자세한 건 문서 ㄱ
+
+# 미션 가이드 슬라이드 인 애니메이션 (왼쪽에서 오른쪽으로)
+transform slide_in_left:
+    xoffset -300  # 화면 왼쪽 밖에서 시작
+    alpha 0.0
+    easein 0.5 xoffset 0 alpha 1.0  # 0.5초 동안 원래 위치로 이동하며 페이드 인
+
+# =============================================================================
 # 변수 정의
 # =============================================================================
 
@@ -8,13 +32,53 @@
 # 이미지 정의
 # =============================================================================
 
+# 임무창
+image ui_mission_guide = At("ui_screen/ui_mission_guide.png", custom_size)
+
+# 기억구슬
+image memory_orb-1 = "bg/memory_orb-1.png"
+image memory_orb-2 = "bg/memory_orb-2.png"
+image memory_orb-3 = "bg/memory_orb-3.png"
+image memory_orb-4 = "bg/memory_orb-4.png"
+image memory_orb-1_hover = "bg/memory_orb-1_hover.png"
+image memory_orb-2_hover = "bg/memory_orb-2_hover.png"
+image memory_orb-3_hover = "bg/memory_orb-3_hover.png"
+image memory_orb-4_hover = "bg/memory_orb-4_hover.png"
+
+# 상태창
+image ui_ch1 = At("ui_screen/ui_ch1.png", custom_size)
+image ui_ch2 = At("ui_screen/ui_ch2.png", custom_size)
+image ui_ch3 = At("ui_screen/ui_ch3.png", custom_size)
+image ui_ch4 = At("ui_screen/ui_ch4.png", custom_size)
+image ui_orb_found_ch1 = At("ui_screen/ui_orb_found_ch1.png", custom_size)
+image ui_orb_found_ch2 = At("ui_screen/ui_orb_found_ch2.png", custom_size)
+image ui_orb_found_ch3 = At("ui_screen/ui_orb_found_ch3.png", custom_size)
+image ui_orb_found_ch4 = At("ui_screen/ui_orb_found_ch4.png", custom_size)
+
 # =============================================================================
-# 음악 정의
+# 사운드 정의
 # =============================================================================
 
+# 배경음
+define audio.main_bgm = "audio/bgm/guk-ak_bgm.mp3"
 
+# 기억구슬 효과음
+define audio.memory_orb_appear = "audio/sfx/memory_orb_appear.mp3"
+define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
 
+# =============================================================================
+# 캐릭터 정의
+# =============================================================================
+define m = Character("나", color="#ffffff")
+define m_thought = Character("나", color="#ffffff", what_italic=True)
 
+define jang = Character("장기영", color="#ff6b6b")
+define im = Character("임규", color="#4ecdc4")
+define oh = Character("오세창", color="#45b7d1")
+
+define jang_thought = Character("???", color="#ff6b6b", what_color="#888888", what_italic=True)
+define im_thought = Character("???", color="#4ecdc4", what_color="#888888", what_italic=True)
+define oh_thought = Character("???", color="#45b7d1", what_color="#888888", what_italic=True)
 
 # =============================================================================
 # 스크린 정의

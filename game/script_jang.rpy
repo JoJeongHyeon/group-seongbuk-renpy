@@ -21,15 +21,6 @@ default droppable = ""
 # =============================================================================
 # 이미지 정의
 # =============================================================================
-# UI 스크린 - 챕터 및 구슬 발견창
-image ui_ch1 = At("ui_screen/ui_ch1.png", custom_size)
-image ui_ch2 = At("ui_screen/ui_ch2.png", custom_size)
-image ui_ch3 = At("ui_screen/ui_ch3.png", custom_size)
-image ui_ch4 = At("ui_screen/ui_ch4.png", custom_size)
-image ui_orb_found_ch1 = At("ui_screen/ui_orb_found_ch1.png", custom_size)
-image ui_orb_found_ch2 = At("ui_screen/ui_orb_found_ch2.png", custom_size)
-image ui_orb_found_ch3 = At("ui_screen/ui_orb_found_ch3.png", custom_size)
-image ui_orb_found_ch4 = At("ui_screen/ui_orb_found_ch4.png", custom_size)
 
 # 챕터1 배경 이미지
 image bg_room = At("bg/main_jang/ch1/room.png", custom_size)
@@ -44,16 +35,6 @@ image table_passport_doc_hover = At("bg/main_jang/ch1/table_passport_doc_hover.p
 # 챕터1 캐릭터 이미지
 image kim = Transform("ch/kim.png", zoom=0.8)
 image ahn = Transform("ch/ahn.png", zoom=0.8)
-
-# 기억구슬
-image memory_orb-1 = "bg/memory_orb-1.png"
-image memory_orb-2 = "bg/memory_orb-2.png"
-image memory_orb-3 = "bg/memory_orb-3.png"
-image memory_orb-4 = "bg/memory_orb-4.png"
-image memory_orb-1_hover = "bg/memory_orb-1_hover.png"
-image memory_orb-2_hover = "bg/memory_orb-2_hover.png"
-image memory_orb-3_hover = "bg/memory_orb-3_hover.png"
-image memory_orb-4_hover = "bg/memory_orb-4_hover.png"
 
 # 챕터2 배경 이미지
 image bg_usa_street = At("bg/main_jang/ch2/usa_street.png", custom_size)
@@ -102,9 +83,6 @@ image old_map = "bg/main_jang/ch4/old_map.png"
 # =============================================================================
 # 오디오 정의
 # =============================================================================
-# 기억구슬 효과음
-define audio.memory_orb_appear = "audio/sfx/memory_orb_appear.mp3"
-define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
 
 # ch1
 define audio.jang_refusal = "audio/sfx/jang_refusal.mp3"
@@ -129,8 +107,6 @@ define audio.jang_last_orb_get = "audio/sfx/jang_last_orb_get.mp3"
 # =============================================================================
 # 캐릭터 정의 (장기영 전용)
 # =============================================================================
-# 장기영의 속마음 (회색 텍스트)
-define jang_thought = Character("???", color="#ff6b6b", what_color="#888888", what_italic=True)
 
 # ch1 김구, 안창호 선생님 
 define kim_ahn = Character("김구, 안창호", color="#37c2f5")
@@ -726,7 +702,10 @@ label jang_ch4_liberation:
     pause 2.0
     
     # 장기영 엔딩으로 이어짐
-    jump jang_ending
+
+    $ character_ending = "jang_ending"
+    jump ending_start
+    return
 
 # =============================================================================
 # 인터랙티브 스크린

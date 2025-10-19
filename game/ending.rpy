@@ -1,22 +1,6 @@
 # 엔딩과 결과 페이지 스크립트
 
 # =============================================================================
-# 엔딩 분기 시스템
-# =============================================================================
-
-# 캐릭터별 엔딩으로 분기하는 메인 엔딩 라벨
-label ending_dispatcher(character_ending):
-    if character_ending == "im_ending":
-        jump im_ending
-    elif character_ending == "jang_ending":
-        jump jang_ending
-    elif character_ending == "oh_ending":
-        jump oh_ending
-    else:
-        # 기본 엔딩
-        jump default_ending
-
-# =============================================================================
 # 캐릭터별 개별 엔딩
 # =============================================================================
 
@@ -25,51 +9,31 @@ define audio.outro = "audio/bgm/outro_bgm.mp3"
 define audio.outro_scene3 = "audio/bgm/outro_scene3.mp3"
 
 #이미지
-image memory_orb-0 = "bg/memory_orb-0.png"
+# bg desk는 intro에서 정의됨.
+image outro_memory_orb = At("bg/outro/outro_memory_orb.png", custom_size)
+image outro_memory_orb_hover = At("bg/outro/outro_memory_orb_hover.png", custom_size)
+image outro_book = At("bg/outro/outro_book.png", custom_size)
 image bg_bookback = At("bg/outro/book_back.png", custom_size)
 image im_ending = At("bg/outro/im_ending.png", custom_size)
-image oh_ending = "bg/outro/oh_ending.png"
-image jang_ending = "bg/outro/jang_ending.png"
-image book2 = "bg/outro/book2.png"
-image book2_hover = "bg/outro/book2_hover.png"
+image oh_ending = At("bg/outro/oh_ending.png", custom_size)
+image jang_ending = At("bg/outro/jang_ending.png", custom_size)
 
 # === 토글용 변수 기본값  ===
 default end2_show_a = False
 default end2_show_b = False
 default end2_show_c = False
 
+# =========================================
+# 엔딩 씬
+# =========================================
 
-# 임규 엔딩
-label im_ending:
+# 엔딩 시작
+label ending_start:
     play music audio.outro
     scene bg_desk with dissolve
     
-
     m "마지막 기억 구슬을 찾고 현실 세계로 복귀했다."
     m "하도 생생해서 꿈인지 현실인지 모르겠다."
-
-    m "아 맞다. 시험 공부! 빨리 책상에 앉아서 공부해야겠다."
-
-    m "이게 뭐지? 처음 보는 책인데..?"
-    
-    # 인터랙티브 테이블 사용
-    show screen mission_guide("책을 펴보자.", icon="🔍")
-    call screen interactive_desk
-    hide screen mission_guide
-
-    # 선택에 따른 분기
-    if _return == "book2_selected":
-        jump im_ending_scene2
-    
-    return
-
-# 장기영 엔딩
-label jang_ending:
-    play music audio.outro
-    scene bg_desk with dissolve
-    
-    m "(임시)장기영의 기억을 통해 많은 것을 배웠다."
-    m "(임시)축구를 통한 민족 정신, 그리고 끝까지 포기하지 않는 의지..."
     
     m "아 맞다. 시험 공부! 빨리 책상에 앉아서 공부해야겠다."
 
@@ -77,129 +41,65 @@ label jang_ending:
     
     # 장기영 전용 책 표시
     show screen mission_guide("책을 펴보자.", icon="🔍")
-    call screen interactive_jang_desk
+    call screen interactive_objects("outro_book", use_alpha=True)
     hide screen mission_guide
     
-    if _return == "jang_book_selected":
-        jump jang_ending_scene2
-    
+    jump ending_scene2
+
     return
 
-# 오세창 엔딩
-label oh_ending:
-    play music audio.outro
-    scene bg_desk with dissolve
-    
-    m "(임시)오세창의 기억을 통해 서예와 문화의 소중함을 깨달았다."
-    m "(임시)전통을 지키면서도 새로운 것을 받아들이는 지혜..."
-   
-    m "아 맞다. 시험 공부! 빨리 책상에 앉아서 공부해야겠다."
-
-    m "이게 뭐지? 처음 보는 책인데..?"
-    
-    # 오세창 전용 책 표시
-    show screen mission_guide("책을 펴보자.", icon="🔍")
-    call screen interactive_oh_desk
-    hide screen mission_guide
-    
-    if _return == "oh_book_selected":
-        jump oh_ending_scene2
-    
-    return
-
-# 임규 엔딩 씬 2
-label im_ending_scene2:
-    scene im_ending with fade_fast
+# 장기영 엔딩
+label ending_scene2:
+    if character_ending == "jang_ending":
+        scene jang_ending with fade_fast
+    elif character_ending == "oh_ending":
+        scene oh_ending with fade_fast
+    else:
+        scene im_ending with fade_fast
 
     # 미션 가이드는 잠깐 보여주고(0.8초 예시) 숨김
     show screen mission_guide("더 알고싶은 사건에 마우스를 올려보자..", icon="🔍")
-    $ renpy.pause(0.8)
-    hide screen mission_guide
+    pause 0.8
 
-    # 토글용 변수 초기화 (매번 동일 상태에서 시작)
+    # 장기영 전용 토글 변수 초기화
     $ end2_show_a = end2_show_b = end2_show_c = False
 
     # 토글 화면 + 우하단 네비 표시
-    show screen im_ending_scene2_ui
+    if character_ending == "jang_ending":
+        show screen jang_ending_scene2_ui
+    elif character_ending == "oh_ending":
+        show screen oh_ending_scene2_ui
+    else:
+        show screen im_ending_scene2_ui
     show screen next_nav_to("ending_scene3")
 
     # 유저가 버튼 누를 때까지 대기
     $ renpy.pause(hard=True)
-    hide screen im_ending_scene2_ui
-    hide screen next_nav_to
+    
     return
-
-# 장기영 엔딩 씬 2
-label jang_ending_scene2:
-    scene jang_ending with fade_fast
-
-    # 미션 가이드는 잠깐 보여주고(0.8초 예시) 숨김
-    show screen mission_guide("장기영의 업적에 대해 더 알아보자..", icon="🔍")
-    $ renpy.pause(0.8)
-    hide screen mission_guide
-
-    # 장기영 전용 토글 변수 초기화
-    $ jang_show_a = jang_show_b = jang_show_c = False
-
-    # 토글 화면 + 우하단 네비 표시
-    show screen jang_ending_scene2_ui
-    show screen next_nav_to("ending_scene3")
-
-    # 유저가 버튼 누를 때까지 대기
-    $ renpy.pause(hard=True)
-    hide screen jang_ending_scene2_ui
-    hide screen next_nav_to
-    return
-
-# 오세창 엔딩 씬 2
-label oh_ending_scene2:
-    scene oh_ending with fade_fast
-
-    # 미션 가이드는 잠깐 보여주고(0.8초 예시) 숨김
-    show screen mission_guide("오세창의 업적에 대해 더 알아보자..", icon="🔍")
-    $ renpy.pause(0.8)
-    hide screen mission_guide
-
-    # 오세창 전용 토글 변수 초기화
-    $ oh_show_a = oh_show_b = oh_show_c = False
-
-    # 토글 화면 + 우하단 네비 표시
-    show screen oh_ending_scene2_ui
-    show screen next_nav_to("ending_scene3")
-
-    # 유저가 버튼 누를 때까지 대기
-    $ renpy.pause(hard=True)
-    hide screen oh_ending_scene2_ui
-    hide screen next_nav_to
-    return
-
-return
-
-
-# 공통 엔딩 피날레
-label common_ending_finale:
-    jump ending_scene3
 
 label ending_scene3:
-    scene bg_desk with fade_slow
+    scene bg_black with dissolve
+    pause 1.0
+    show screen outro_book_screen()
+    pause 1.0
+    hide screen outro_book_screen with dissolve
     jump ending_scene4
 
 label ending_scene4:
-    scene bg_bookback with fade_fast
+    scene bg_bookback with fade_very_slow
 
     # 기억구슬 등장
     play sound audio.outro_scene3
 
-    show memory_orb-0 with dissolve
     play sound memory_orb_appear fadein 0.5 fadeout 3.0
     pause 1.0
     
     # 클릭 후 사라짐
     show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
-    call screen interactive_objects("memory_orb-0")
+    call screen interactive_objects("outro_memory_orb") with dissolve
     hide screen mission_guide
 
-    hide memory_orb-0 with dissolve
     pause 0.5
     
     # 블랙아웃
@@ -213,48 +113,56 @@ label ending_scene4:
     
 # 최종 크레딧
 label end_credits:
-    scene bg_desk
-    with dissolve
+    show screen outro_book_screen()
+    pause 1.0
     
     show screen exit_button  # 나가기 버튼 표시
     
     narrator "제작 : 고려대학교 HUSS  고연우, 강지온, 길유진, 안지원, 양예진, \n이민욱, 정정비, 정채연, 조정현, 최가빈"
 
-#--------------------------------------------------------------
-# 호버 > 책
-screen interactive_books(idle_image, hover_image=None, use_alpha=False, return_value="clicked"):
-    
-    # 클릭 가능한 오브젝트 영역
-    imagebutton:
-        idle idle_image
-        if hover_image:
-            hover hover_image
-        elif use_alpha:
-            hover Transform(idle_image, alpha=0.8)
-        else:
-            hover idle_image + "_hover"
-        focus_mask True
-        at truecenter
-        action Return(return_value)
+# =========================================
+# 스크린 정의
+# =========================================
 
-screen interactive_desk():
-    # 임규 전용 책 인터랙션
-    use interactive_books("book2", return_value="book2_selected")
+# === 책 화면 스크린 ===
+screen outro_book_screen():
+    add "bg_desk"
+    add "outro_book"
 
-# 장기영 전용 책 스크린
-screen interactive_jang_desk():
-    # 장기영 전용 책 인터랙션 (book2 대신 장기영 관련 이미지 사용 가능)
-    use interactive_books("book2", return_value="jang_book_selected")
+# === 우하단 네비 버튼 (오버레이) ===
+screen next_nav_to(label_name):
+    zorder 200
+    modal False
+    textbutton "뒷 페이지 넘기기":
+        anchor (1.0, 1.0)
+        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
+        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
+        action [
+            Hide("im_ending_scene2_ui"),
+            Hide("jang_ending_scene2_ui"),
+            Hide("oh_ending_scene2_ui"),
+            Hide("mission_guide"),
+            Hide("next_nav_to"),
+            Dissolve(1.0),
+            Jump(label_name)
+        ]
 
-# 오세창 전용 책 스크린
-screen interactive_oh_desk():
-    # 오세창 전용 책 인터랙션
-    use interactive_books("book2", return_value="oh_book_selected")
-
-#-----------------------------------------
+# === 우하단 나가기 버튼 ===
+screen exit_button():
+    zorder 200
+    modal False
+    textbutton "나가기":
+        anchor (1.0, 1.0)
+        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
+        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
+        action [
+            Hide("exit_button"),
+            Hide("outro_book_screen"),
+            Jump("start")  # 또는 MainMenu() - 메인 메뉴로 돌아가기
+        ]
 
 # === 임규 엔딩 씬2 본문 UI (토글 영역) ===
-screen im_ending_scene2_ui():
+screen im_ending_scene2_ui(): # 파라미터를 리스트로 하면 text를 여러 개 넣을 수 있을 듯?
     
     # 토글 A
     vbox:
@@ -296,8 +204,8 @@ screen jang_ending_scene2_ui():
     vbox:
         pos (980, 215)
         
-        textbutton "✅" action ToggleVariable("jang_show_a")
-        if jang_show_a:
+        textbutton "✅" action ToggleVariable("end2_show_a")
+        if end2_show_a:
             vbox:
                 xoffset 30
                 spacing 4
@@ -307,8 +215,8 @@ screen jang_ending_scene2_ui():
     vbox:
         pos (980, 520)
         
-        textbutton "✅" action ToggleVariable("jang_show_b")
-        if jang_show_b:
+        textbutton "✅" action ToggleVariable("end2_show_b")
+        if end2_show_b:
             vbox:
                 xoffset 30
                 spacing 4
@@ -318,8 +226,8 @@ screen jang_ending_scene2_ui():
     vbox:
         pos (980, 715)
         
-        textbutton "✅" action ToggleVariable("jang_show_c")
-        if jang_show_c:
+        textbutton "✅" action ToggleVariable("end2_show_c")
+        if end2_show_c:
             vbox:
                 xoffset 30
                 spacing 4
@@ -332,8 +240,8 @@ screen oh_ending_scene2_ui():
     vbox:
         pos (980, 215)
         
-        textbutton "✅" action ToggleVariable("oh_show_a")
-        if oh_show_a:
+        textbutton "✅" action ToggleVariable("end2_show_a")
+        if end2_show_a:
             vbox:
                 xoffset 30
                 spacing 4
@@ -343,8 +251,8 @@ screen oh_ending_scene2_ui():
     vbox:
         pos (980, 520)
         
-        textbutton "✅" action ToggleVariable("oh_show_b")
-        if oh_show_b:
+        textbutton "✅" action ToggleVariable("end2_show_b")
+        if end2_show_b:
             vbox:
                 xoffset 30
                 spacing 4
@@ -354,38 +262,9 @@ screen oh_ending_scene2_ui():
     vbox:
         pos (980, 715)
         
-        textbutton "✅" action ToggleVariable("oh_show_c")
-        if oh_show_c:
+        textbutton "✅" action ToggleVariable("end2_show_c")
+        if end2_show_c:
             vbox:
                 xoffset 30
                 spacing 4
                 text "3.1 만세운동 민족 대표 33인 중 1인으로 독립선언서에 서명\n천도교 대표로 대한독립선언서 작성과 만세운동 준비에 참여" color "#000000"
-
-# === 우하단 네비 버튼 (오버레이) ===
-screen next_nav_to(label_name):
-    zorder 200
-    modal False
-    textbutton "뒷 페이지 넘기기":
-        anchor (1.0, 1.0)
-        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
-        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
-        action [
-            Hide("im_ending_scene2_ui"),
-            Hide("jang_ending_scene2_ui"),
-            Hide("oh_ending_scene2_ui"),
-            Hide("next_nav_to"),
-            Jump(label_name)
-        ]
-
-# === 우하단 나가기 버튼 ===
-screen exit_button():
-    zorder 200
-    modal False
-    textbutton "나가기":
-        anchor (1.0, 1.0)
-        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
-        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
-        action [
-            Hide("exit_button"),
-            Jump("start")  # 또는 MainMenu() - 메인 메뉴로 돌아가기
-        ]

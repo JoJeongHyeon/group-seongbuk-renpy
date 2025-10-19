@@ -7,17 +7,9 @@
 # =========================================
 # -------- 배경/오브젝트 이미지 정의 --------
 
-# 구슬/상태창
+# 구슬
 image bead = "images/bg/main_oh/ch3/bead/memory_bead.png"
 image bead_hover = "images/bg/main_oh/ch3/bead/bead_hover.png"
-image bg_ch1 = At("images/bg/main_oh/all/ch1.png", custom_size)
-image bg_ch2 = At("images/bg/main_oh/all/ch2.png", custom_size)
-image bg_ch3 = At("images/bg/main_oh/all/ch3.png", custom_size)
-image bg_ch4 = At("images/bg/main_oh/all/ch4.png", custom_size)
-image bg_ch1_status = At("images/bg/main_oh/all/ch1_status.png", custom_size)
-image bg_ch2_status = At("images/bg/main_oh/all/ch2_status.png", custom_size)
-image bg_ch3_status = At("images/bg/main_oh/all/ch3_status.png", custom_size)
-image bg_ch4_status = At("images/bg/main_oh/all/ch4_status.png", custom_size)
 
 # chap1
 image bg_appointment = At("images/bg/main_oh/ch1/appointment.png", custom_size)
@@ -170,7 +162,7 @@ label oh_chap1:
     # ▶ 챕터 1 시작 오버레이 (클릭해야 넘어감)
     
     scene bg_appointment with fade_slow
-    call screen overlay_wait("bg_ch1")
+    call screen overlay_wait("ui_ch1")
     m "오케이! 빨리 기억 구슬을 찾고 돌아가야겠어!"
     m "뭐야. 내가 조선시대의 관복을 입고 있잖아?"
     m "관직 임명장? 내가 신문, 잡지 등을 만드는 조선시대 국가 기관인 박문국의 팀장이라고?"
@@ -243,7 +235,7 @@ label oh_chap1:
     play sound memory_orb_get
 
     # ▶ 챕터 1 종료 오버레이 (클릭해야 넘어감)
-    call screen overlay_wait("bg_ch1_status")
+    call screen overlay_wait("ui_orb_found_ch1")
     m "기억 구슬이 맞나 보구나!"
 
     jump oh_chap2
@@ -268,7 +260,7 @@ label exile_menu_loop:
 label oh_chap2:
     # ▶ 챕터 2 시작 오버레이
     scene bg_black with fade_slow
-    call screen overlay_wait("bg_ch2")
+    call screen overlay_wait("ui_ch2")
     play music oh_main_bgm fadein 1.0 loop
     m "휴, 일본으로 도망쳐서 겨우 살았네. 모르는 곳에서 그냥 죽을 뻔..."
     "일본으로 망명해서 살던 도중, 천도교 교주인 손병희를 만났다."
@@ -334,7 +326,7 @@ label oh_chap2:
     play sound memory_orb_get
 
     # ▶ 챕터 2 종료 오버레이
-    call screen overlay_wait("bg_ch2_status")
+    call screen overlay_wait("ui_orb_found_ch2")
     m "벌써 두 번째 구슬이다! 이 속도면 집에 빨리 갈 수 있겠지?"
 
     stop music fadeout 1.0
@@ -347,7 +339,7 @@ label oh_chap3:
     # ▶ 챕터 3 시작 오버레이
 
     scene bg_black with fade_fast
-    call screen overlay_wait("bg_ch3")
+    call screen overlay_wait("ui_ch3")
     show colleague at Transform(zoom=0.35, xalign=0.5, yalign=0.5)
     play music oh_main_bgm fadein 1.0 loop
 
@@ -397,7 +389,7 @@ label oh_chap3:
     play sound memory_orb_get
 
     # ▶ 챕터 3 종료 오버레이
-    call screen overlay_wait("bg_ch3_status")
+    call screen overlay_wait("ui_orb_found_ch3")
     "책상에서 기억 구슬을 획득했다."
     m "이제 다음이 마지막 구슬인가? 벌써 마지막 구슬이라니 약간은 아쉽네…."
 
@@ -411,7 +403,7 @@ label oh_chap4:
     # ▶ 챕터 4 시작 오버레이
 
     scene bg_gather with fade_slow
-    call screen overlay_wait("bg_ch4")
+    call screen overlay_wait("ui_ch4")
     play music oh_main_bgm fadein 1.0 loop
     
     chondo "아, 그러고 보니 우리가 독립선언서를 준비해야 하네. 만세 운동도 같이 준비하기로 했어! 자네 기억하고 있지?"
@@ -467,12 +459,13 @@ label oh_chap4:
     
     call screen bead_click_event(960, 540, 0.35)
     play sound memory_orb_get
-    call screen overlay_wait("bg_ch4_status")
+    call screen overlay_wait("ui_orb_found_ch4")
     "태극기와 함께 기억 구슬을 얻었다."
     m "드디어 구슬을 다 모았다! 이제 집에 돌아갈 수 있겠다!"  
     stop music fadeout 1.0
     
-    jump oh_ending
+    $ character_ending = "oh_ending"
+    jump ending_start
     
     return
 

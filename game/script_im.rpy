@@ -4,9 +4,6 @@
 # =============================================================================
 # 오디오 정의
 # =============================================================================
-# 기억구슬 효과음
-define audio.memory_orb_appear = "audio/sfx/memory_orb_appear.mp3"
-define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
 
 #똑똑
 define audio.im_ch1 = "audio/bgm/im_ch1.wav"
@@ -49,27 +46,6 @@ define w = Character("낯선 사람", image = "choi0",color="#b28080")
 define hara = Character("하라 다카시", image = "hara",color="#ff3030") 
 define w1 = Character("???", image = "hara0",color="#aa7c7c")
 define im_t = Character("???", color="#ff6b6b", what_color="#888888", what_italic=True)
-
-# 기억구슬
-image memory_orb-1 = "bg/memory_orb-1.png"
-image memory_orb-2 = "bg/memory_orb-2.png"
-image memory_orb-3 = "bg/memory_orb-3.png"
-image memory_orb-4 = "bg/memory_orb-4.png"
-image memory_orb-1_hover = "bg/memory_orb-1_hover.png"
-image memory_orb-2_hover = "bg/memory_orb-2_hover.png"
-image memory_orb-3_hover = "bg/memory_orb-3_hover.png"
-image memory_orb-4_hover = "bg/memory_orb-4_hover.png"
-
-# UI 스크린 - 챕터 및 구슬 발견창
-image ui_ch1 = At("ui_screen/ui_ch1.png", custom_size)
-image ui_ch2 = At("ui_screen/ui_ch2.png", custom_size)
-image ui_ch3 = At("ui_screen/ui_ch3.png", custom_size)
-image ui_ch4 = At("ui_screen/ui_ch4.png", custom_size)
-image ui_orb_found_ch1 = At("ui_screen/ui_orb_found_ch1.png", custom_size)
-image ui_orb_found_ch2 = At("ui_screen/ui_orb_found_ch2.png", custom_size)
-image ui_orb_found_ch3 = At("ui_screen/ui_orb_found_ch3.png", custom_size)
-image ui_orb_found_ch4 = At("ui_screen/ui_orb_found_ch4.png", custom_size)
-
 
 #chapter1
 image bk-1               = At("bg/main_im/ch1/bk-1.png", custom_size)
@@ -501,7 +477,8 @@ label reassemble_complete:
     pause 2.0
     
     # 임규 엔딩으로 이어짐
-    jump im_ending
+    $ character_ending = "im_ending"
+    jump ending_start
 
 return
 

@@ -1,33 +1,9 @@
-﻿
-# =============================================================================
-# 커스텀 효과 정의
-# =============================================================================
-
-# 트랜지션
-define fade_very_slow = Fade(0.7, 1.5, 2.0)
-define fade_slow = Fade(0.5, 1.0, 0.5)
-define fade_fast = Fade(0.2, 0.4, 0.2)
-
-# 디졸브 효과
-define dissolve_fast = Dissolve(0.2)
-define dissolve_slow = Dissolve(1.0)
-
-# 이미지를 1920x1080 크기에 맞추는 설정
-transform custom_size:
-    size (1920, 1080)
-    # fit "cover" 이런 애도 있다고 함. 자세한 건 문서 ㄱ
-
-# 미션 가이드 슬라이드 인 애니메이션 (왼쪽에서 오른쪽으로)
-transform slide_in_left:
-    xoffset -300  # 화면 왼쪽 밖에서 시작
-    alpha 0.0
-    easein 0.5 xoffset 0 alpha 1.0  # 0.5초 동안 원래 위치로 이동하며 페이드 인
+﻿# 인트로 스크립트
 
 # =============================================================================
 # 이미지 정의
 # =============================================================================
 # UI 스크린 이미지
-image ui_mission_guide = At("ui_screen/ui_mission_guide.png", custom_size)
 image ui_intro_mission = At("ui_screen/ui_intro_mission.png", custom_size)
 
 # 배경 
