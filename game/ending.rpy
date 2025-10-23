@@ -1,5 +1,8 @@
 # 엔딩과 결과 페이지 스크립트
 
+# 1. 이미지 최신화
+# 2. 사인을 직접?
+
 #음악
 define audio.outro = "audio/bgm/outro_bgm.mp3"
 define audio.outro_scene3 = "audio/bgm/outro_scene3.mp3"
