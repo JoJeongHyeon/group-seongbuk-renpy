@@ -243,7 +243,7 @@ style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
-    ypos 700  # 메뉴를 더 아래쪽으로 이동 (원래값: 405)
+    ypos 405
     yanchor 0.5
 
     spacing gui.choice_spacing
@@ -313,60 +313,87 @@ style quick_button_text:
 
 screen navigation():
 
-    
-    #vbox:
-        
-        #style_prefix "navigation"
+    vbox:
+        style_prefix "navigation"
 
-        #xpos gui.navigation_xpos
-        #yalign 0.5
+        xpos gui.navigation_xpos
+        yalign 0.5
 
-        #spacing gui.navigation_spacing
+        spacing gui.navigation_spacing
 
-    hbox:
-        xalign 0.5
-        yalign 0.95
-        spacing 80
+        if not main_menu:
 
-        # 시작하기 버튼
-        textbutton _("시작하기"):
-            text_size 80          
-            text_color "#000000dc"  
-            action Start()
+            textbutton _("대사록") action ShowMenu("history")
 
-        # 종료하기 버튼
-        textbutton _("종료하기"):
-            text_size 80
-            text_color "#000000dc"
-            action Quit(confirm=True)
+            textbutton _("저장하기") action ShowMenu("save")
+
+            textbutton _("불러오기") action ShowMenu("load")
+
+            textbutton _("환경설정") action ShowMenu("preferences")
+            
+            textbutton _("버전정보") action ShowMenu("about")
+
+
+        if _in_replay:
+
+            textbutton _("리플레이 끝내기") action EndReplay(confirm=True)
+
+        elif not main_menu:
+
+            textbutton _("메인 메뉴") action MainMenu()
+
+
+        if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
+
+            ## 도움말 메뉴는 모바일 디바이스와 맞지 않아 불필요합니다.
+            if not main_menu:
+                textbutton _("조작방법") action ShowMenu("help")
+
+
+        if renpy.variant("pc"):
+
+            ## iOS에서는 종료 버튼이 금지되어 있으며 Android 및 웹에서는 불필
+            ## 요합니다.
+            if not main_menu:
+                textbutton _("종료하기") action Quit(confirm=not main_menu)
+     
+    if main_menu:
+        hbox:
+            xalign 0.5
+            yalign 0.9
+            spacing 80
+
+            textbutton _("시작하기"):
+                style "navigation_button"
+                #text_font "fonts/NanumSquareRoundB.ttf"
+                text_size 65
+                text_color "#000000"
+                text_hover_color "#7b7b7bdc"
+                #outlines [(2, "#ffffff", 0, 0)]
+                action Start()
+
+            textbutton _("종료하기"):
+                style "navigation_button"
+                #text_font "fonts/NanumSquareRoundB.ttf"
+                text_size 65
+                text_color "#000000"
+                text_hover_color "#7b7b7bdc"
+                #outlines [(2, "#ffffff", 0, 0)]
+                action Quit(confirm=False)
+
+
 
 
 style navigation_button is gui_button
 style navigation_button_text is gui_button_text
 
-#style navigation_button:
-    #size_group "navigation"
-    #properties gui.button_properties("navigation_button")
-
-#style navigation_button_text:
-    #properties gui.text_properties("navigation_button")
-
-# 버튼 상자 (배경, 테두리, 크기 등)
 style navigation_button:
-    background "#ffffff"            # 흰색 배경
-    hover_background "#cccccc"      # 마우스 올리면 회색
-    xpadding 40                     # 좌우 여백
-    ypadding 20                     # 상하 여백
-    xminimum 250                    # 최소 너비
-    yminimum 90                     # 최소 높이
-    outlines [(1, "#000000", 0, 0)] # 외곽선 추가
+    size_group "navigation"
+    properties gui.button_properties("navigation_button")
 
-# 버튼 안의 글자
 style navigation_button_text:
-    size 50               # 글씨 크기
-    color "#000000"       # 검정색 글씨
-    hover_color "#000000" # hover 시 색
-    #font "NanumGothic.ttf"  # (선택) 한글 폰트 지정 가능
+    properties gui.text_properties("navigation_button")
+
 
 ## Main Menu 스크린 ###############################################################
 ##
@@ -399,6 +426,7 @@ screen main_menu():
 
             text "[config.version]":
                 style "main_menu_version"
+
 
 
 style main_menu_frame is empty
