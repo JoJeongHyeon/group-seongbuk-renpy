@@ -121,6 +121,8 @@ define audio.oh_ch2 = "audio/bgm/oh_ch2.mp3"
 define audio.oh_ch3 = "audio/bgm/oh_ch3.mp3"
 define audio.oh_ch4 = "audio/bgm/oh_ch4.mp3"
 define audio.conclusion = "audio/sfx/conclusion.mp3"
+define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
+
 # 캐릭터 설정
 define wife = Character("부인", color="#6bffba")
 define coll = Character("동료", color="#6bffba")
@@ -297,7 +299,10 @@ label oh_chap1:
     stop music fadeout 1.0
     m "어? 저 빛나는 건 뭔지? 눌러봐야겠다."
 
+    
     call screen bead_click_event1(900,495,1.0)
+    play sound memory_orb_get
+
 
     # ▶ 챕터 1 종료 오버레이 (클릭해야 넘어감)
     call screen overlay_wait("bg_ch1_status")
@@ -403,6 +408,7 @@ label oh_chap2:
 
     "신문 찍는 기계 앞에서 구슬을 발견했다."
     call screen bead_click_event2(900,580,0.6)
+    play sound memory_orb_get
     # ▶ 챕터 2 종료 오버레이
     call screen overlay_wait("bg_ch2_status")
     m "벌써 두 번째 구슬이다! 이 속도면 집에 빨리 갈 수 있겠지?"
@@ -462,6 +468,7 @@ label oh_chap3:
     reader_2 "그렇다니까. 한글로 되어 있어서 읽기도 얼마나 쉬운데?"
     reader_3 "뭐?! 그럼 나 같은 사람도 읽을 수 있겠네!"
     
+
     scene bg_bead_1 with fade_fast
     pause 0.8
     scene bg_bead_2
@@ -474,6 +481,8 @@ label oh_chap3:
     
 
     call screen bead_click_event(0.503, 0.501, 0.66)
+    play sound memory_orb_get
+
 
     # ▶ 챕터 3 종료 오버레이
     call screen overlay_wait("bg_ch3_status")
@@ -512,7 +521,7 @@ label oh_chap4:
     m "3.1 만세운동을 위한 태극기도 그려야 한다."
     
     # 태극기 그리기 미니게임
-    call draw_taegeuk_minigame
+    #call draw_taegeuk_minigame
     
     "태극기를 그렸다!"
     
@@ -522,6 +531,10 @@ label oh_chap4:
     play sound oh_ch4 fadein 1.0
     
     "대한독립선언서에 서명하고, 3.1 만세운동을 시작한다!"
+    
+
+    # 독립선언서 뿌리기 인터랙션
+    #call screen spread_declaration
     
     scene bg_manse with fade_fast
     
@@ -540,12 +553,17 @@ label oh_chap4:
     
     "대한독립만세!"
     
+
     call screen bead_click_event(1520, 1000, 3.0)
+    play sound memory_orb_get
     call screen overlay_wait("bg_ch4_status")
     "태극기와 함께 기억 구슬을 얻었다."
     play sound conclusion 
     m "드디어 구슬을 다 모았다! 이제 집에 돌아갈 수 있겠다!"  
     stop music fadeout 1.0
+    
+    jump oh_ending
+    
     return
 
 # =========================================

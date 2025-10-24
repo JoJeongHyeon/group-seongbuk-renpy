@@ -108,7 +108,7 @@ define gui.textbox_yalign = 1.0
 ## 말하는 캐릭터의 이름을 텍스트 박스를 기준으로 배치합니다. 이것은 좌측이나
 ## 최상단으로부터 전체 픽셀값의 숫자가 되거나, 0.5로 중앙이 될 수 있습니다.
 define gui.name_xpos = 360
-define gui.name_ypos = 0
+define gui.name_ypos = 10
 
 ## 캐릭터들의 이름을 수평으로 정렬합니다. 이것은 0.0으로 좌측 정렬, 0.5로 중앙,
 ## 그리고 1.0으로 우측 정렬될 수 있습니다.
@@ -223,12 +223,13 @@ define gui.quick_button_text_selected_color = gui.accent_color
 ## 선택 버튼은 인-게임 메뉴에 사용됩니다.
 
 define gui.choice_button_width = 1185
-define gui.choice_button_height = None
+define gui.choice_button_height = 70 # 기본은 None
 define gui.choice_button_tile = False
 define gui.choice_button_borders = Borders(150, 8, 150, 8)
 define gui.choice_button_text_font = gui.text_font
 define gui.choice_button_text_size = gui.text_size
 define gui.choice_button_text_xalign = 0.5
+define gui.choice_button_text_yalign = 0.5
 define gui.choice_button_text_idle_color = '#888888'
 define gui.choice_button_text_hover_color = "#ffffff"
 define gui.choice_button_text_insensitive_color = '#8888887f'
@@ -273,7 +274,7 @@ define gui.skip_ypos = 15
 define gui.notify_ypos = 68
 
 ## 선택지의 메뉴 선택 간의 간격입니다.
-define gui.choice_spacing = 33
+define gui.choice_spacing = 40
 
 ## 메인과 게임 메뉴에서 네비게이션 섹션의 버튼들 간의 간격입니다.
 define gui.navigation_spacing = 6
