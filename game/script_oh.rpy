@@ -40,7 +40,7 @@ image bg_ink_8 = At("images/bg/main_oh/ch1/ink/8.png", custom_size)
 image bg_harbor_bead = At("images/bg/main_oh/ch1/ch1_bead/harbor.png", custom_size)
 image ch1_bead = "images/bg/main_oh/ch1/ch1_bead/bead.png"
 image ch1_bead_h = "images/bg/main_oh/ch1/ch1_bead/bead_high.png"
-
+image wife = "images/bg/main_oh/ch1/wife.png"
 
 # chap2
 image bg_talk = At("images/bg/main_oh/ch2/talk.png", custom_size)
@@ -56,12 +56,15 @@ image bg_critique_ijh = At("images/bg/main_oh/ch2/critique/ijh.png", custom_size
 image bg_critique_lgt = At("images/bg/main_oh/ch2/critique/lgt.png", custom_size)
 image bg_critique_ljy = At("images/bg/main_oh/ch2/critique/ljy.png", custom_size)
 image bg_machine_bead = At("images/bg/main_oh/ch2/ch2_bead/machine_bead.png", custom_size)
+
 image ijh_critique = "images/bg/main_oh/ch2/jokja/igh_critique.png"
 image education = "images/bg/main_oh/ch2/jokja/education.png"
 image daehan = "images/bg/main_oh/ch2/jokja/daehan.png"
 image taegeuk_box = "images/bg/main_oh/ch2/taegeuk_box.png"
 image ch2_bead = "images/bg/main_oh/ch2/ch2_bead/bead.png"
 image ch2_bead_h = "images/bg/main_oh/ch2/ch2_bead/bead_high.png"
+image colleague_1 = "images/bg/main_oh/ch2/colleague_1.png"
+
 # chap3
 image bg_oh_desk = At("images/bg/main_oh/ch3/oh_desk.png", custom_size)
 image bg_crowd_news_1 = At("images/bg/main_oh/ch3/crowd_news/1.png", custom_size)
@@ -87,7 +90,7 @@ image bg_bead_5 = At("images/bg/main_oh/ch3/bead/5.png", custom_size)
 image cartoon = "images/bg/main_oh/ch3/cartoon.png"
 image essay = "images/bg/main_oh/ch3/essay.png"
 image news_cylinder = "images/bg/main_oh/ch3/news_cylinder.png"
-image colleague = "images/bg/main_oh/ch3/colleague.png"
+image colleague_2 = "images/bg/main_oh/ch3/colleague_2.png"
 
 # chap4
 image bg_doknip_1 = At("images/bg/main_oh/ch4/doknip/1.png", custom_size)
@@ -115,7 +118,9 @@ image red_high = "images/bg/main_oh/ch4/taegeuk_draw/Subject 2.png"
 define audio.oh_main_bgm = "audio/bgm/oh_main_bgm.mp3"
 define audio.oh_ch1 = "audio/bgm/oh_ch1.mp3"
 define audio.oh_ch2 = "audio/bgm/oh_ch2.mp3"
-
+define audio.oh_ch3 = "audio/bgm/oh_ch3.mp3"
+define audio.oh_ch4 = "audio/bgm/oh_ch4.mp3"
+define audio.conclusion = "audio/sfx/conclusion.mp3"
 # 캐릭터 설정
 define wife = Character("부인", color="#6bffba")
 define coll = Character("동료", color="#6bffba")
@@ -226,7 +231,9 @@ label oh_chap1:
     m "오케이! 빨리 기억 구슬을 찾고 돌아가야겠어!"
     m "뭐야. 내가 조선시대의 관복을 입고 있잖아?"
     m "관직 임명장? 내가 신문, 잡지 등을 만드는 조선시대 국가 기관인 박문국의 팀장이라고?"
+    show wife at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     wife "당신, 출근 안 해요? 얼른 다녀와요."
+    hide wife with dissolve
     m "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
     
     "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 발행하는 것이 내 업무라고 한다."
@@ -329,7 +336,9 @@ label oh_chap2:
     son "뜻이 같은 자, 천도교로 오시오!"
 
     m "지금 1860년이 넘었다고? 심지어 1대 교주도 아니고 3대 교주? 완전 조선시대 말이잖아!"
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "자네, 어떤가? 자네도 같이 입교하는 게 좋을 것 같네! 완전 좋은 기회야! 무조건 같이 입교하는 걸세!"
+    hide colleague_1 with dissolve
     "천도교에 입교하게 되었다."
 
     scene bg_clock_1 
@@ -368,19 +377,22 @@ label oh_chap2:
     m "시간이 흘러 드디어 귀국했다. 너무 그리웠어……."
 
     scene bg_black with fade_fast
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 같이 만듭시다. 경험 있으니까 잘할 수 있지 않겠습니까? 이름은 <만세보>가 좋겠습니다."
+
     stop music fadeout 1.0
     play music oh_ch2 fadein 1.0
     scene bg_news_machine with fade_fast
-
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳습니다. 누구를 비판하는 게 좋을 것 같습니까?"
-   
+    hide colleague_1 
     call menu_loop_critique
 
     scene bg_news_machine with fade_fast
     m "친일파의 만행에 대해서 내가 직접 알리다니. 역사 책에서 보던 독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다!"
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "근데 아무리 생각해도 일진회를 더 견제해야 됩니다. 민족 정신에 대한 교육의 필요성이 더 중요해졌지 않습니까? 협회를 만들어야 하지 않을까 생각합니다."
-
+    hide colleague_1
     # 드래그 앤 드롭 미니게임
     call daehan_association_minigame
 
@@ -406,7 +418,7 @@ label oh_chap3:
 
     scene bg_black with fade_fast
     call screen overlay_wait("bg_ch3")
-    show colleague at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
+    show colleague_2 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     play music oh_main_bgm fadein 1.0 loop
 
     coll "하, 근데 이것만으로도 아직 너무 부족한 것 같습니다."
@@ -450,12 +462,22 @@ label oh_chap3:
     reader_2 "그렇다니까. 한글로 되어 있어서 읽기도 얼마나 쉬운데?"
     reader_3 "뭐?! 그럼 나 같은 사람도 읽을 수 있겠네!"
     
-    scene bg_oh_desk with fade_fast
-    call screen bead_click_event(0.1, 0.7, 0.4)
+    scene bg_bead_1 with fade_fast
+    pause 0.8
+    scene bg_bead_2
+    pause 0.8
+    scene bg_bead_3
+    pause 0.8
+    scene bg_bead_4
+    pause 0.8
+    scene bg_bead_5
+    
+
+    call screen bead_click_event(0.503, 0.501, 0.66)
 
     # ▶ 챕터 3 종료 오버레이
     call screen overlay_wait("bg_ch3_status")
-    "책상에서 기억 구슬을 획득했다."
+    "신문에서 기억 구슬을 획득했다."
     m "이제 다음이 마지막 구슬인가? 벌써 마지막 구슬이라니 약간은 아쉽네…."
 
     stop music fadeout 1.0
@@ -470,8 +492,9 @@ label oh_chap4:
     scene bg_gather with fade_slow
     call screen overlay_wait("bg_ch4")
     play music oh_main_bgm fadein 1.0 loop
-    
+    show chundogyo at Transform(zoom=0.85, xalign=0.5, yalign=0.05)
     chondo "아, 그러고 보니 우리가 독립선언서를 준비해야 하네. 만세 운동도 같이 준비하기로 했어! 자네 기억하고 있지?"
+    hide chundogyo with dissolve
     m "뭐? 내가 언제? 다른 사람들과 만세 운동을 준비해야 된다고 한다. 어떡해?"
     m "처음부터 성공할 것 같지는 않아…. 책에서 본 독립운동가분들도 다 이렇게 생각했겠지? 그래! 해 보자!"
     
@@ -494,8 +517,9 @@ label oh_chap4:
     "태극기를 그렸다!"
     
     m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된대…!"
-    
+    stop music fadeout 1.0
     scene bg_gather with fade_fast
+    play sound oh_ch4 fadein 1.0
     
     "대한독립선언서에 서명하고, 3.1 만세운동을 시작한다!"
     
@@ -519,6 +543,7 @@ label oh_chap4:
     call screen bead_click_event(1520, 1000, 3.0)
     call screen overlay_wait("bg_ch4_status")
     "태극기와 함께 기억 구슬을 얻었다."
+    play sound conclusion 
     m "드디어 구슬을 다 모았다! 이제 집에 돌아갈 수 있겠다!"  
     stop music fadeout 1.0
     return
@@ -679,7 +704,7 @@ screen news_delivery_r1():
             drag_raise False
             xpos 1100
             ypos 600
-            child Solid("#dc6969a9", xysize=(150, 400))
+            child Solid("#dc696900", xysize=(150, 400))
         drag:
             drag_name "news_cylinder_r1"
             droppable False
@@ -729,7 +754,7 @@ screen news_delivery_r2():
             drag_raise False
             xpos 730
             ypos 650
-            child Solid("#dc6b6ba9", xysize=(150, 350))
+            child Solid("#dc6b6b00", xysize=(150, 350))
         drag:
             drag_name "news_cylinder_r2"
             droppable False
@@ -788,7 +813,7 @@ screen novel_delivery_r1():
             drag_raise False
             xpos 800
             ypos 550
-            child Solid("#e87e7eaa", xysize=(180, 500))
+            child Solid("#e87e7e00", xysize=(180, 500))
         drag:
             drag_name "news_cylinder_novel_r1"
             droppable False
@@ -838,7 +863,7 @@ screen novel_delivery_r2():
             drag_raise False
             xpos 1200
             ypos 550
-            child Solid("#f26a6aa1", xysize=(200, 450))
+            child Solid("#00000000", xysize=(200, 450))
         drag:
             drag_name "news_cylinder_novel_r2"
             droppable False
