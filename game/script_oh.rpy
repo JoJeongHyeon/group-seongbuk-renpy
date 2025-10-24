@@ -152,12 +152,7 @@ screen overlay_wait(img_name):
 screen bead_click_event1(xpos, ypos, zoom):
     modal True
     # 구슬 안내 텍스트
-    text "빛나는 구슬을 클릭하세요":
-        xalign 0.5
-        ypos 80
-        size 36
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("빛나는 구슬을 눌러보세요.", icon="🔍")
     # 구슬 버튼 (클릭하면 Return)
     imagebutton:
         idle Transform("ch1_bead", zoom=zoom)
@@ -175,12 +170,7 @@ screen bead_click_event1(xpos, ypos, zoom):
 screen bead_click_event2(xpos, ypos, zoom):
     modal True
     # 구슬 안내 텍스트
-    text "빛나는 구슬을 클릭하세요":
-        xalign 0.5
-        ypos 80
-        size 36
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("빛나는 구슬을 눌러보세요.", icon="🔍")
     # 구슬 버튼 (클릭하면 Return)
     imagebutton:
         idle Transform("ch2_bead", zoom=zoom)
@@ -198,12 +188,7 @@ screen bead_click_event2(xpos, ypos, zoom):
 screen bead_click_event(xpos, ypos, zoom):
     modal True
     # 구슬 안내 텍스트
-    text "빛나는 구슬을 클릭하세요":
-        xalign 0.5
-        ypos 80
-        size 36
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("빛나는 구슬을 눌러보세요.", icon="🔍")
     # 구슬 버튼 (클릭하면 Return)
     imagebutton:
         idle Transform("bead", zoom=zoom)
@@ -468,15 +453,15 @@ label oh_chap3:
     reader_2 "그렇다니까. 한글로 되어 있어서 읽기도 얼마나 쉬운데?"
     reader_3 "뭐?! 그럼 나 같은 사람도 읽을 수 있겠네!"
     
-
+    
     scene bg_bead_1 with fade_fast
-    pause 0.8
+    pause 0.7
     scene bg_bead_2
-    pause 0.8
+    pause 0.7
     scene bg_bead_3
-    pause 0.8
+    pause 0.7
     scene bg_bead_4
-    pause 0.8
+    pause 0.7
     scene bg_bead_5
     
 
@@ -520,8 +505,8 @@ label oh_chap4:
     
     m "3.1 만세운동을 위한 태극기도 그려야 한다."
     
-    # 태극기 그리기 미니게임
-    #call draw_taegeuk_minigame
+    #태극기 그리기 미니게임
+    call draw_taegeuk_minigame
     
     "태극기를 그렸다!"
     
@@ -706,12 +691,7 @@ label mission_news_r1:
 screen news_delivery_r1():
     modal True
     add "bg_crowd_news_2"
-    text "신문을 새로운 독자에게 권유하기 (1/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if news_delivered_r1:
         timer 0.05 action Return()
     draggroup:
@@ -756,12 +736,7 @@ label mission_news_r2:
 screen news_delivery_r2():
     modal True
     add "bg_crowd_news_3"
-    text "신문을 새로운 독자에게 권유하기 (2/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if news_delivered_r2:
         timer 0.05 action Return()
     draggroup:
@@ -815,12 +790,7 @@ label mission_novel_r1:
 screen novel_delivery_r1():
     modal True
     add "bg_crowd_novel_2"
-    text "신문을 새로운 독자에게 권유하기 (1/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if novel_delivered_r1:
         timer 0.05 action Return()
     draggroup:
@@ -865,12 +835,7 @@ label mission_novel_r2:
 screen novel_delivery_r2():
     modal True
     add "bg_crowd_novel_3"
-    text "신문을 새로운 독자에게 권유하기(2/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if novel_delivered_r2:
         timer 0.05 action Return()
     draggroup:
@@ -917,17 +882,12 @@ label daehan_association_minigame:
 screen drag_drop_game():
     modal True
     add "bg_news_machine"
-    text "일진회 비판과 민족 정신에 대한 교육을 태극기 상자에 모두 올려주세요":
-        xalign 0.5 
-        ypos 50 
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("일진회 비판과 민족 정신에 대한 교육을 태극기 상자에 모두 올려주세요", icon="🔍")
     if items_placed["ijh_critique"] and items_placed["education"]:
         key "dismiss" action Return()
     fixed:
         xpos 750
-        ypos 500
+        ypos 600
         xysize (450, 450)
         add "taegeuk_box" zoom 0.3 xalign 0.5 yalign 0.5
         if items_placed["ijh_critique"] and items_placed["education"]:
@@ -939,7 +899,7 @@ screen drag_drop_game():
             droppable True
             drag_raise False
             xpos 700
-            ypos 800
+            ypos 900
             child Solid("#00000000", xysize=(550, 100))
         if not items_placed["ijh_critique"]:
             drag:
@@ -947,7 +907,7 @@ screen drag_drop_game():
                 droppable False
                 dragged drag_callback
                 xpos 150
-                ypos 200
+                ypos 300
                 add "ijh_critique" zoom 0.08 
         if not items_placed["education"]:
             drag:
@@ -955,7 +915,7 @@ screen drag_drop_game():
                 droppable False
                 dragged drag_callback
                 xpos 1350
-                ypos 200
+                ypos 300
                 add "education" zoom 0.08
 
 init python:
@@ -1000,12 +960,7 @@ screen taegeuk_draw_s1():
     
     add "bg_taegeuk_draw_1"
     
-    text "빨간색 붓을 종이 위에 드래그하세요 (1/3)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("빨간색 붓을 종이 위로 드래그하세요.", icon="🔍")
     
     if tae_s1_done:
         timer 0.05 action Return()
@@ -1061,12 +1016,7 @@ screen taegeuk_draw_s2():
     
     add "bg_taegeuk_draw_2"
     
-    text "파란색 붓을 종이 위에 드래그하세요 (2/3)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("파란색 붓을 종이 위로 드래그하세요.", icon="🔍")
     
     if tae_s2_done:
         timer 0.05 action Return()
@@ -1121,14 +1071,9 @@ screen taegeuk_draw_s3():
     modal True
     
     add "bg_taegeuk_draw_3"
-    
-    text "검은색 붓을 종이 위에 드래그하세요 (3/3)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
-    
+
+    use mission_guide("검은색 붓을 종이 위로 드래그하세요.", icon="🔍")
+
     if tae_s3_done:
         timer 0.05 action Return()
     
