@@ -511,6 +511,9 @@ label oh_chap4:
     "태극기를 그렸다!"
     
     m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된대…!"
+
+    call sign_declaration_loop
+    
     stop music fadeout 1.0
     scene bg_gather with fade_fast
     play sound oh_ch4 fadein 1.0
