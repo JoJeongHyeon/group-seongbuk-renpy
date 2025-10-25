@@ -327,7 +327,7 @@ label oh_chap2:
 
     m "지금 1860년이 넘었다고? 심지어 1대 교주도 아니고 3대 교주? 완전 조선시대 말이잖아!"
     show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "자네, 어떤가? 자네도 같이 입교하는 게 좋을 것 같네! 완전 좋은 기회야! 무조건 같이 입교하는 걸세!"
+    coll "자네, 어떤가? 자네도 같이 입교하는 게 좋을 것 같네! 좋은 기회가 아닌가! 무조건 같이 입교하는 걸세!"
     hide colleague_1 with dissolve
     "천도교에 입교하게 되었다."
 
@@ -368,7 +368,7 @@ label oh_chap2:
 
     scene bg_black with fade_fast
     show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 같이 만듭시다. 경험 있으니까 잘할 수 있지 않겠습니까? 이름은 <만세보>가 좋겠습니다."
+    coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 같이 만드세. 경험 있으니까 잘할 수 있지 않겠나? 이름은 <만세보>가 좋을 것 같네."
 
     stop music fadeout 1.0
     play music oh_ch2 fadein 1.0
@@ -513,7 +513,7 @@ label oh_chap4:
     m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된대…!"
 
     call sign_declaration_loop
-    
+
     stop music fadeout 1.0
     scene bg_gather with fade_fast
     play sound oh_ch4 fadein 1.0
@@ -542,7 +542,7 @@ label oh_chap4:
     "대한독립만세!"
     
 
-    call screen bead_click_event(1520, 1000, 3.0)
+    call screen bead_click_event(1520, 1000, 2.0)
     play sound memory_orb_get
     call screen overlay_wait("bg_ch4_status")
     "태극기와 함께 기억 구슬을 얻었다."
