@@ -43,12 +43,40 @@ screen interactive_table_im():
         hotspot (0, 0, 1920, 1080):
             action Return("next_ch")
 
+
+
     # 역사 인물들
 define choi = Character("최남선", image = "choi",color="#49b9bf")
 define w = Character("낯선 사람", image = "choi0",color="#b28080")
 define hara = Character("하라 다카시", image = "hara",color="#ff3030") 
 define w1 = Character("???", image = "hara0",color="#aa7c7c")
 define im_t = Character("???", color="#ff6b6b", what_color="#888888", what_italic=True)
+
+screen say(who, what):
+    # 사람 이미지(대사창 뒤, 화면 중앙) — 이름 위치엔 영향 없음
+    add SideImage() xalign 0.5 yalign 0.5
+
+    window:
+        id "window"
+        style_prefix "say"
+
+        if who:
+            # 이름 박스
+            window:
+                style "namebox"
+                text who id "who"
+
+        # 대사 텍스트
+        text what id "what"
+
+
+
+
+# speaking portrait(사이드 이미지)들
+image side choi  = "ch/choi.png"
+image side hara  = "ch/hara.png"
+image side choi0 = "ch/choi0.png"
+image side hara0 = "ch/hara0.png"
 
 # 기억구슬
 image memory_orb-1 = "bg/memory_orb-1.png"
@@ -500,12 +528,10 @@ label reassemble_complete:
     scene bg_black with fade_slow
     pause 2.0
     
-    # 엔딩으로 이어짐 (나중에 구현)
-    jump im_ending_placeholder
-
+    # 임규 엔딩으로 이어짐
+    jump im_ending
 
 return
-
 
 #===========================================================================
 # 챕터 N
