@@ -37,22 +37,33 @@ image bg_ink_5 = At("images/bg/main_oh/ch1/ink/5.png", custom_size)
 image bg_ink_6 = At("images/bg/main_oh/ch1/ink/6.png", custom_size)
 image bg_ink_7 = At("images/bg/main_oh/ch1/ink/7.png", custom_size)
 image bg_ink_8 = At("images/bg/main_oh/ch1/ink/8.png", custom_size)
+image bg_harbor_bead = At("images/bg/main_oh/ch1/ch1_bead/harbor.png", custom_size)
+image ch1_bead = "images/bg/main_oh/ch1/ch1_bead/bead.png"
+image ch1_bead_h = "images/bg/main_oh/ch1/ch1_bead/bead_high.png"
+image wife = "images/bg/main_oh/ch1/wife.png"
 
 # chap2
 image bg_talk = At("images/bg/main_oh/ch2/talk.png", custom_size)
 image bg_speech = At("images/bg/main_oh/ch2/speech.png", custom_size)
 image bg_news_machine = At("images/bg/main_oh/ch2/news_machine.png", custom_size)
-image bg_clock_12 = At("images/bg/main_oh/ch2/clock/12.png", custom_size)
+image bg_clock_1 = At("images/bg/main_oh/ch2/clock/1.png", custom_size)
+image bg_clock_2 = At("images/bg/main_oh/ch2/clock/2.png", custom_size)
 image bg_clock_3 = At("images/bg/main_oh/ch2/clock/3.png", custom_size)
+image bg_clock_4 = At("images/bg/main_oh/ch2/clock/4.png", custom_size)
+image bg_clock_5 = At("images/bg/main_oh/ch2/clock/5.png", custom_size)
 image bg_clock_6 = At("images/bg/main_oh/ch2/clock/6.png", custom_size)
-image bg_clock_9 = At("images/bg/main_oh/ch2/clock/9.png", custom_size)
 image bg_critique_ijh = At("images/bg/main_oh/ch2/critique/ijh.png", custom_size)
 image bg_critique_lgt = At("images/bg/main_oh/ch2/critique/lgt.png", custom_size)
 image bg_critique_ljy = At("images/bg/main_oh/ch2/critique/ljy.png", custom_size)
+image bg_machine_bead = At("images/bg/main_oh/ch2/ch2_bead/machine_bead.png", custom_size)
+
 image ijh_critique = "images/bg/main_oh/ch2/jokja/igh_critique.png"
 image education = "images/bg/main_oh/ch2/jokja/education.png"
 image daehan = "images/bg/main_oh/ch2/jokja/daehan.png"
 image taegeuk_box = "images/bg/main_oh/ch2/taegeuk_box.png"
+image ch2_bead = "images/bg/main_oh/ch2/ch2_bead/bead.png"
+image ch2_bead_h = "images/bg/main_oh/ch2/ch2_bead/bead_high.png"
+image colleague_1 = "images/bg/main_oh/ch2/colleague_1.png"
 
 # chap3
 image bg_oh_desk = At("images/bg/main_oh/ch3/oh_desk.png", custom_size)
@@ -79,7 +90,7 @@ image bg_bead_5 = At("images/bg/main_oh/ch3/bead/5.png", custom_size)
 image cartoon = "images/bg/main_oh/ch3/cartoon.png"
 image essay = "images/bg/main_oh/ch3/essay.png"
 image news_cylinder = "images/bg/main_oh/ch3/news_cylinder.png"
-image colleague = "images/bg/main_oh/ch3/colleague.png"
+image colleague_2 = "images/bg/main_oh/ch3/colleague_2.png"
 
 # chap4
 image bg_doknip_1 = At("images/bg/main_oh/ch4/doknip/1.png", custom_size)
@@ -96,17 +107,20 @@ image bg_paper_machine = At("images/bg/main_oh/ch4/paper_machine.png", custom_si
 image bg_police = At("images/bg/main_oh/ch4/police.png", custom_size)
 image chundogyo = "images/bg/main_oh/ch4/chundogyo.png"
 image taegeuk = "images/bg/main_oh/ch4/taegeuk.png"
-image black_brush = "images/bg/main_oh/ch4/taegeuk_draw/black.png"
-image black_high = "images/bg/main_oh/ch4/taegeuk_draw/black_high.png"
-image blue_brush = "images/bg/main_oh/ch4/taegeuk_draw/blue.png"
-image blue_high = "images/bg/main_oh/ch4/taegeuk_draw/blue_high.png"
-image red_brush = "images/bg/main_oh/ch4/taegeuk_draw/red.png"
-image red_high = "images/bg/main_oh/ch4/taegeuk_draw/red_high.png"
+image black_brush = "images/bg/main_oh/ch4/taegeuk_draw/Subject 5.png"
+image black_high = "images/bg/main_oh/ch4/taegeuk_draw/Subject 6.png"
+image blue_brush = "images/bg/main_oh/ch4/taegeuk_draw/Subject 3.png"
+image blue_high = "images/bg/main_oh/ch4/taegeuk_draw/Subject 4.png"
+image red_brush = "images/bg/main_oh/ch4/taegeuk_draw/Subject.png"
+image red_high = "images/bg/main_oh/ch4/taegeuk_draw/Subject 2.png"
 
 # -------- BGM/효과음 --------
 define audio.oh_main_bgm = "audio/bgm/oh_main_bgm.mp3"
 define audio.oh_ch1 = "audio/bgm/oh_ch1.mp3"
 define audio.oh_ch2 = "audio/bgm/oh_ch2.mp3"
+define audio.oh_ch3 = "audio/bgm/oh_ch3.mp3"
+define audio.oh_ch4 = "audio/bgm/oh_ch4.mp3"
+define audio.conclusion = "audio/sfx/conclusion.mp3"
 define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
 
 # 캐릭터 설정
@@ -133,17 +147,48 @@ screen overlay_wait(img_name):
         action Return()
 
 # ================================
-# Ch1 말미: 구슬 클릭 스크린 (배경 위 오버레이)
+# Ch1 말미: 구슬 클릭 스크린 
+# ================================
+screen bead_click_event1(xpos, ypos, zoom):
+    modal True
+    # 구슬 안내 텍스트
+    use mission_guide("빛나는 구슬을 눌러보세요.", icon="🔍")
+    # 구슬 버튼 (클릭하면 Return)
+    imagebutton:
+        idle Transform("ch1_bead", zoom=zoom)
+        hover Transform("ch1_bead_h", zoom=zoom)
+        focus_mask True
+        xpos xpos
+        ypos ypos
+        xanchor 0.5
+        yanchor 0.5
+        action Return()
+
+# ================================
+# Ch2 말미: 구슬 클릭 스크린 
+# ================================
+screen bead_click_event2(xpos, ypos, zoom):
+    modal True
+    # 구슬 안내 텍스트
+    use mission_guide("빛나는 구슬을 눌러보세요.", icon="🔍")
+    # 구슬 버튼 (클릭하면 Return)
+    imagebutton:
+        idle Transform("ch2_bead", zoom=zoom)
+        hover Transform("ch2_bead_h", zoom=zoom)
+        focus_mask True
+        xpos xpos
+        ypos ypos
+        xanchor 0.5
+        yanchor 0.5
+        action Return()
+
+# ================================
+# Ch4 말미: 구슬 클릭 스크린 
 # ================================
 screen bead_click_event(xpos, ypos, zoom):
     modal True
-    # 구슬 안내 텍스트(옵션)
-    text "빛나는 구슬을 클릭하세요":
-        xalign 0.5
-        ypos 80
-        size 36
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    # 구슬 안내 텍스트
+    use mission_guide("빛나는 구슬을 눌러보세요.", icon="🔍")
     # 구슬 버튼 (클릭하면 Return)
     imagebutton:
         idle Transform("bead", zoom=zoom)
@@ -154,7 +199,6 @@ screen bead_click_event(xpos, ypos, zoom):
         xanchor 0.5
         yanchor 0.5
         action Return()
-
 # =========================================
 # 라벨: 오세창 루트 
 # =========================================
@@ -174,7 +218,9 @@ label oh_chap1:
     m "오케이! 빨리 기억 구슬을 찾고 돌아가야겠어!"
     m "뭐야. 내가 조선시대의 관복을 입고 있잖아?"
     m "관직 임명장? 내가 신문, 잡지 등을 만드는 조선시대 국가 기관인 박문국의 팀장이라고?"
+    show wife at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     wife "당신, 출근 안 해요? 얼른 다녀와요."
+    hide wife with dissolve
     m "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
     
     "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 발행하는 것이 내 업무라고 한다."
@@ -238,9 +284,10 @@ label oh_chap1:
     stop music fadeout 1.0
     m "어? 저 빛나는 건 뭔지? 눌러봐야겠다."
 
-    # ✅ 구슬 클릭 이벤트(클릭해야 진행)
-    call screen bead_click_event(0.9, 0.8, 0.35)
+    
+    call screen bead_click_event1(900,495,1.0)
     play sound memory_orb_get
+
 
     # ▶ 챕터 1 종료 오버레이 (클릭해야 넘어감)
     call screen overlay_wait("bg_ch1_status")
@@ -279,48 +326,63 @@ label oh_chap2:
     son "뜻이 같은 자, 천도교로 오시오!"
 
     m "지금 1860년이 넘었다고? 심지어 1대 교주도 아니고 3대 교주? 완전 조선시대 말이잖아!"
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "자네, 어떤가? 자네도 같이 입교하는 게 좋을 것 같네! 완전 좋은 기회야! 무조건 같이 입교하는 걸세!"
+    hide colleague_1 with dissolve
     "천도교에 입교하게 되었다."
 
-    scene bg_clock_12 
-    pause 0.60
-    scene bg_clock_3
-    pause 0.50
-    scene bg_clock_6
+    scene bg_clock_1 
+    pause 0.45
+    scene bg_clock_2
     pause 0.40
-    scene bg_clock_9
-    pause 0.35
-    scene bg_clock_12
-    pause 0.30
     scene bg_clock_3
-    pause 0.20
-    scene bg_clock_6
-    pause 0.15
-    scene bg_clock_9
-    pause 0.10
-    scene bg_clock_12
+    pause 0.37
+    scene bg_clock_4
+    pause 0.34
+    scene bg_clock_5
+    pause 0.31
+    scene bg_clock_1
+    pause 0.28
+    scene bg_clock_2
+    pause 0.25
+    scene bg_clock_3
+    pause 0.22
+    scene bg_clock_4
+    pause 0.19
+    scene bg_clock_5
+    pause 0.16
+    scene bg_clock_1
+    pause 0.13
+    scene bg_clock_2
     pause 0.10
     scene bg_clock_3
-    pause 0.05
-    scene bg_clock_6
+    pause 0.10
+    scene bg_clock_4
+    pause 0.10
+    scene bg_clock_5
+    pause 0.10
+    scene bg_clock_1 
     pause 0.90
 
     m "시간이 흘러 드디어 귀국했다. 너무 그리웠어……."
 
     scene bg_black with fade_fast
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 같이 만듭시다. 경험 있으니까 잘할 수 있지 않겠습니까? 이름은 <만세보>가 좋겠습니다."
+
     stop music fadeout 1.0
     play music oh_ch2 fadein 1.0
     scene bg_news_machine with fade_fast
-
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳습니다. 누구를 비판하는 게 좋을 것 같습니까?"
-   
+    hide colleague_1 
     call menu_loop_critique
 
     scene bg_news_machine with fade_fast
     m "친일파의 만행에 대해서 내가 직접 알리다니. 역사 책에서 보던 독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다!"
+    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "근데 아무리 생각해도 일진회를 더 견제해야 됩니다. 민족 정신에 대한 교육의 필요성이 더 중요해졌지 않습니까? 협회를 만들어야 하지 않을까 생각합니다."
-
+    hide colleague_1
     # 드래그 앤 드롭 미니게임
     call daehan_association_minigame
 
@@ -330,9 +392,8 @@ label oh_chap2:
     
 
     "신문 찍는 기계 앞에서 구슬을 발견했다."
-    call screen bead_click_event(0.9, 0.8, 0.35)
+    call screen bead_click_event2(900,580,0.6)
     play sound memory_orb_get
-
     # ▶ 챕터 2 종료 오버레이
     call screen overlay_wait("bg_ch2_status")
     m "벌써 두 번째 구슬이다! 이 속도면 집에 빨리 갈 수 있겠지?"
@@ -348,7 +409,7 @@ label oh_chap3:
 
     scene bg_black with fade_fast
     call screen overlay_wait("bg_ch3")
-    show colleague at Transform(zoom=0.35, xalign=0.5, yalign=0.5)
+    show colleague_2 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     play music oh_main_bgm fadein 1.0 loop
 
     coll "하, 근데 이것만으로도 아직 너무 부족한 것 같습니다."
@@ -392,13 +453,25 @@ label oh_chap3:
     reader_2 "그렇다니까. 한글로 되어 있어서 읽기도 얼마나 쉬운데?"
     reader_3 "뭐?! 그럼 나 같은 사람도 읽을 수 있겠네!"
     
-    scene bg_oh_desk with fade_fast
-    call screen bead_click_event(0.1, 0.7, 0.4)
+    
+    scene bg_bead_1 with fade_fast
+    pause 0.7
+    scene bg_bead_2
+    pause 0.7
+    scene bg_bead_3
+    pause 0.7
+    scene bg_bead_4
+    pause 0.7
+    scene bg_bead_5
+    
+
+    call screen bead_click_event(0.503, 0.501, 0.66)
     play sound memory_orb_get
+
 
     # ▶ 챕터 3 종료 오버레이
     call screen overlay_wait("bg_ch3_status")
-    "책상에서 기억 구슬을 획득했다."
+    "신문에서 기억 구슬을 획득했다."
     m "이제 다음이 마지막 구슬인가? 벌써 마지막 구슬이라니 약간은 아쉽네…."
 
     stop music fadeout 1.0
@@ -413,8 +486,9 @@ label oh_chap4:
     scene bg_gather with fade_slow
     call screen overlay_wait("bg_ch4")
     play music oh_main_bgm fadein 1.0 loop
-    
+    show chundogyo at Transform(zoom=0.85, xalign=0.5, yalign=0.05)
     chondo "아, 그러고 보니 우리가 독립선언서를 준비해야 하네. 만세 운동도 같이 준비하기로 했어! 자네 기억하고 있지?"
+    hide chundogyo with dissolve
     m "뭐? 내가 언제? 다른 사람들과 만세 운동을 준비해야 된다고 한다. 어떡해?"
     m "처음부터 성공할 것 같지는 않아…. 책에서 본 독립운동가분들도 다 이렇게 생각했겠지? 그래! 해 보자!"
     
@@ -431,20 +505,22 @@ label oh_chap4:
     
     m "3.1 만세운동을 위한 태극기도 그려야 한다."
     
-    # 태극기 그리기 미니게임
-    #call draw_taegeuk_minigame
+    #태극기 그리기 미니게임
+    call draw_taegeuk_minigame
     
     "태극기를 그렸다!"
     
     m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된대…!"
-    
+
     call sign_declaration_loop
     
+    stop music fadeout 1.0
     scene bg_gather with fade_fast
-    #play music manse_effect fadein 1.0
+    play sound oh_ch4 fadein 1.0
     
     "대한독립선언서에 서명하고, 3.1 만세운동을 시작한다!"
     
+
     # 독립선언서 뿌리기 인터랙션
     #call screen spread_declaration
     
@@ -465,10 +541,12 @@ label oh_chap4:
     
     "대한독립만세!"
     
-    call screen bead_click_event(960, 540, 0.35)
+
+    call screen bead_click_event(1520, 1000, 3.0)
     play sound memory_orb_get
     call screen overlay_wait("bg_ch4_status")
     "태극기와 함께 기억 구슬을 얻었다."
+    play sound conclusion 
     m "드디어 구슬을 다 모았다! 이제 집에 돌아갈 수 있겠다!"  
     stop music fadeout 1.0
     
@@ -616,12 +694,7 @@ label mission_news_r1:
 screen news_delivery_r1():
     modal True
     add "bg_crowd_news_2"
-    text "신문을 새로운 독자에게 권유하기 (1/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if news_delivered_r1:
         timer 0.05 action Return()
     draggroup:
@@ -632,7 +705,7 @@ screen news_delivery_r1():
             drag_raise False
             xpos 1100
             ypos 600
-            child Solid("#dc6969a9", xysize=(150, 400))
+            child Solid("#dc696900", xysize=(150, 400))
         drag:
             drag_name "news_cylinder_r1"
             droppable False
@@ -666,12 +739,7 @@ label mission_news_r2:
 screen news_delivery_r2():
     modal True
     add "bg_crowd_news_3"
-    text "신문을 새로운 독자에게 권유하기 (2/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if news_delivered_r2:
         timer 0.05 action Return()
     draggroup:
@@ -682,7 +750,7 @@ screen news_delivery_r2():
             drag_raise False
             xpos 730
             ypos 650
-            child Solid("#dc6b6ba9", xysize=(150, 350))
+            child Solid("#dc6b6b00", xysize=(150, 350))
         drag:
             drag_name "news_cylinder_r2"
             droppable False
@@ -725,12 +793,7 @@ label mission_novel_r1:
 screen novel_delivery_r1():
     modal True
     add "bg_crowd_novel_2"
-    text "신문을 새로운 독자에게 권유하기 (1/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if novel_delivered_r1:
         timer 0.05 action Return()
     draggroup:
@@ -739,9 +802,9 @@ screen novel_delivery_r1():
             draggable False
             droppable True
             drag_raise False
-            xpos 850
+            xpos 800
             ypos 550
-            child Solid("#e87e7eaa", xysize=(180, 500))
+            child Solid("#e87e7e00", xysize=(180, 500))
         drag:
             drag_name "news_cylinder_novel_r1"
             droppable False
@@ -775,12 +838,7 @@ label mission_novel_r2:
 screen novel_delivery_r2():
     modal True
     add "bg_crowd_novel_3"
-    text "신문을 새로운 독자에게 권유하기(2/2)":
-        xalign 0.5
-        ypos 50
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
+    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
     if novel_delivered_r2:
         timer 0.05 action Return()
     draggroup:
@@ -791,7 +849,7 @@ screen novel_delivery_r2():
             drag_raise False
             xpos 1200
             ypos 550
-            child Solid("#f26a6aa1", xysize=(200, 450))
+            child Solid("#00000000", xysize=(200, 450))
         drag:
             drag_name "news_cylinder_novel_r2"
             droppable False
@@ -827,16 +885,12 @@ label daehan_association_minigame:
 screen drag_drop_game():
     modal True
     add "bg_news_machine"
-    text "일진회 비판과 민족 정신에 대한 교육을 태극기 상자에 모두 올려주세요":
-        xalign 0.5 
-        ypos 50 
-        size 40
-        color "#000000"
+    use mission_guide("일진회 비판과 민족 정신에 대한 교육을 태극기 상자에 모두 올려주세요", icon="🔍")
     if items_placed["ijh_critique"] and items_placed["education"]:
         key "dismiss" action Return()
     fixed:
         xpos 750
-        ypos 500
+        ypos 600
         xysize (450, 450)
         add "taegeuk_box" zoom 0.3 xalign 0.5 yalign 0.5
         if items_placed["ijh_critique"] and items_placed["education"]:
@@ -848,7 +902,7 @@ screen drag_drop_game():
             droppable True
             drag_raise False
             xpos 700
-            ypos 800
+            ypos 900
             child Solid("#00000000", xysize=(550, 100))
         if not items_placed["ijh_critique"]:
             drag:
@@ -856,7 +910,7 @@ screen drag_drop_game():
                 droppable False
                 dragged drag_callback
                 xpos 150
-                ypos 200
+                ypos 300
                 add "ijh_critique" zoom 0.08 
         if not items_placed["education"]:
             drag:
@@ -864,7 +918,7 @@ screen drag_drop_game():
                 droppable False
                 dragged drag_callback
                 xpos 1350
-                ypos 200
+                ypos 300
                 add "education" zoom 0.08
 
 init python:
@@ -890,177 +944,174 @@ label draw_taegeuk_minigame:
     call taegeuk_stage_1
     call taegeuk_stage_2
     call taegeuk_stage_3
-    scene bg_taegeuk_draw_4 with fade_fast
+    scene bg_taegeuk_draw_4 
     $ renpy.pause(1.0, hard=True)
     return
 
 # ---------- Stage 1 : 빨간 붓 성공 ----------
 label taegeuk_stage_1:
     $ tae_s1_done = False
-    call screen taegeuk_draw_s1
-    return
+    label taegeuk_stage_1_loop:
+        call screen taegeuk_draw_s1
+        if tae_s1_done:
+            return
+        else:
+            jump taegeuk_stage_1_loop
 
 screen taegeuk_draw_s1():
     modal True
+    
+    add "bg_taegeuk_draw_1"
+    
+    use mission_guide("빨간색 붓을 종이 위로 드래그하세요.", icon="🔍")
+    
     if tae_s1_done:
         timer 0.05 action Return()
-    fixed:
-        add "bg_taegeuk_draw_1"
-        add Solid("#ffff0080", xysize=(640, 360)) xpos 640 ypos 300
-        draggroup:
-            drag:
-                drag_name "paper_zone_s1"
-                draggable False
-                droppable True
-                drag_raise False
-                xpos 640
-                ypos 300
-                child Solid("#00000000", xysize=(640, 360))
-            drag:
-                drag_name "black_move_s1"
-                droppable False
-                dragged taegeuk_drag_cb_s1
-                xpos 400
-                ypos 620
-                child "black_brush" at Transform(zoom=0.85)
-            drag:
-                drag_name "blue_move_s1"
-                droppable False
-                dragged taegeuk_drag_cb_s1
-                xpos 600
-                ypos 650
-                child "blue_brush" at Transform(zoom=0.85)
-            drag:
-                drag_name "red_move_s1"
-                droppable False
-                dragged taegeuk_drag_cb_s1
-                xpos 820
-                ypos 610
-                child "red_high" at Transform(zoom=0.85)
+    
+    # 고정된 붓들 (드래그 불가)
+    add "black_brush" at Transform(zoom=0.6, xpos=1400, ypos=150)
+    add "blue_brush" at Transform(zoom=0.6, xpos=1400, ypos=450)
+    
+    draggroup:
+        # 종이 드롭 존
+        drag:
+            drag_name "paper_zone_s1"
+            draggable False
+            droppable True
+            drag_raise False
+            xpos 240
+            ypos 200
+            child Solid("#00000000", xysize=(1060, 700))
+        
+        # 빨간 붓만 드래그 가능 (반짝임)
+        drag:
+            drag_name "red_move_s1"
+            droppable False
+            dragged taegeuk_drag_cb_s1
+            xpos 1400
+            ypos 280
+            child Transform("red_high", zoom=0.6)
 
 init python:
     def taegeuk_drag_cb_s1(drags, drop):
         if drop is None:
             return False
         drag = drags[0]
-        if drop.drag_name == "paper_zone_s1" and drag.drag_name == "red_move_s1":
-            store.tae_s1_done = True
-            renpy.restart_interaction()
-            return True
-        if drop.drag_name == "paper_zone_s1":
-            return True
+        if (drop.drag_name == "paper_zone_s1") and (drag.drag_name == "red_move_s1"):
+            if not store.tae_s1_done:
+                store.tae_s1_done = True
+                renpy.restart_interaction()
+                return True
         return False
 
 # ---------- Stage 2 : 파란 붓 성공 ----------
 label taegeuk_stage_2:
     $ tae_s2_done = False
-    call screen taegeuk_draw_s2
-    return
+    label taegeuk_stage_2_loop:
+        call screen taegeuk_draw_s2
+        if tae_s2_done:
+            return
+        else:
+            jump taegeuk_stage_2_loop
 
 screen taegeuk_draw_s2():
     modal True
+    
+    add "bg_taegeuk_draw_2"
+    
+    use mission_guide("파란색 붓을 종이 위로 드래그하세요.", icon="🔍")
+    
     if tae_s2_done:
         timer 0.05 action Return()
-    fixed:
-        add "bg_taegeuk_draw_2"
-        add Solid("#ffff0080", xysize=(640, 360)) xpos 640 ypos 300
-        draggroup:
-            drag:
-                drag_name "paper_zone_s2"
-                draggable False
-                droppable True
-                drag_raise False
-                xpos 640
-                ypos 300
-                child Solid("#00000000", xysize=(640, 360))
-            drag:
-                drag_name "black_move_s2"
-                droppable False
-                dragged taegeuk_drag_cb_s2
-                xpos 400
-                ypos 620
-                child "black_brush" at Transform(zoom=0.85)
-            drag:
-                drag_name "red_move_s2"
-                droppable False
-                dragged taegeuk_drag_cb_s2
-                xpos 820
-                ypos 610
-                child "red_brush" at Transform(zoom=0.85)
-            drag:
-                drag_name "blue_move_s2"
-                droppable False
-                dragged taegeuk_drag_cb_s2
-                xpos 600
-                ypos 650
-                child "blue_high" at Transform(zoom=0.85)
+    
+    # 고정된 붓들 (드래그 불가)
+    add "black_brush" at Transform(zoom=0.6, xpos=1400, ypos=150)
+    add "red_brush" at Transform(zoom=0.6, xpos=1400, ypos=300)
+    
+    draggroup:
+        # 종이 드롭 존
+        drag:
+            drag_name "paper_zone_s2"
+            draggable False
+            droppable True
+            drag_raise False
+            xpos 240
+            ypos 200
+            child Solid("#00000000", xysize=(1060, 700))
+        
+        # 파란 붓만 드래그 가능 (반짝임)
+        drag:
+            drag_name "blue_move_s2"
+            droppable False
+            dragged taegeuk_drag_cb_s2
+            xpos 1400
+            ypos 430
+            child Transform("blue_high", zoom=0.6)
 
 init python:
     def taegeuk_drag_cb_s2(drags, drop):
         if drop is None:
             return False
         drag = drags[0]
-        if drop.drag_name == "paper_zone_s2" and drag.drag_name == "blue_move_s2":
-            store.tae_s2_done = True
-            renpy.restart_interaction()
-            return True
-        if drop.drag_name == "paper_zone_s2":
-            return True
+        if (drop.drag_name == "paper_zone_s2") and (drag.drag_name == "blue_move_s2"):
+            if not store.tae_s2_done:
+                store.tae_s2_done = True
+                renpy.restart_interaction()
+                return True
         return False
 
 # ---------- Stage 3 : 검은 붓 성공 ----------
 label taegeuk_stage_3:
     $ tae_s3_done = False
-    call screen taegeuk_draw_s3
-    return
+    label taegeuk_stage_3_loop:
+        call screen taegeuk_draw_s3
+        if tae_s3_done:
+            return
+        else:
+            jump taegeuk_stage_3_loop
 
 screen taegeuk_draw_s3():
     modal True
+    
+    add "bg_taegeuk_draw_3"
+
+    use mission_guide("검은색 붓을 종이 위로 드래그하세요.", icon="🔍")
+
     if tae_s3_done:
         timer 0.05 action Return()
-    fixed:
-        add "bg_taegeuk_draw_3"
-        add Solid("#ffff0080", xysize=(640, 360)) xpos 640 ypos 300
-        draggroup:
-            drag:
-                drag_name "paper_zone_s3"
-                draggable False
-                droppable True
-                drag_raise False
-                xpos 640
-                ypos 300
-                child Solid("#00000000", xysize=(640, 360))
-            drag:
-                drag_name "red_move_s3"
-                droppable False
-                dragged taegeuk_drag_cb_s3
-                xpos 820
-                ypos 610
-                child "red_brush" at Transform(zoom=0.85)
-            drag:
-                drag_name "blue_move_s3"
-                droppable False
-                dragged taegeuk_drag_cb_s3
-                xpos 600
-                ypos 650
-                child "blue_brush" at Transform(zoom=0.85)
-            drag:
-                drag_name "black_move_s3"
-                droppable False
-                dragged taegeuk_drag_cb_s3
-                xpos 400
-                ypos 620
-                child "black_high" at Transform(zoom=0.85)
+    
+    # 고정된 붓들 (드래그 불가)
+    add "red_brush" at Transform(zoom=0.6, xpos=1400, ypos=300)
+    add "blue_brush" at Transform(zoom=0.6, xpos=1400, ypos=450)
+    
+    draggroup:
+        # 종이 드롭 존
+        drag:
+            drag_name "paper_zone_s3"
+            draggable False
+            droppable True
+            drag_raise False
+            xpos 240
+            ypos 200
+            child Solid("#00000000", xysize=(1060, 700))
+        
+        # 검은 붓만 드래그 가능 (반짝임)
+        drag:
+            drag_name "black_move_s3"
+            droppable False
+            dragged taegeuk_drag_cb_s3
+            xpos 1400
+            ypos 130
+            child Transform("black_high", zoom=0.6)
 
 init python:
     def taegeuk_drag_cb_s3(drags, drop):
         if drop is None:
             return False
         drag = drags[0]
-        if drop.drag_name == "paper_zone_s3" and drag.drag_name == "black_move_s3":
-            store.tae_s3_done = True
-            renpy.restart_interaction()
-            return True
-        if drop.drag_name == "paper_zone_s3":
-            return True
+        if (drop.drag_name == "paper_zone_s3") and (drag.drag_name == "black_move_s3"):
+            if not store.tae_s3_done:
+                store.tae_s3_done = True
+                renpy.restart_interaction()
+                return True
         return False

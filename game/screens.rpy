@@ -243,7 +243,7 @@ style choice_button_text is button_text
 
 style choice_vbox:
     xalign 0.5
-    ypos 700  # 메뉴를 더 아래쪽으로 이동 (원래값: 405)
+    ypos 405
     yanchor 0.5
 
     spacing gui.choice_spacing
@@ -321,19 +321,18 @@ screen navigation():
 
         spacing gui.navigation_spacing
 
-        if main_menu:
-
-            textbutton _("시작하기") action Start()
-
-        else:
+        if not main_menu:
 
             textbutton _("대사록") action ShowMenu("history")
 
             textbutton _("저장하기") action ShowMenu("save")
 
-        textbutton _("불러오기") action ShowMenu("load")
+            textbutton _("불러오기") action ShowMenu("load")
 
-        textbutton _("환경설정") action ShowMenu("preferences")
+            textbutton _("환경설정") action ShowMenu("preferences")
+            
+            textbutton _("버전정보") action ShowMenu("about")
+
 
         if _in_replay:
 
@@ -343,18 +342,46 @@ screen navigation():
 
             textbutton _("메인 메뉴") action MainMenu()
 
-        textbutton _("버전정보") action ShowMenu("about")
 
         if renpy.variant("pc") or (renpy.variant("web") and not renpy.variant("mobile")):
 
             ## 도움말 메뉴는 모바일 디바이스와 맞지 않아 불필요합니다.
-            textbutton _("조작방법") action ShowMenu("help")
+            if not main_menu:
+                textbutton _("조작방법") action ShowMenu("help")
+
 
         if renpy.variant("pc"):
 
             ## iOS에서는 종료 버튼이 금지되어 있으며 Android 및 웹에서는 불필
             ## 요합니다.
-            textbutton _("종료하기") action Quit(confirm=not main_menu)
+            if not main_menu:
+                textbutton _("종료하기") action Quit(confirm=not main_menu)
+     
+    if main_menu:
+        hbox:
+            xalign 0.5
+            yalign 0.9
+            spacing 80
+
+            textbutton _("시작하기"):
+                style "navigation_button"
+                #text_font "fonts/NanumSquareRoundB.ttf"
+                text_size 65
+                text_color "#000000"
+                text_hover_color "#7b7b7bdc"
+                #outlines [(2, "#ffffff", 0, 0)]
+                action Start()
+
+            textbutton _("종료하기"):
+                style "navigation_button"
+                #text_font "fonts/NanumSquareRoundB.ttf"
+                text_size 65
+                text_color "#000000"
+                text_hover_color "#7b7b7bdc"
+                #outlines [(2, "#ffffff", 0, 0)]
+                action Quit(confirm=False)
+
+
 
 
 style navigation_button is gui_button
@@ -401,6 +428,7 @@ screen main_menu():
                 style "main_menu_version"
 
 
+
 style main_menu_frame is empty
 style main_menu_vbox is vbox
 style main_menu_text is gui_text
@@ -408,10 +436,10 @@ style main_menu_title is main_menu_text
 style main_menu_version is main_menu_text
 
 style main_menu_frame:
-    xsize 420
+    xsize 0
     yfill True
 
-    background "gui/overlay/main_menu.png"
+    #background "gui/overlay/main_menu.png"
 
 style main_menu_vbox:
     xalign 1.0
