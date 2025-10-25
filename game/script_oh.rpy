@@ -121,6 +121,7 @@ define audio.oh_ch2 = "audio/bgm/oh_ch2.mp3"
 define audio.oh_ch3 = "audio/bgm/oh_ch3.mp3"
 define audio.oh_ch4 = "audio/bgm/oh_ch4.mp3"
 define audio.conclusion = "audio/sfx/conclusion.mp3"
+define audio.oh_paper = "audio/sfx/oh_paper.mp3"
 define audio.memory_orb_get = "audio/sfx/memory_orb_get.wav"
 
 # 캐릭터 설정
@@ -222,10 +223,10 @@ label oh_chap1:
     wife "당신, 출근 안 해요? 얼른 다녀와요."
     hide wife with dissolve
     m "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
-    
+
+    scene bg_bakmunguk with fade_fast
     "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 발행하는 것이 내 업무라고 한다."
     m "오, 그럼 신문을 만들어 볼까?"
-    scene bg_bakmunguk with fade_fast
     
     # 신문 발행 시퀀스 
     menu:
@@ -501,6 +502,7 @@ label oh_chap4:
     
     call declaration_backup_loop
     
+    play sound oh_paper 
     "독립선언서를 인쇄해 놓으니 이제 조금 안심이 된다."
     
     "3.1 만세운동을 위한 태극기도 그려야 한다."
