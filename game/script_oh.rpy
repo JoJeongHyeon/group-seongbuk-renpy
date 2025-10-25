@@ -374,14 +374,14 @@ label oh_chap2:
     play music oh_ch2 fadein 1.0
     scene bg_news_machine with fade_fast
     show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳습니다. 누구를 비판하는 게 좋을 것 같습니까?"
+    coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳다네. 누구를 비판하는 게 좋겠나?"
     hide colleague_1 
     call menu_loop_critique
 
     scene bg_news_machine with fade_fast
     m "친일파의 만행에 대해서 내가 직접 알리다니. 역사 책에서 보던 독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다!"
     show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "근데 아무리 생각해도 일진회를 더 견제해야 됩니다. 민족 정신에 대한 교육의 필요성이 더 중요해졌지 않습니까? 협회를 만들어야 하지 않을까 생각합니다."
+    coll "근데 아무리 생각해도 일진회를 더 강하게 견제해야 되네. 민족 정신에 대한 교육의 필요성이 더욱 절실해지지 않았나? 협회를 만들어야 하지 않을까, 그런 생각이 드네."
     hide colleague_1
     # 드래그 앤 드롭 미니게임
     call daehan_association_minigame
@@ -410,7 +410,7 @@ label oh_chap3:
     scene bg_black with fade_fast
     call screen overlay_wait("bg_ch3")
     show colleague_2 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    play music oh_main_bgm fadein 1.0 loop
+    play music oh_ch3 fadein 1.0 loop
 
     coll "하, 근데 이것만으로도 아직 너무 부족한 것 같습니다."
     coll "일본의 만행이 너무 심해지고 있습니다…. 우리나라를 하나의 뜻으로 모아야 합니다!"
@@ -485,11 +485,11 @@ label oh_chap4:
 
     scene bg_gather with fade_slow
     call screen overlay_wait("bg_ch4")
-    play music oh_main_bgm fadein 1.0 loop
+    play music oh_ch4 fadein 1.0 loop
     show chundogyo at Transform(zoom=0.85, xalign=0.5, yalign=0.05)
     chondo "아, 그러고 보니 우리가 독립선언서를 준비해야 하네. 만세 운동도 같이 준비하기로 했어! 자네 기억하고 있지?"
     hide chundogyo with dissolve
-    m "뭐? 내가 언제? 다른 사람들과 만세 운동을 준비해야 된다고 한다. 어떡해?"
+    m "뭐? 내가 언제? 다른 사람들과 만세 운동을 준비해야 한다고? 어떡해?"
     m "처음부터 성공할 것 같지는 않아…. 책에서 본 독립운동가분들도 다 이렇게 생각했겠지? 그래! 해 보자!"
     
     "독립만세운동과 독립선언서를 준비하는 움직임에 힘을 보태야 한다."
@@ -497,32 +497,27 @@ label oh_chap4:
     
     scene bg_paper_machine with fade_fast
     
-    m "일본 몰래 준비하다가 일찍 들켜 독립선언서를 뺏겨 만세 운동을 못하게 될지도 모른다. 어떻게 해야 할까?"
+    m "일본에 들키기라도 하면 독립선언서를 빼앗겨 만세운동이 무산될지도 모른다. 이 상황, 어떻게 해야 하지?"
     
     call declaration_backup_loop
     
-    "이제 안심이 조금 된다. 독립선언서를 인쇄했다."
+    "독립선언서를 인쇄해 놓으니 이제 조금 안심이 된다."
     
-    m "3.1 만세운동을 위한 태극기도 그려야 한다."
+    "3.1 만세운동을 위한 태극기도 그려야 한다."
     
     #태극기 그리기 미니게임
     call draw_taegeuk_minigame
     
     "태극기를 그렸다!"
     
-    m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된대…!"
+    m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된다고?!..."
 
     call sign_declaration_loop
 
-    stop music fadeout 1.0
+    
     scene bg_gather with fade_fast
-    play sound oh_ch4 fadein 1.0
-    
-    "대한독립선언서에 서명하고, 3.1 만세운동을 시작한다!"
-    
 
-    # 독립선언서 뿌리기 인터랙션
-    #call screen spread_declaration
+    "대한독립선언서에 이름을 올리고, 마침내 만세운동에 나선다!"
     
     scene bg_manse with fade_fast
     
@@ -535,13 +530,13 @@ label oh_chap4:
     scene bg_police with fade_fast
     
     "결국 일본에게 붙잡혀 체포되었다."
-    m "직접 해 보니 독립운동가분들에게 감사한 마음을 가져야겠어."
+    m "몸소 겪어 보니, 그분들의 희생이 얼마나 큰지 절실히 느꼈어. 감사한 마음뿐이야."
     
     scene bg_manse with fade_fast
     
     "대한독립만세!"
     
-
+    #stop music fadeout 1.0
     call screen bead_click_event(1520, 1000, 2.0)
     play sound memory_orb_get
     call screen overlay_wait("bg_ch4_status")
@@ -559,11 +554,11 @@ label oh_chap4:
 # =========================================
 label declaration_backup_loop:
     menu:
-        "원본만 가지고 있기":
+        "원본만 보관한다":
             "만세 운동을 아예 할 수 없게 될지도 모른다. 그래도 원본만 가지고 있을까?"
             jump declaration_backup_loop
         
-        "혹시 모르니 다른 곳에 베껴 써 놓았다가 만세 운동까지 대비하기":
+        "혹시 몰라 사본을 다른 곳에 숨겨 두고 만세운동을 준비한다":
             return
 
 # =========================================
@@ -585,24 +580,6 @@ label sign_declaration_loop:
         "당연하지":
             return
 
-# =========================================
-# 독립선언서 뿌리기 인터랙션
-# =========================================
-screen spread_declaration():
-    modal True
-    add "bg_gather"
-    text "독립선언서를 클릭하여 만세운동을 시작하세요":
-        xalign 0.5 
-        ypos 50 
-        size 40
-        color "#ffffff"
-        outlines [(2, "#000000", 0, 0)]
-    imagebutton:
-        idle "declaration_paper"
-        hover "declaration_paper"
-        xalign 0.5
-        yalign 0.5
-        action Return()
 
 # =========================================
 # 비판 메뉴 루프
@@ -642,10 +619,10 @@ label menu_loop_news:
         "연재 만화를 싣기":
             show cartoon at Transform(zoom=0.55, xalign=0.5, yalign=0.5)
             pause 1.0
-            "우리나라 최초의 신문 연재 만화가 되었다!"
+            "우리나라에서 처음으로 만화를 실은 신문이 되었다!"
             return
 
-        "엄청 긴 글을 싣기":
+        "긴 글을 싣기":
             show essay
             pause 1.0
             "사람들이 재미없어 할 것 같다."
@@ -663,7 +640,7 @@ label menu_loop_novel:
             "순한글로 되어 있는 풍자소설 <금수재판>이 연재되어 많은 독자들을 얻게 되었다!"
             return
 
-        "긴 글만 싣기":
+        "긴 글을 싣기":
             show essay 
             pause 1.0
             "아… 글로만 되어 있는 신문은 너무 어려운 것 같은데?"
