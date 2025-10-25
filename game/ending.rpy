@@ -32,6 +32,9 @@ image oh_ending = "bg/outro/oh_ending.png"
 image jang_ending = "bg/outro/jang_ending.png"
 image book2 = "bg/outro/book2.png"
 image book2_hover = "bg/outro/book2_hover.png"
+image bg_desk_bk = "bg/outro/desk_bk.png"
+image bg_sign = "bg/outro/sign.png"
+image bg_end = "bg/outro/end.png"
 
 # === 토글용 변수 기본값  ===
 default end2_show_a = False
@@ -39,10 +42,12 @@ default end2_show_b = False
 default end2_show_c = False
 
 
+default persistent.common_ending_finale = []
+
 # 임규 엔딩
 label im_ending:
     play music audio.outro
-    scene bg_desk with dissolve
+    scene bg_desk_bk with dissolve
     
 
     m "마지막 기억 구슬을 찾고 현실 세계로 복귀했다."
@@ -60,13 +65,13 @@ label im_ending:
     # 선택에 따른 분기
     if _return == "book2_selected":
         jump im_ending_scene2
-    
+
     return
 
 # 장기영 엔딩
 label jang_ending:
     play music audio.outro
-    scene bg_desk with dissolve
+    scene bg_desk_bk with dissolve
     
     m "(임시)장기영의 기억을 통해 많은 것을 배웠다."
     m "(임시)축구를 통한 민족 정신, 그리고 끝까지 포기하지 않는 의지..."
@@ -88,7 +93,7 @@ label jang_ending:
 # 오세창 엔딩
 label oh_ending:
     play music audio.outro
-    scene bg_desk with dissolve
+    scene bg_desk_bk with dissolve
     
     m "(임시)오세창의 기억을 통해 서예와 문화의 소중함을 깨달았다."
     m "(임시)전통을 지키면서도 새로운 것을 받아들이는 지혜..."
@@ -110,23 +115,11 @@ label oh_ending:
 # 임규 엔딩 씬 2
 label im_ending_scene2:
     scene im_ending with fade_fast
-
-    # 미션 가이드는 잠깐 보여주고(0.8초 예시) 숨김
-    show screen mission_guide("더 알고싶은 사건에 마우스를 올려보자..", icon="🔍")
-    $ renpy.pause(0.8)
-    hide screen mission_guide
-
-    # 토글용 변수 초기화 (매번 동일 상태에서 시작)
-    $ end2_show_a = end2_show_b = end2_show_c = False
-
-    # 토글 화면 + 우하단 네비 표시
-    show screen im_ending_scene2_ui
-    show screen next_nav_to("ending_scene3")
-
-    # 유저가 버튼 누를 때까지 대기
-    $ renpy.pause(hard=True)
-    hide screen im_ending_scene2_ui
-    hide screen next_nav_to
+    
+    
+    pause
+    
+    jump im_sign
     return
 
 # 장기영 엔딩 씬 2
@@ -174,14 +167,25 @@ label oh_ending_scene2:
     return
 
 return
-
+# 임규 엔딩 씬 3
+label im_sign:
+    
+    scene black with fade
+    
+    narrator "오늘 함께한, 독립 투사분들의 이름을 기억해 주세요."
+    narrator "그리고, 당신의 이름도 남겨 의지를 이어나가 주세요."
+    
+    # 서명 스크린 호출
+    call screen signature_screen
+    
+    return
 
 # 공통 엔딩 피날레
 label common_ending_finale:
     jump ending_scene3
 
 label ending_scene3:
-    scene bg_desk with fade_slow
+    scene bg_desk_bk with fade_slow
     jump ending_scene4
 
 label ending_scene4:
@@ -213,13 +217,12 @@ label ending_scene4:
     
 # 최종 크레딧
 label end_credits:
-    scene bg_desk
+    scene bg_end
     with dissolve
-    
-    show screen exit_button  # 나가기 버튼 표시
-    
-    narrator "제작 : 고려대학교 HUSS  고연우, 강지온, 길유진, 안지원, 양예진, \n이민욱, 정정비, 정채연, 조정현, 최가빈"
 
+    show screen exit_button  # 나가기 버튼 표시
+
+    pause
 #--------------------------------------------------------------
 # 호버 > 책
 screen interactive_books(idle_image, hover_image=None, use_alpha=False, return_value="clicked"):
@@ -251,116 +254,6 @@ screen interactive_oh_desk():
     # 오세창 전용 책 인터랙션
     use interactive_books("book2", return_value="oh_book_selected")
 
-#-----------------------------------------
-
-# === 임규 엔딩 씬2 본문 UI (토글 영역) ===
-screen im_ending_scene2_ui():
-    
-    # 토글 A
-    vbox:
-        pos (980, 215)
-        
-        textbutton "✅" action ToggleVariable("end2_show_a")
-        if end2_show_a:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "1895년 - 게이오의숙 중학교 특별과, 1900년 - 센슈학교 경제과, \n1907년 도쿄 청년학원 교사 (조선인 유학생에게 일본어 가르침)" color "#000000"
-
-    # 토글 B
-    vbox:
-        pos (980, 520)  # 여기 y값 조정하세요
-        
-        textbutton "✅" action ToggleVariable("end2_show_b")
-        if end2_show_b:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "천도교 측의 대표로, 개신교 측 안세환과 함께 일본 정부, 귀족원,\n중의원에 독립선언서 3통과 의견서 및 기타 첨부 문서를 전달"
-
-    # 토글 C
-    vbox:
-        pos (980, 715)  # 여기 y값 조정하세요
-        
-        textbutton "✅" action ToggleVariable("end2_show_c")
-        if end2_show_c:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "미륵암에서 한용운, 정인보, 오세창 등과 모여 시를 지었다.\n<북산선고>는 최규동의  권유로 한시 24편을 모은 것"
-
-# === 장기영 엔딩 씬2 본문 UI (토글 영역) ===
-screen jang_ending_scene2_ui():
-    
-    # 토글 A - 축구 관련
-    vbox:
-        pos (980, 215)
-        
-        textbutton "✅" action ToggleVariable("jang_show_a")
-        if jang_show_a:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "1905년 - 대한축구협회 창립 멤버\n조선 최초의 축구팀 '대한축구단' 창단에 참여" color "#000000"
-
-    # 토글 B - 교육 관련
-    vbox:
-        pos (980, 520)
-        
-        textbutton "✅" action ToggleVariable("jang_show_b")
-        if jang_show_b:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "보성전문학교에서 체육 교육을 통해 청년들에게\n민족 정신과 체력 단련의 중요성을 가르쳤다." color "#000000"
-
-    # 토글 C - 독립운동 관련
-    vbox:
-        pos (980, 715)
-        
-        textbutton "✅" action ToggleVariable("jang_show_c")
-        if jang_show_c:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "체육을 통한 민족 의식 고취와 청년 계몽 운동에 헌신\n스포츠를 통해 일제강점기 조선인들에게 희망을 전했다." color "#000000"
-
-# === 오세창 엔딩 씬2 본문 UI (토글 영역) ===
-screen oh_ending_scene2_ui():
-    
-    # 토글 A - 서예와 문화 관련
-    vbox:
-        pos (980, 215)
-        
-        textbutton "✅" action ToggleVariable("oh_show_a")
-        if oh_show_a:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "조선 후기 서예가로 전통 서예 문화를 보존하고 발전시켰다.\n한국 서예사에 큰 족적을 남긴 대표적인 서예가 중 한 명이다." color "#000000"
-
-    # 토글 B - 신문과 출판 관련
-    vbox:
-        pos (980, 520)
-        
-        textbutton "✅" action ToggleVariable("oh_show_b")
-        if oh_show_b:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "박문국에서 <한성주보> 발행, <만세보> 창간, <대한민보> 편찬\n우리나라 최초의 신문 연재 만화와 풍자소설 <금수재판> 게재" color "#000000"
-
-    # 토글 C - 독립운동 관련
-    vbox:
-        pos (980, 715)
-        
-        textbutton "✅" action ToggleVariable("oh_show_c")
-        if oh_show_c:
-            vbox:
-                xoffset 30
-                spacing 4
-                text "3.1 만세운동 민족 대표 33인 중 1인으로 독립선언서에 서명\n천도교 대표로 대한독립선언서 작성과 만세운동 준비에 참여" color "#000000"
-
 # === 우하단 네비 버튼 (오버레이) ===
 screen next_nav_to(label_name):
     zorder 200
@@ -389,3 +282,247 @@ screen exit_button():
             Hide("exit_button"),
             Jump("start")  # 또는 MainMenu() - 메인 메뉴로 돌아가기
         ]
+
+
+
+# =============================================================================
+# 서명 스크린
+# =============================================================================
+
+screen signature_screen():
+    modal True
+
+    # 전체 배경
+    add "bg_sign" xalign 0.5 yalign 0.5
+
+    # 오른쪽 절반에 서명 영역 (투명 캔버스)
+    frame:
+        background Solid((0, 0, 0, 0))
+        xalign 1.0
+        yalign 0.5
+        xsize 960
+        ysize 1080
+
+        add DrawSignature(signature_canvas):
+            xsize 960
+            ysize 1080
+
+    # UI 요소들 (서명 영역 위에 표시)
+    frame:
+        background Solid((0, 0, 0, 0))
+        xalign 1.0
+        yalign 0.5
+        xsize 960
+        ysize 1080
+
+        vbox:
+            spacing 30
+            xalign 0.5
+            ypos 50
+
+            # 안내 문구
+            text "독립을 위해 싸운 선열들을 기리며\n당신의 이름을 서명해주세요":
+                size 30
+                color "#ffffff"
+                outlines [(2, "#000", 0, 0)]
+                xalign 0.5
+                text_align 0.5
+
+    # 하단 버튼들
+    frame:
+        background Solid((0, 0, 0, 0))
+        xalign 1.0
+        yalign 1.0
+        xsize 960
+        ysize 150
+
+        hbox:
+            spacing 30
+            xalign 0.5
+            yalign 0.5
+
+            textbutton "다시 쓰기":
+                action Function(signature_canvas.clear)
+                xsize 160
+                ysize 55
+                text_color "#000000"
+
+            textbutton "서명 완료":
+                action Function(complete_signature)
+                xsize 160
+                ysize 55
+                text_color "#000000"
+
+
+init python:
+    import pygame
+    import os
+    import random
+    
+    # 서명 저장 경로
+    GAMEDIR = config.gamedir.replace("\\", "/")
+    SIGNATURE_DIR = GAMEDIR + "/signatures"
+    MEMORIAL_IMAGE = GAMEDIR + "/images/bg/memorial_flag.png"
+    BASE_FLAG_IMAGE = GAMEDIR + "/images/bg/ending/태극기.jpg"
+    
+    SIGNATURE_SIZE_RATIO = 8
+    
+    # 디렉토리 생성
+    if not os.path.exists(SIGNATURE_DIR):
+        os.makedirs(SIGNATURE_DIR)
+    
+    class SignatureCanvas:
+        """손글씨 서명을 그릴 수 있는 캔버스"""
+        def __init__(self, width=960, height=1080):
+            self.width = width
+            self.height = height
+            self.drawing = False
+            self.last_pos = None
+            self.lines = []
+            
+        def start_drawing(self, pos):
+            self.drawing = True
+            self.last_pos = pos
+            
+        def draw(self, pos):
+            if self.drawing and self.last_pos:
+                self.lines.append((self.last_pos, pos))
+                self.last_pos = pos
+                
+        def stop_drawing(self):
+            self.drawing = False
+            self.last_pos = None
+            
+        def clear(self):
+            self.lines = []
+            self.drawing = False
+            self.last_pos = None
+            renpy.restart_interaction()  # 화면 갱신
+            
+        def save_to_image(self, filepath):
+            """서명을 투명 배경 이미지로 저장"""
+            surface = pygame.Surface((self.width, self.height), pygame.SRCALPHA)
+            surface.fill((0, 0, 0, 0))  # 투명 배경
+            
+            for start, end in self.lines:
+                pygame.draw.line(surface, (0, 0, 0, 255), start, end, 5)
+            
+            pygame.image.save(surface, filepath)
+            return filepath
+    
+    def merge_signature_to_flag(signature_path):
+        """서명을 태극기에 합성"""
+        try:
+            # 베이스 이미지 로드
+            if os.path.exists(MEMORIAL_IMAGE):
+                base = pygame.image.load(MEMORIAL_IMAGE)
+            elif os.path.exists(BASE_FLAG_IMAGE):
+                base = pygame.image.load(BASE_FLAG_IMAGE)
+            else:
+                base = pygame.Surface((1200, 800))
+                base.fill((255, 255, 255))
+            
+            base = base.convert_alpha()
+            
+            # 서명 이미지 로드
+            signature = pygame.image.load(signature_path)
+            signature = signature.convert_alpha()
+            
+            # 서명 크기 조정
+            sig_width = base.get_width() // SIGNATURE_SIZE_RATIO
+            sig_height = int(signature.get_height() * (sig_width / signature.get_width()))
+            signature = pygame.transform.smoothscale(signature, (sig_width, sig_height))
+            
+            # 랜덤 위치 계산
+            margin = 50
+            max_x = base.get_width() - sig_width - margin
+            max_y = base.get_height() - sig_height - margin
+            
+            x = random.randint(margin, max(margin, max_x))
+            y = random.randint(margin, max(margin, max_y))
+            
+            # 서명 합성
+            base.blit(signature, (x, y))
+            
+            # 결과 저장
+            pygame.image.save(base, MEMORIAL_IMAGE)
+            
+            return True
+        except Exception as e:
+            renpy.notify("이미지 합성 중 오류: {}".format(str(e)))
+            return False
+    
+    # 전역 캔버스 객체
+    signature_canvas = SignatureCanvas()
+    
+    def complete_signature():
+        """서명 저장 및 태극기에 합성"""
+        if not signature_canvas.lines:
+            renpy.notify("서명을 작성해주세요!")
+            return
+        
+        import time
+        timestamp = int(time.time() * 1000)
+        sig_path = SIGNATURE_DIR + "/sig_{}.png".format(timestamp)
+        
+        # 서명 이미지 저장
+        signature_canvas.save_to_image(sig_path)
+        
+        # 태극기에 합성
+        success = merge_signature_to_flag(sig_path)
+        
+        if success:
+            # persistent 초기화 확인
+            if not hasattr(persistent, 'common_ending_finale'):
+                persistent.common_ending_finale = []
+            
+            persistent.common_ending_finale.append({
+                'timestamp': timestamp,
+                'filename': os.path.basename(sig_path)
+            })
+            
+            renpy.notify("서명이 등록되었습니다!")
+            signature_canvas.clear()
+            renpy.jump("common_ending_finale")
+        else:
+            renpy.notify("서명 등록에 실패했습니다.")
+    
+    class DrawSignature(renpy.Displayable):
+        """서명을 그리는 디스플레이어블"""
+        def __init__(self, canvas, **kwargs):
+            super(DrawSignature, self).__init__(**kwargs)
+            self.canvas = canvas
+        
+        def render(self, width, height, st, at):
+            render = renpy.Render(self.canvas.width, self.canvas.height)
+            
+            # 투명 배경 (아무것도 그리지 않음)
+            
+            # 선 그리기
+            if self.canvas.lines:
+                canvas_obj = render.canvas()
+                for start, end in self.canvas.lines:
+                    canvas_obj.line((0, 0, 0, 255), start, end, 5)
+            
+            return render
+        
+        def event(self, ev, x, y, st):
+            import pygame
+            
+            if ev.type == pygame.MOUSEBUTTONDOWN and ev.button == 1:
+                self.canvas.start_drawing((x, y))
+                renpy.redraw(self, 0)
+                return None
+            
+            elif ev.type == pygame.MOUSEMOTION:
+                if self.canvas.drawing:
+                    self.canvas.draw((x, y))
+                    renpy.redraw(self, 0)
+                return None
+            
+            elif ev.type == pygame.MOUSEBUTTONUP and ev.button == 1:
+                self.canvas.stop_drawing()
+                renpy.redraw(self, 0)
+                return None
+            
+            return None
