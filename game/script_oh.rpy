@@ -539,7 +539,7 @@ label oh_chap4:
     "대한독립만세!"
     
     #stop music fadeout 1.0
-    call screen bead_click_event(1520, 1000, 2.0)
+    call screen bead_click_event(1250, 900, 1.5)
     play sound memory_orb_get
     call screen overlay_wait("bg_ch4_status")
     "태극기와 함께 기억 구슬을 얻었다."
