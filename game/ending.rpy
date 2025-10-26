@@ -28,8 +28,8 @@ define audio.outro_scene3 = "audio/bgm/outro_scene3.mp3"
 image memory_orb-0 = "bg/memory_orb-0.png"
 image bg_bookback = At("bg/outro/book_back.png", custom_size)
 image im_ending = At("bg/outro/im_ending.png", custom_size)
-image oh_ending = "bg/outro/oh_ending.png"
-image jang_ending = "bg/outro/jang_ending.png"
+image oh_ending = At("bg/outro/oh_ending.png", custom_size)
+image jang_ending = At("bg/outro/jang_ending.png", custom_size)
 image book2 = "bg/outro/book2.png"
 image book2_hover = "bg/outro/book2_hover.png"
 image bg_desk_bk = "bg/outro/desk_bk.png"
@@ -126,48 +126,23 @@ label im_ending_scene2:
 label jang_ending_scene2:
     scene jang_ending with fade_fast
 
-    # 미션 가이드는 잠깐 보여주고(0.8초 예시) 숨김
-    show screen mission_guide("장기영의 업적에 대해 더 알아보자..", icon="🔍")
-    $ renpy.pause(0.8)
-    hide screen mission_guide
-
-    # 장기영 전용 토글 변수 초기화
-    $ jang_show_a = jang_show_b = jang_show_c = False
-
-    # 토글 화면 + 우하단 네비 표시
-    show screen jang_ending_scene2_ui
-    show screen next_nav_to("ending_scene3")
-
-    # 유저가 버튼 누를 때까지 대기
-    $ renpy.pause(hard=True)
-    hide screen jang_ending_scene2_ui
-    hide screen next_nav_to
+    pause
+    
+    jump im_sign
     return
 
 # 오세창 엔딩 씬 2
 label oh_ending_scene2:
     scene oh_ending with fade_fast
 
-    # 미션 가이드는 잠깐 보여주고(0.8초 예시) 숨김
-    show screen mission_guide("오세창의 업적에 대해 더 알아보자..", icon="🔍")
-    $ renpy.pause(0.8)
-    hide screen mission_guide
-
-    # 오세창 전용 토글 변수 초기화
-    $ oh_show_a = oh_show_b = oh_show_c = False
-
-    # 토글 화면 + 우하단 네비 표시
-    show screen oh_ending_scene2_ui
-    show screen next_nav_to("ending_scene3")
-
-    # 유저가 버튼 누를 때까지 대기
-    $ renpy.pause(hard=True)
-    hide screen oh_ending_scene2_ui
-    hide screen next_nav_to
+    pause
+    
+    jump im_sign
     return
 
 return
-# 임규 엔딩 씬 3
+
+# 공동 엔딩 씬 3
 label im_sign:
     
     scene black with fade
@@ -321,7 +296,7 @@ screen signature_screen():
             ypos 50
 
             # 안내 문구
-            text "독립을 위해 싸운 선열들을 기리며\n당신의 이름을 서명해주세요":
+            text "":
                 size 30
                 color "#ffffff"
                 outlines [(2, "#000", 0, 0)]
@@ -338,8 +313,8 @@ screen signature_screen():
 
         hbox:
             spacing 30
-            xalign 0.5
-            yalign 0.5
+            xalign 0.3
+            yalign 0
 
             textbutton "다시 쓰기":
                 action Function(signature_canvas.clear)
@@ -405,7 +380,7 @@ init python:
             surface.fill((0, 0, 0, 0))  # 투명 배경
             
             for start, end in self.lines:
-                pygame.draw.line(surface, (0, 0, 0, 255), start, end, 5)
+                pygame.draw.line(surface, (0, 0, 0, 255), start, end, 3)
             
             pygame.image.save(surface, filepath)
             return filepath
