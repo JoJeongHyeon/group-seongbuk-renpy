@@ -154,7 +154,7 @@ label character_im:
     hide ui_ch1 with dissolve
     mt "그리고 여긴 또 어디야…"
     mt "얼굴은 한국인 같았는데, 한국이려나?"
-    mt "책상에는 일본어책도 여러 권 있고, \n원래 이분은 일본어를 상당히 잘하셨나?"
+    mt "책상에는 일본어 책도 여러 권 있고, \n원래 이분은 일본어를 상당히 잘하셨나?"
     m "그리고 이건 한국 고전인가?"
     
     show screen mission_guide("책을 눌러 정보를 확인하세요.", icon="📄")
@@ -170,8 +170,8 @@ label character_im:
         # $ chosen_character = "jang" # 장기영
         im_t '우리 민족 전통은 이어져야 하지.'
         im_t '그러기 위해선 고전을 잊어선 안돼.'
-        m "머릿속에서 들리는 말이나" 
         m "여기 책들을 보면 고전을 연구하던 분이셨구나."
+        m "머릿속에서 들리는 말이나" 
         m "밖에서 쓰는 말이나" 
         m "보이는 풍경으로 봐서는 일제강점기 같은데..."
         m "이런 시기에 우리의 고전을 연구하셨다면, 대단하신 분이네."
@@ -244,7 +244,7 @@ label chapter2_scene2:
     play sound im_ch1 fadein 1.0
     narrator "똑똑"
 
-    w "우정 선생님, 안에 계신가요?" ##낯선 사람!!!!
+    w "우정 선생님, 안에 계시나요?" ##낯선 사람!!!!
 
     m "누가 찾아온 듯하다."
     m "누굴까? 함께 고전 연구를 함께하는 사람인가?"
@@ -287,7 +287,7 @@ label chapter2_scene3:
     mt '그럼 지금은 3.1운동 직전 시기인가 보네.'
 
     choi "저는 독립선언서를 작성하기로 했습니다."
-    choi "그래서, 선생님께 이 일에 대한 조언을 구하고자 합니다"
+    choi "그래서, 선생님께 이 일에 대한 조언을 구하고자 합니다."
     hide screen info_tooltip
     m "뭐라고 대답하지..?"
     menu:
@@ -301,7 +301,7 @@ label chapter2_scene3:
 label stop_choi:
     im "너무 위험한 일이네."
     choi "하지만 선생님, 이 일은 반드시 해야만 합니다."
-    choi "지금이 아니면 안됩니다!"
+    choi "지금이 아니면 안 됩니다!"
 
     m "선택의 여지가 없다.."
 
@@ -311,7 +311,7 @@ label stop_choi:
             jump support_choi
 
 label support_choi:
-    m "그래, 누군가는 반드시 해야할 일이지."
+    m "그래, 누군가는 반드시 해야 할 일이지."
     m "그리고, 작성하려면 안전한 장소도 필요하겠지."
     m "우리 집을 내어줄 테니, 여기서 독립선언서를 작성하시게."
     m "그리고, 일본으로도 전달해야 하겠지? 그 임무를 내가 맡겠네."
@@ -352,7 +352,7 @@ label support_choi:
 
     m "그런데 이번에는 아까와 다르게"
     m "공간이 바뀌는 기분이 들었다."
-    m "뮈지? 순간이동?"
+    m "뭐지? 순간이동?"
 
     jump chapter3
 
@@ -369,7 +369,7 @@ label chapter3:
     im_t "일본이다."
     im_t "나는 일본에 독립선언서를 우송하고자 왔다."
     
-    m "아까 말한대로 정말 일본으로 전달하는 임무를 하고 계시다니."
+    m "아까 말한 대로 정말 일본으로 전달하는 임무를 하고 계시다니."
     m "나는 괜히 떨리는 마음에 침을 꿀꺽 삼켰다."
 
     im_t "일본 수상과 의회에 독립선언서를 보내야 한다. 그러기 위해서는...."
@@ -387,7 +387,7 @@ label chapter3:
         if result == "success":
             "좋아! 순서를 맞췄다."
             m "머릿속에서 말해주는 대로, 독립선언서를 차례로 우송했다."
-            m "하는 동안 손이 덜덜 떨렸지만, \n무사히 마치고 나니 뿌듯한 감정도 들었다."
+            m "손이 덜덜 떨렸지만, \n무사히 마치고 나니 뿌듯한 감정도 들었다."
             m "그러고 숙소로 돌아오는 길에 한 일본인을 마주쳤다."
             jump next_ch1   # ← 성공 후 이동할 라벨명으로 바꿔줘
         else:
@@ -399,7 +399,7 @@ label next_ch1:
 
 
     m "나는 본능적으로 걸음을 멈추고 노려보았다."
-    m "가슴 속에서 무언가 끓어오르는 감정이 전해져 왔다."
+    m "가슴속에서 무언가 끓어오르는 감정이 전해져 왔다."
 
     w1 "그대는 누구이길래 나를 노려보는가?"
 
@@ -423,7 +423,7 @@ label next_ch2:
     scene imch3_bg with fade_slow
 
     show ui_ch3 with dissolve
-    m "우리 조선은 반드시 자주 독립을 이룰 것이다."
+    m "우리 조선은 반드시 자주독립을 이룰 것이다."
     hide ui_ch3 with dissolve
     m "국무총리는 나의 당당한 태도에 놀랐는지, 그대로 굳었다."
     
@@ -437,7 +437,7 @@ label next_ch2:
     play sound memory_orb_appear fadein 0.5 fadeout 3.0
     pause 1.0
 
-    mt "구슬을 하나 더 찾았네."
+    mt "구슬을 하나 더 찾았다."
     # 클릭 후 사라짐
     show screen mission_guide("기억구슬을 눌러보세요.", icon="🔮")
     call screen interactive_objects("memory_orb-3")
@@ -495,8 +495,8 @@ label reassemble_complete:
 
     m "표음주의 철자법을 따를 필요가 있다?"
     m "이분은 소리가 나는 대로 쓰는 철자법을 주장하셨구나."
-    m "그리고 여기 자료들을 보면 사전을 만드려고 하셨던 것 같은데..."
-    m "이런 분들의 노력이 있었어서 정말 다행이야."
+    m "그리고 여기 자료들을 보면 사전을 만들려고 하셨던 것 같은데..."
+    m "선열들의 헌신이 있었기에 정말 다행이야."
     m "그런데, 내가 빙의한 이분은 대체 누구시지..? 들어본 적이 없는데.."
 
     # 기억구슬 등장
@@ -510,7 +510,7 @@ label reassemble_complete:
     hide memory_orb-4 with dissolve
     
     mt "아, 찾았다."
-    mt "이게 마지막인 것 같은데.."
+    mt "이게 마지막인가..?"
     mt "이제 현실로 돌아가는 거겠지?"
     
     # 챕터4 표시
@@ -818,7 +818,7 @@ screen dokrip_rail():
     hbox:
         align (0.5, 0.92)
         spacing 20
-        textbutton "확인"     action Function(_rail_check_then_return)
+        textbutton "우송"     action Function(_rail_check_then_return)
 
 
 # 툴팁 박스 스크린

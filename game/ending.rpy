@@ -119,7 +119,7 @@ label im_ending_scene2:
     
     pause
     
-    jump im_sign
+    jump common_ending_3
     return
 
 # 장기영 엔딩 씬 2
@@ -128,7 +128,7 @@ label jang_ending_scene2:
 
     pause
     
-    jump im_sign
+    jump common_ending_3
     return
 
 # 오세창 엔딩 씬 2
@@ -137,13 +137,13 @@ label oh_ending_scene2:
 
     pause
     
-    jump im_sign
+    jump common_ending_3
     return
 
 return
 
 # 공동 엔딩 씬 3
-label im_sign:
+label common_ending_3:
     
     scene black with fade
     
@@ -157,16 +157,9 @@ label im_sign:
     
     return
 
-# 공통 엔딩 피날레
+#공동 엔딩 씬 4
 label common_ending_finale:
-    jump ending_scene3
-
-label ending_scene3:
-    scene bg_desk_bk with fade_slow
-    jump ending_scene4
-
-label ending_scene4:
-    scene bg_bookback with fade_fast
+    scene bg_bookback with dissolve
 
     # 기억구슬 등장
     play sound audio.outro_scene3
@@ -195,7 +188,7 @@ label ending_scene4:
 # 최종 크레딧
 label end_credits:
     scene bg_end
-    with dissolve
+    with dissolve_slow
 
     # show screen exit_button  # 나가기 버튼 표시
 
