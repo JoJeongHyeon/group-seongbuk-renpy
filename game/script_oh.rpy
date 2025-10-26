@@ -67,6 +67,7 @@ image colleague_1 = "images/bg/main_oh/ch2/colleague_1.png"
 
 # chap3
 image bg_oh_desk = At("images/bg/main_oh/ch3/oh_desk.png", custom_size)
+image bg_oh_room = At("images/bg/main_oh/ch3/oh_room.png", custom_size)
 image bg_crowd_news_1 = At("images/bg/main_oh/ch3/crowd_news/1.png", custom_size)
 image bg_crowd_news_2 = At("images/bg/main_oh/ch3/crowd_news/2.png", custom_size)
 image bg_crowd_news_3 = At("images/bg/main_oh/ch3/crowd_news/3.png", custom_size)
@@ -105,6 +106,8 @@ image bg_gather = At("images/bg/main_oh/ch4/gather.png", custom_size)
 image bg_manse = At("images/bg/main_oh/ch4/manse.png", custom_size)
 image bg_paper_machine = At("images/bg/main_oh/ch4/paper_machine.png", custom_size)
 image bg_police = At("images/bg/main_oh/ch4/police.png", custom_size)
+image bg_gathering = At("images/bg/main_oh/ch4/gathering.png", custom_size)
+image bg_manse_people = At("images/bg/main_oh/ch4/manse_people.png", custom_size)
 image chundogyo = "images/bg/main_oh/ch4/chundogyo.png"
 image taegeuk = "images/bg/main_oh/ch4/taegeuk.png"
 image black_brush = "images/bg/main_oh/ch4/taegeuk_draw/Subject 5.png"
@@ -146,6 +149,13 @@ screen overlay_wait(img_name):
         idle Solid("#00000000", xysize=(config.screen_width, config.screen_height))
         hover Solid("#00000000", xysize=(config.screen_width, config.screen_height))
         action Return()
+# ================================
+# 공용: 어두운 스크린
+# ================================
+transform fullscreen_cover:
+    xalign 0.5
+    yalign 0.5
+    xysize (config.screen_width, config.screen_height)
 
 # ================================
 # Ch1 말미: 구슬 클릭 스크린 
@@ -218,14 +228,16 @@ label oh_chap1:
     call screen overlay_wait("bg_ch1")
     m "오케이! 빨리 기억 구슬을 찾고 돌아가야겠어!"
     m "뭐야. 내가 조선시대의 관복을 입고 있잖아?"
-    m "관직 임명장? 내가 신문, 잡지 등을 만드는 조선시대 국가 기관인 박문국의 팀장이라고?"
-    show wife at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
+    m "관직 임명장? 내가 신문, 잡지 등을 만드는 조선시대 국가 기관인 \n박문국의 팀장이라고?"
+    show expression Solid("#00000080") at fullscreen_cover zorder 5 as bgdim
+    show wife zorder 20 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     wife "당신, 출근 안 해요? 얼른 다녀와요."
-    hide wife with dissolve
-    m "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
+    hide wife 
+    hide bgdim
+    m_thought "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
 
     scene bg_bakmunguk with fade_fast
-    "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 발행하는 것이 내 업무라고 한다."
+    "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 \n발행하는 것이 내 업무라고 한다."
     m "오, 그럼 신문을 만들어 볼까?"
     
     # 신문 발행 시퀀스 
@@ -248,7 +260,7 @@ label oh_chap1:
     scene bg_bakmunguk_shutdown with fade_fast
     play music oh_ch1 fadein 1.0
     
-    "후에 나는 몸의 주인을 대신해서 여러 곳에서 관직 생활을 했지만, 곧 역모에 휘말리게 되었다..."
+    "후에 나는 몸의 주인을 대신해서 여러 곳에서 관직 생활을 했지만, \n곧 역모에 휘말리게 되었다..."
 
     # ----- 잉크 번짐 전환 (파이썬 블록) -----
     scene bg_bakmunguk_shutdown with fade_fast
@@ -274,7 +286,7 @@ label oh_chap1:
             renpy.hide(f"bg_ink_{i}", layer="overlay")
 
     scene bg_black
-    m "어떡하지? 이러다가는 목숨을 잃고 말 거야….어디로든 도망가야 해!"
+    m_thought "어떡하지? 이러다가는 목숨을 잃고 말 거야….어디로든 도망가야 해!"
     
     # 망명 선택
     call exile_menu_loop
@@ -322,14 +334,16 @@ label oh_chap2:
     "일본으로 망명해서 살던 도중, 천도교 교주인 손병희를 만났다."
     
     scene bg_speech with fade_fast
-    son "천도교는 1860년 1대 교주인 최제우 교주님께서 창시하신 민족 종교입니다. 사람 마음속의 하늘인 한울님과 연결되어 서로를 존중하며 세상을 더 좋게 만들자는 가르침을 전하는 종교입니다."
-    son "비록 우리 천도교는 원래 개화를 싫어하지만, 3대 교주인 저는 문명 개화에 찬성하는 입장입니다."
+    son "천도교는 1860년 1대 교주인 최제우 교주님께서 창시하신 \n민족 종교입니다. 사람 마음속의 하늘인 한울님과 연결되어 서로를 \n존중하며 세상을 더 좋게 만들자는 가르침을 전하는 종교입니다."
+    son "비록 우리 천도교는 원래 개화를 싫어하지만, 3대 교주인 저는 \n문명 개화에 찬성하는 입장입니다."
     son "뜻이 같은 자, 천도교로 오시오!"
 
-    m "지금 1860년이 넘었다고? 심지어 1대 교주도 아니고 3대 교주? 완전 조선시대 말이잖아!"
-    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "자네, 어떤가? 자네도 같이 입교하는 게 좋을 것 같네! 좋은 기회가 아닌가! 무조건 같이 입교하는 걸세!"
+    m "지금 1860년이 넘었다고? 심지어 1대 교주도 아니고 3대 교주? \n완전 조선시대 말이잖아!"
+    show expression Solid("#00000080") at fullscreen_cover zorder 5 as bgdim
+    show colleague_1 zorder 20 at Transform(zoom=0.9, xalign=0.5, yalign=0.05) 
+    coll "자네, 어떤가? 자네도 같이 입교하는 게 좋을 것 같네! \n좋은 기회가 아닌가! 무조건 같이 입교하는 걸세!"
     hide colleague_1 with dissolve
+    hide bgdim
     "천도교에 입교하게 되었다."
 
     scene bg_clock_1 
@@ -365,24 +379,24 @@ label oh_chap2:
     scene bg_clock_1 
     pause 0.90
 
-    m "시간이 흘러 드디어 귀국했다. 너무 그리웠어……."
+    m_thought "시간이 흘러 드디어 귀국했다. 너무 그리웠어……."
 
     scene bg_black with fade_fast
-    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
+    show colleague_1  at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 같이 만드세. 경험 있으니까 잘할 수 있지 않겠나? 이름은 <만세보>가 좋을 것 같네."
 
     stop music fadeout 1.0
     play music oh_ch2 fadein 1.0
     scene bg_news_machine with fade_fast
-    show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
+    show colleague_1 zorder 20 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳다네. 누구를 비판하는 게 좋겠나?"
     hide colleague_1 
     call menu_loop_critique
 
     scene bg_news_machine with fade_fast
-    m "친일파의 만행에 대해서 내가 직접 알리다니. 역사 책에서 보던 독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다!"
+    m "친일파의 만행에 대해서 내가 직접 알리다니. 역사 책에서 보던 \n독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다!"
     show colleague_1 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "근데 아무리 생각해도 일진회를 더 강하게 견제해야 되네. 민족 정신에 대한 교육의 필요성이 더욱 절실해지지 않았나? 협회를 만들어야 하지 않을까, 그런 생각이 드네."
+    coll "근데 아무리 생각해도 일진회를 더 강하게 견제해야 되네. \n민족 정신에 대한 교육의 필요성이 더욱 절실해지지 않았나? \n협회를 만들어야 하지 않을까, 그런 생각이 드네."
     hide colleague_1
     # 드래그 앤 드롭 미니게임
     call daehan_association_minigame
@@ -408,19 +422,20 @@ label oh_chap2:
 label oh_chap3:
     # ▶ 챕터 3 시작 오버레이
 
-    scene bg_black with fade_fast
+    scene bg_oh_room with fade_fast
     call screen overlay_wait("bg_ch3")
-    show colleague_2 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
+    show expression Solid("#00000080") at fullscreen_cover zorder 5 as bgdim
+    show colleague_2 zorder 20 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     play music oh_ch3 fadein 1.0 loop
 
     coll "하, 근데 이것만으로도 아직 너무 부족한 것 같습니다."
-    coll "일본의 만행이 너무 심해지고 있습니다…. 우리나라를 하나의 뜻으로 모아야 합니다!"
+    coll "일본의 만행이 너무 심해지고 있습니다…. \n우리나라를 하나의 뜻으로 모아야 합니다!"
     coll "이번에는 기관지가 아닌 신문도 같이 발행해 보는 것은 어떱니까?"
     
     scene bg_oh_desk with fade_fast
     "대한민보를 편찬하게 되었다."
-    m "근데 나도 긴 글 읽고 공부하는 것을 싫어하는데……. 맨날 벼락치기만 하고"
-    m "단순히 글 말고도 쉽게 사람들에게 지식을 전파할 수 있는 방법이 없을까?"
+    m "근데 나도 긴 글 읽고 공부하는 것을 싫어하는데……. \n맨날 벼락치기만 하고"
+    m "단순히 글 말고도 쉽게 사람들에게 지식을 전파할 수 있는 \n방법이 없을까?"
     
     call menu_loop_news
     call mission_news
@@ -436,7 +451,7 @@ label oh_chap3:
 
     reader_1 "오, 신문에 만화라니 신선하고 재미있는데?"
     reader_2 "이건 어떤 신문이야? 나도 구매해야겠다. 나도 신문 한 부 주시오!"
-    m "만화 말고도 사람들이 신문을 좀 더 재미있게 읽을 수 있는 방법은 없을까? 아, 소설 같은 것도 신문에 넣으면 좋을 것 같은데."
+    m_thought "만화 말고도 사람들이 신문을 좀 더 재미있게 읽을 수 있는 방법은 \n없을까? 아, 소설 같은 것도 신문에 넣으면 좋을 것 같은데."
 
     call menu_loop_novel
     call mission_novel
@@ -488,17 +503,17 @@ label oh_chap4:
     call screen overlay_wait("bg_ch4")
     play music oh_ch4 fadein 1.0 loop
     show chundogyo at Transform(zoom=0.85, xalign=0.5, yalign=0.05)
-    chondo "아, 그러고 보니 우리가 독립선언서를 준비해야 하네. 만세 운동도 같이 준비하기로 했어! 자네 기억하고 있지?"
+    chondo "아, 그러고 보니 우리가 독립선언서를 준비해야 하네. \n만세 운동도 같이 준비하기로 했어! 자네 기억하고 있지?"
     hide chundogyo with dissolve
-    m "뭐? 내가 언제? 다른 사람들과 만세 운동을 준비해야 한다고? 어떡해?"
-    m "처음부터 성공할 것 같지는 않아…. 책에서 본 독립운동가분들도 다 이렇게 생각했겠지? 그래! 해 보자!"
+    m_thought "뭐? 내가 언제? 다른 사람들과 만세 운동을 준비해야 한다고? 어떡해?"
+    m_thought "처음부터 성공할 것 같지는 않아…. 책에서 본 독립운동가분들도 \n다 이렇게 생각했겠지? 그래! 해 보자!"
     
     "독립만세운동과 독립선언서를 준비하는 움직임에 힘을 보태야 한다."
     "먼저 독립선언서를 인쇄할 준비를 해 놓자."
     
     scene bg_paper_machine with fade_fast
     
-    m "일본에 들키기라도 하면 독립선언서를 빼앗겨 만세운동이 무산될지도 모른다. 이 상황, 어떻게 해야 하지?"
+    m_thought "일본에 들키기라도 하면 독립선언서를 빼앗겨 만세운동이 \n무산될지도 모른다. 이 상황, 어떻게 해야 하지?"
     
     call declaration_backup_loop
     
@@ -517,11 +532,11 @@ label oh_chap4:
     call sign_declaration_loop
 
     
-    scene bg_gather with fade_fast
+    scene bg_gathering with fade_fast
 
     "대한독립선언서에 이름을 올리고, 마침내 만세운동에 나선다!"
     
-    scene bg_manse with fade_fast
+    scene bg_manse_people with fade_fast
     
     "대한독립만세!"
     "대한독립만세!"
@@ -532,7 +547,7 @@ label oh_chap4:
     scene bg_police with fade_fast
     
     "결국 일본에게 붙잡혀 체포되었다."
-    m "몸소 겪어 보니, 그분들의 희생이 얼마나 큰지 절실히 느꼈어. 감사한 마음뿐이야."
+    m "몸소 겪어 보니, 그분들의 희생이 얼마나 큰지 절실히 느꼈어. \n감사한 마음뿐이야."
     
     scene bg_manse with fade_fast
     
@@ -591,22 +606,22 @@ label menu_loop_critique:
         "친일 단체인 일진회의 문제점을 널리 알려야겠어!":
             scene bg_critique_ijh with fade_fast
             pause 1.5
-            "아! 일진회 역적 무리들이 왜적과 결탁하여 을사늑약을 찬성하고 합병을 청원하니,"
+            "아! 일진회 역적 무리들이 왜적과 결탁하여 을사늑약을 찬성하고 \n합병을 청원하니,"
             "이 어찌 동포를 배반하고 조종의 강토를 팔아먹는 천추의 역적 행위가 아니겠는가!"
             return
         
-        "친일파, 을사조약에 찬성한 '을사오적' 중 한 명인 내부대신 이지용을 비판하자!":
+        "친일파, 을사조약에 찬성한 '을사오적' 중\n한 명인 내부대신 이지용을 비판하자!":
             scene bg_critique_ljy with fade_fast
             pause 1.5
-            "내부대신 이지용은 대역무도한 역적으로, 왜놈의 협박에 굴복하여 을사늑약에 도장을 찍고"
+            "내부대신 이지용은 대역무도한 역적으로, 왜놈의 협박에 굴복하여 \n을사늑약에 도장을 찍고"
             "삼천리 강토를 적에게 넘기니, 백성들의 원성이 하늘을 찌르도다!"
             return
 
-        "친일파, 을사조약에 찬성한 '을사오적' 중 한 명인 군부대신 이근택을 비판하자!":
+        "친일파, 을사조약에 찬성한 '을사오적' 중\n한 명인 군부대신 이근택을 비판하자!":
             scene bg_critique_lgt with fade_fast
             pause 1.5
             "군부대신 이근택은 나라의 군권을 지켜야 할 자리에 있으면서도"
-            "왜적의 칼날 앞에 무릎 꿇고 을사늑약에 서명하여 국권을 도적질하였으니, 이 무슨 염치없는 배신인가!"
+            "왜적의 칼날 앞에 무릎 꿇고 을사늑약에 서명하여 국권을 \n도적질하였으니, 이 무슨 염치없는 배신인가!"
             return
 
         "그냥 비판하지 말자!":
@@ -639,7 +654,7 @@ label menu_loop_novel:
         "풍자 소설과 설명을 돕는 그림 싣기":
             show novel at Transform(zoom=0.8, xalign=0.5, yalign=0.5)
             pause 1.0
-            "순한글로 되어 있는 풍자소설 <금수재판>이 연재되어 많은 독자들을 얻게 되었다!"
+            "순한글로 되어 있는 풍자소설 <금수재판>이 연재되어 \n많은 독자들을 얻게 되었다!"
             return
 
         "긴 글을 싣기":
@@ -673,7 +688,7 @@ label mission_news_r1:
 screen news_delivery_r1():
     modal True
     add "bg_crowd_news_2"
-    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
+    use mission_guide("신문을 드래그해서 새로 온 사람에게 전달해주세요.", icon="🔍")
     if news_delivered_r1:
         timer 0.05 action Return()
     draggroup:
@@ -718,7 +733,7 @@ label mission_news_r2:
 screen news_delivery_r2():
     modal True
     add "bg_crowd_news_3"
-    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
+    use mission_guide("신문을 드래그해서 새로 온 사람에게 전달해주세요.", icon="🔍")
     if news_delivered_r2:
         timer 0.05 action Return()
     draggroup:
@@ -772,7 +787,7 @@ label mission_novel_r1:
 screen novel_delivery_r1():
     modal True
     add "bg_crowd_novel_2"
-    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
+    use mission_guide("신문을 드래그해서 새로 온 사람에게 전달해주세요.", icon="🔍")
     if novel_delivered_r1:
         timer 0.05 action Return()
     draggroup:
@@ -817,7 +832,7 @@ label mission_novel_r2:
 screen novel_delivery_r2():
     modal True
     add "bg_crowd_novel_3"
-    use mission_guide("신문을 새로 온 사람에게 전달해주세요.", icon="🔍")
+    use mission_guide("신문을 드래그해서 새로 온 사람에게 전달해주세요.", icon="🔍")
     if novel_delivered_r2:
         timer 0.05 action Return()
     draggroup:
