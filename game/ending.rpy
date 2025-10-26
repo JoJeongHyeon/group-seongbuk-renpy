@@ -33,7 +33,7 @@ image jang_ending = At("bg/outro/jang_ending.png", custom_size)
 image book2 = "bg/outro/book2.png"
 image book2_hover = "bg/outro/book2_hover.png"
 image bg_desk_bk = "bg/outro/desk_bk.png"
-image bg_sign = "bg/outro/sign.png"
+image bg_sign = At("bg/outro/sign_2.png", custom_size)
 image bg_end = "bg/outro/end.png"
 
 # === 토글용 변수 기본값  ===
@@ -73,9 +73,9 @@ label jang_ending:
     play music audio.outro
     scene bg_desk_bk with dissolve
     
-    m "(임시)장기영의 기억을 통해 많은 것을 배웠다."
-    m "(임시)축구를 통한 민족 정신, 그리고 끝까지 포기하지 않는 의지..."
-    
+    m "마지막 기억 구슬을 찾고 현실 세계로 복귀했다."
+    m "하도 생생해서 꿈인지 현실인지 모르겠다."
+
     m "아 맞다. 시험 공부! 빨리 책상에 앉아서 공부해야겠다."
 
     m "이게 뭐지? 처음 보는 책인데..?"
@@ -95,9 +95,9 @@ label oh_ending:
     play music audio.outro
     scene bg_desk_bk with dissolve
     
-    m "(임시)오세창의 기억을 통해 서예와 문화의 소중함을 깨달았다."
-    m "(임시)전통을 지키면서도 새로운 것을 받아들이는 지혜..."
-   
+    m "마지막 기억 구슬을 찾고 현실 세계로 복귀했다."
+    m "하도 생생해서 꿈인지 현실인지 모르겠다."
+
     m "아 맞다. 시험 공부! 빨리 책상에 앉아서 공부해야겠다."
 
     m "이게 뭐지? 처음 보는 책인데..?"
@@ -151,7 +151,9 @@ label im_sign:
     narrator "그리고, 당신의 이름도 남겨 의지를 이어나가 주세요."
     
     # 서명 스크린 호출
+    show screen mission_guide("오른쪽 페이지에 서명을 작성해주세요.", icon="🖊")
     call screen signature_screen
+    hide screen mission_guide
     
     return
 
@@ -195,7 +197,7 @@ label end_credits:
     scene bg_end
     with dissolve
 
-    show screen exit_button  # 나가기 버튼 표시
+    # show screen exit_button  # 나가기 버튼 표시
 
     pause
 #--------------------------------------------------------------
@@ -228,37 +230,6 @@ screen interactive_jang_desk():
 screen interactive_oh_desk():
     # 오세창 전용 책 인터랙션
     use interactive_books("book2", return_value="oh_book_selected")
-
-# === 우하단 네비 버튼 (오버레이) ===
-screen next_nav_to(label_name):
-    zorder 200
-    modal False
-    textbutton "뒷 페이지 넘기기":
-        anchor (1.0, 1.0)
-        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
-        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
-        action [
-            Hide("im_ending_scene2_ui"),
-            Hide("jang_ending_scene2_ui"),
-            Hide("oh_ending_scene2_ui"),
-            Hide("next_nav_to"),
-            Jump(label_name)
-        ]
-
-# === 우하단 나가기 버튼 ===
-screen exit_button():
-    zorder 200
-    modal False
-    textbutton "나가기":
-        anchor (1.0, 1.0)
-        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
-        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
-        action [
-            Hide("exit_button"),
-            Jump("start")  # 또는 MainMenu() - 메인 메뉴로 돌아가기
-        ]
-
-
 
 # =============================================================================
 # 서명 스크린
@@ -314,7 +285,7 @@ screen signature_screen():
         hbox:
             spacing 30
             xalign 0.3
-            yalign 0
+            yalign -0.5
 
             textbutton "다시 쓰기":
                 action Function(signature_canvas.clear)

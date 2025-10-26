@@ -133,3 +133,34 @@ screen framed_message(message_text, text_size=60):
             size text_size
             color "#FFD700"
             text_align 0.5
+# =============================================================================
+# 네비 버튼 스크린
+# =============================================================================
+# === 우하단 네비 버튼 (오버레이) ===
+screen next_nav_to(label_name):
+    zorder 200
+    modal False
+    textbutton "뒷 페이지 넘기기":
+        anchor (1.0, 1.0)
+        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
+        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
+        action [
+            Hide("im_ending_scene2_ui"),
+            Hide("jang_ending_scene2_ui"),
+            Hide("oh_ending_scene2_ui"),
+            Hide("next_nav_to"),
+            Jump(label_name)
+        ]
+
+# === 우하단 나가기 버튼 ===
+screen exit_button():
+    zorder 200
+    modal False
+    textbutton "나가기":
+        anchor (1.0, 1.0)
+        pos (0.97, 0.95)     # 1920x1080 기준 오른쪽 하단(비율 좌표)
+        # 픽셀로 고정하고 싶으면: xpos 1840 ypos 1015
+        action [
+            Hide("exit_button"),
+            Jump("start")  # 또는 MainMenu() - 메인 메뉴로 돌아가기
+        ]
