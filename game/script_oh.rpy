@@ -234,7 +234,7 @@ label oh_chap1:
     wife "당신, 출근 안 해요? 얼른 다녀와요."
     hide wife 
     hide bgdim
-    m_thought "출근? 내가? 일단 아무것도 모르겠지만 일단 내가 대신 출근해 보자…"
+    m_thought "출근? 내가? 일단 아무것도 모르겠지만 내가 대신 출근해 보자…."
 
     scene bg_bakmunguk with fade_fast
     "박문국에 출근했다. 우리나라 최초의 주간 신문인 <한성주보>를 \n발행하는 것이 내 업무라고 한다."
@@ -260,7 +260,7 @@ label oh_chap1:
     scene bg_bakmunguk_shutdown with fade_fast
     play music oh_ch1 fadein 1.0
     
-    "후에 나는 몸의 주인을 대신해서 여러 곳에서 관직 생활을 했지만, \n곧 역모에 휘말리게 되었다..."
+    "후에 나는 몸의 주인을 대신해서 여러 곳에서 관직 생활을 했지만, \n곧 역모에 휘말리게 되었다…."
 
     # ----- 잉크 번짐 전환 (파이썬 블록) -----
     scene bg_bakmunguk_shutdown with fade_fast
@@ -286,7 +286,7 @@ label oh_chap1:
             renpy.hide(f"bg_ink_{i}", layer="overlay")
 
     scene bg_black
-    m_thought "어떡하지? 이러다가는 목숨을 잃고 말 거야….어디로든 도망가야 해!"
+    m_thought "어떡하지? 이러다가는 목숨을 잃고 말 거야…. 어디로든 도망가야 해!"
     
     # 망명 선택
     call exile_menu_loop
@@ -383,13 +383,13 @@ label oh_chap2:
 
     scene bg_black with fade_fast
     show colleague_1  at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 같이 만드세. 경험 있으니까 잘할 수 있지 않겠나? 이름은 <만세보>가 좋을 것 같네."
+    coll "자네, 나랑 같이 사람들의 교육을 위해 천도교 기관지를 만드세. 경험 있으니까 잘할 수 있지 않겠나? 이름은 <만세보>가 좋을 것 같네."
 
     stop music fadeout 1.0
     play music oh_ch2 fadein 1.0
     scene bg_news_machine with fade_fast
     show colleague_1 zorder 20 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
-    coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳다네. 누구를 비판하는 게 좋겠나?"
+    coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳다네. \n누구를 비판하는 게 좋겠나?"
     hide colleague_1 
     call menu_loop_critique
 
