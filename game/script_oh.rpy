@@ -289,7 +289,7 @@ label oh_chap1:
     m_thought "어떡하지? 이러다가는 목숨을 잃고 말 거야…. 어디로든 도망가야 해!"
     
     # 망명 선택
-    call exile_menu_loop
+    call exile_menu_loop from _call_exile_menu_loop
     
     # 망명 후 항구 장면
     scene bg_harbor with fade_fast
@@ -391,7 +391,7 @@ label oh_chap2:
     show colleague_1 zorder 20 at Transform(zoom=0.9, xalign=0.5, yalign=0.05)
     coll "민족 정신을 위해 친일파를 비판해야 하는 것이 옳다네. \n누구를 비판하는 게 좋겠나?"
     hide colleague_1 
-    call menu_loop_critique
+    call menu_loop_critique from _call_menu_loop_critique
 
     scene bg_news_machine with fade_fast
     m "친일파의 만행에 대해서 내가 직접 알리다니. 역사 책에서 보던 \n독립 운동을 직접 해 볼 수 있다는 게 너무 뿌듯하다!"
@@ -399,7 +399,7 @@ label oh_chap2:
     coll "근데 아무리 생각해도 일진회를 더 강하게 견제해야 되네. \n민족 정신에 대한 교육의 필요성이 더욱 절실해지지 않았나? \n협회를 만들어야 하지 않을까, 그런 생각이 드네."
     hide colleague_1
     # 드래그 앤 드롭 미니게임
-    call daehan_association_minigame
+    call daehan_association_minigame from _call_daehan_association_minigame
 
     # 드래그 앤 드롭 완료 후
     scene bg_news_machine with fade_fast
@@ -437,8 +437,8 @@ label oh_chap3:
     m "근데 나도 긴 글 읽고 공부하는 것을 싫어하는데……. \n맨날 벼락치기만 하고"
     m "단순히 글 말고도 쉽게 사람들에게 지식을 전파할 수 있는 \n방법이 없을까?"
     
-    call menu_loop_news
-    call mission_news
+    call menu_loop_news from _call_menu_loop_news
+    call mission_news from _call_mission_news
     
     scene bg_crowd_news_4
     pause 1.0
@@ -453,8 +453,8 @@ label oh_chap3:
     reader_2 "이건 어떤 신문이야? 나도 구매해야겠다. 나도 신문 한 부 주시오!"
     m_thought "만화 말고도 사람들이 신문을 좀 더 재미있게 읽을 수 있는 방법은 \n없을까? 아, 소설 같은 것도 신문에 넣으면 좋을 것 같은데."
 
-    call menu_loop_novel
-    call mission_novel
+    call menu_loop_novel from _call_menu_loop_novel
+    call mission_novel from _call_mission_novel
 
     scene bg_crowd_novel_4
     pause 1.0
@@ -515,7 +515,7 @@ label oh_chap4:
     
     m_thought "일본에 들키기라도 하면 독립선언서를 빼앗겨 만세운동이 \n무산될지도 모른다. 이 상황, 어떻게 해야 하지?"
     
-    call declaration_backup_loop
+    call declaration_backup_loop from _call_declaration_backup_loop
     
     play sound oh_paper 
     "독립선언서를 인쇄해 놓으니 이제 조금 안심이 된다."
@@ -523,13 +523,13 @@ label oh_chap4:
     "3.1 만세운동을 위한 태극기도 그려야 한다."
     
     #태극기 그리기 미니게임
-    call draw_taegeuk_minigame
+    call draw_taegeuk_minigame from _call_draw_taegeuk_minigame
     
     "태극기를 그렸다!"
     
     m "내가 천도교 대표로 대한독립선언서에 서명도 해야 된다고?!..."
 
-    call sign_declaration_loop
+    call sign_declaration_loop from _call_sign_declaration_loop
 
     
     scene bg_gathering with fade_fast
@@ -670,8 +670,8 @@ label menu_loop_novel:
 
 # 전체 미션 진입
 label mission_news:
-    call mission_news_r1
-    call mission_news_r2
+    call mission_news_r1 from _call_mission_news_r1
+    call mission_news_r2 from _call_mission_news_r2
     return
 
 # ---------- Reader 1 ----------
@@ -770,8 +770,8 @@ init python:
 # =========================================
 
 label mission_novel:
-    call mission_novel_r1
-    call mission_novel_r2
+    call mission_novel_r1 from _call_mission_novel_r1
+    call mission_novel_r2 from _call_mission_novel_r2
     return
 
 # ---------- Reader 1 ----------
@@ -935,9 +935,9 @@ init python:
 # 태극기 그리기 미니게임 (3단계, 각 단계 클릭드롭 필수)
 # =========================================
 label draw_taegeuk_minigame:
-    call taegeuk_stage_1
-    call taegeuk_stage_2
-    call taegeuk_stage_3
+    call taegeuk_stage_1 from _call_taegeuk_stage_1
+    call taegeuk_stage_2 from _call_taegeuk_stage_2
+    call taegeuk_stage_3 from _call_taegeuk_stage_3
     scene bg_taegeuk_draw_4 
     $ renpy.pause(1.0, hard=True)
     return

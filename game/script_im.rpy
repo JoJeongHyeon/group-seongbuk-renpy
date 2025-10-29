@@ -589,6 +589,7 @@ screen reassemble_puzzle:
     image "imch4_bgp"
 
     frame:
+        text "종이 조각을 알맞게 끼워 맞춰 완성하시오" size 36 color "#FFFFFF" outlines [(2, "#000000", 0, 0)] xalign 0.5
         background "bg/main_im/ch4/puzzle_frame.png"
         xysize full_page_size
         anchor(0, 0)
