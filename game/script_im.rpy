@@ -361,6 +361,9 @@ label support_choi:
 #===========================================================================
 
 label chapter3:
+    show ui_ch3 with dissolve
+    pause 1.0
+    hide ui_ch3 with dissolve
     scene imch3_bg with fade_slow
 
     m "아까 있던 곳과는 확연히 다르다."
@@ -397,7 +400,6 @@ label chapter3:
 
 label next_ch1:
 
-
     m "나는 본능적으로 걸음을 멈추고 노려보았다."
     m "가슴 속에서 무언가 끓어오르는 감정이 전해져 왔다."
 
@@ -422,9 +424,7 @@ label next_ch2:
     hide screen info_tooltip
     scene imch3_bg with fade_slow
 
-    show ui_ch3 with dissolve
     m "우리 조선은 반드시 자주 독립을 이룰 것이다."
-    hide ui_ch3 with dissolve
     m "국무총리는 나의 당당한 태도에 놀랐는지, 그대로 굳었다."
     
     im_t "여기에 오래 있으면, 얼마 안 가 현장에서 체포될 것이다."
